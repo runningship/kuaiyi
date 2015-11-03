@@ -1,0 +1,11 @@
+[
+{"id":"$info_menu","module":"信息发布--栏目管理","urls":"/admin/info/addMenu.jsp,/admin/info/edit1.jsp"},
+{"id":"$info_article","module":"信息发布--文章管理","urls":"/admin/info/add3.jsp,/admin/info/editw.jsp"},
+{"id":"$feedback_del","module":"留言板--删除","urls":""},
+{"id":"$file_shenhe","module":"文件共享--审核","urls":""},
+{"id":"$user","module":"用户管理","urls":""},
+{"id":"$user_org_group","module":"用户管理--组织架构--部门管理","urls":"/admin/group/add.jsp"},
+{"id":"$user_org_user","module":"用户管理--组织架构--用户管理","urls":"/admin/user/add.jsp,/admin/user/selectUser.jsp"},
+{"id":"$user_role","module":"用户管理--职位权限","urls":"/admin/role/roleList.jsp"},
+{"id":"$comp_sumary","module":"公司简介","urls":"/admin/company/compinfo.jsp"}
+]

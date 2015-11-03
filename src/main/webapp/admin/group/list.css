@@ -1,0 +1,5 @@
+.groupList{width:100%;}
+.groupList td{padding-left:10px;}
+.title_bar .add{float: right;
+  margin-top: 5px;
+  padding: 5px; cursor:pointer;}

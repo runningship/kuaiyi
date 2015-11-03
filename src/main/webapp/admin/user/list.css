@@ -1,0 +1,7 @@
+.userList{width:100%;}
+.userList td{width:19%;padding-left:10px;}
+
+.title_bar .add{float: right;
+  margin-top: 5px;
+  padding: 5px; cursor:pointer;}
+  

@@ -1,0 +1,5 @@
+.fileList{width:100%;}
+.fileList td{padding-left:10px;}
+#fileUploadBtn{
+	float:right;
+}

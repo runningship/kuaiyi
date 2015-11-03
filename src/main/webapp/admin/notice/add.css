@@ -1,0 +1,15 @@
+.form-group{margin-bottom: 5px;padding-left: 10px;}
+.label{  display: block;text-align: center;}
+.title{
+  font-size: 40px;
+}
+.send{
+  font-size: 10px;
+  color: #aaa
+}
+.form-conts{
+  font-size: 15px;
+  padding: 20px;
+}
+ .label2{  font-size: 16px;
+  color: #aaa;}

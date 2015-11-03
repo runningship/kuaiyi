@@ -1,0 +1,13 @@
+.userList{width:100%;}
+.userList td{padding-left:10px;}
+
+.title_bar .add{float: right;
+  margin-top: 5px;
+  padding: 5px; cursor:pointer;}
+
+.roleList{width:100%;}
+.roleList td{padding-left:10px;}
+
+.body2 {
+width: 380px;
+}
