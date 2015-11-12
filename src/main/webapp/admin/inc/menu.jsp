@@ -14,7 +14,7 @@
 </script>
 <div class="col_side">
 	<div class="menu_box">
-			<dl class="menu no_extra">
+		 <dl class="menu no_extra">
 			<dt class="menu_title">
 				<i class="iconfont">&#xe60c;</i>
 				信息发布
@@ -26,7 +26,18 @@
 				<a data-id="wzlb" href="${projectName }/admin/info/list3.jsp?nav=wzlb">文章列表</a>
 			</dd>
 		</dl>
-		<dl class="menu ">
+		
+		<dl class="menu no_extra">
+			<dt class="menu_title">
+				<i class="iconfont">&#xe60c;</i>
+				产品管理
+			</dt>
+			<dd class="menu_item ">
+				<a data-id="product" href="${projectName }/admin/info/product.jsp?nav=product">产品信息</a>
+			</dd>
+		</dl>
+		
+		<dl class="menu " style="display:none">
 			<dt class="menu_title">
 				<i class="iconfont">&#xe60d;</i>
 				通知管理
@@ -42,7 +53,7 @@
 				<a data-id="ftz" href="${projectName }/admin/notice/add.jsp?nav=ftz">发通知</a>
 			</dd>
 		</dl>
-		<dl class="menu ">
+		<dl class="menu " style="display:none">
 			<dt class="menu_title clickable">
 				<a data-id="wjgx" href="${projectName }/admin/file/list.jsp?nav=wjgx">
 				<i class="iconfont">&#xe617;</i>

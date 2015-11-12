@@ -47,7 +47,7 @@ $(function(){
 	<body>
 	<div id="container">
 		<div class="logo">
-			<a href="#"><img src="../assets/${domain }/login_logo.png" alt="" /></a>
+			<a href="#"><img src="../assets/login_logo.png" alt="" /></a>
 		</div>
 		<div id="box">
 			<form name="form1">

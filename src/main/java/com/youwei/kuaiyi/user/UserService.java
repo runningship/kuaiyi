@@ -76,10 +76,10 @@ public class UserService {
 	}
 
 	@WebMethod
-	public ModelAndView login(User user , String _site){
+	public ModelAndView login(User user){
 		ModelAndView mv = new ModelAndView();
 		String pwd = SecurityHelper.Md5(user.pwd);
-		User po = dao.getUniqueByParams(User.class, new String[]{"account" , "pwd" , "_site"}, new Object[]{user.account  , pwd , _site});
+		User po = dao.getUniqueByParams(User.class, new String[]{"account" , "pwd"}, new Object[]{user.account  , pwd});
 		if(po==null){
 			throw new GException(PlatformExceptionType.BusinessException,"用户名或密码不正确。");
 		}
@@ -223,9 +223,9 @@ public class UserService {
 	}
 	
 	@WebMethod
-	public ModelAndView getUserTree(String _site){
+	public ModelAndView getUserTree(){
 		ModelAndView mv = new ModelAndView();
-		List<Group> groups = dao.listByParams(Group.class, "from Group where parentId is null and _site=?" , _site);
+		List<Group> groups = dao.listByParams(Group.class, "from Group where parentId is null ");
 		JSONArray arr = new JSONArray();
 		for(Group g : groups){
 			JSONObject jobj = new JSONObject();
@@ -234,7 +234,7 @@ public class UserService {
 			jobj.put("key", "group_"+g.id);
 			jobj.put("isParent", true);
 			jobj.put("type", "group");
-			JSONArray children = getChildrenOfGroup(g.id , _site);
+			JSONArray children = getChildrenOfGroup(g.id);
 			if(!children.isEmpty()){
 				jobj.put("children", children);
 			}
@@ -244,8 +244,8 @@ public class UserService {
 		return mv;
 	}
 	
-	private JSONArray getChildrenOfGroup(Integer groupId , String _site){
-		List<Group> groups = dao.listByParams(Group.class, "from Group where parentId = ? and _site=?" , groupId , _site);
+	private JSONArray getChildrenOfGroup(Integer groupId ){
+		List<Group> groups = dao.listByParams(Group.class, "from Group where parentId = ? " , groupId);
 		JSONArray arr = new JSONArray();
 		for(Group g : groups){
 			JSONObject jobj = new JSONObject();
@@ -254,13 +254,13 @@ public class UserService {
 			jobj.put("type", "group");
 			jobj.put("key", "group_"+g.id);
 			jobj.put("isParent", true);
-			JSONArray children = getChildrenOfGroup(g.id , _site);
+			JSONArray children = getChildrenOfGroup(g.id);
 			if(!children.isEmpty()){
 				jobj.put("children", children);
 			}
 			arr.add(jobj);
 		}
-		List<Map> users = dao.listAsMap("select u.name as name , u.id as id from User u , UserGroup ug where u.id = ug.uid and ug.gid=? and u._site=?", groupId , _site);
+		List<Map> users = dao.listAsMap("select u.name as name , u.id as id from User u , UserGroup ug where u.id = ug.uid and ug.gid=?", groupId);
 		for(Map u : users){
 			JSONObject jobj = new JSONObject();
 			jobj.put("name", u.get("name"));
