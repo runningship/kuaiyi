@@ -33,7 +33,7 @@
 				产品管理
 			</dt>
 			<dd class="menu_item ">
-				<a data-id="product" href="${projectName }/admin/info/product.jsp?nav=product">产品信息</a>
+				<a data-id="product" href="${projectName }/admin/product/list.jsp?nav=product">产品信息</a>
 			</dd>
 		</dl>
 		

@@ -1,3 +1,5 @@
+<%@page import="com.youwei.kuaiyi.entity.Product"%>
+<%@page import="com.youwei.kuaiyi.entity.ProductItem"%>
 <%@page import="com.youwei.kuaiyi.util.DataHelper"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
@@ -13,12 +15,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <% 
 	CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
-	Page<Map> p = new Page<Map>();
+	Page<ProductItem> p = new Page<ProductItem>();
 	String currentPageNo =  request.getParameter("currentPageNo");
-	String searchText =  request.getParameter("searchText");
-	p = dao.findPage(p, "select id as id ,  title as title from Product where 1=1", true , new Object[]{});
+	String productId =  request.getParameter("productId");
+	Product product = dao.get(Product.class, Integer.valueOf(productId));
+	String qrCode =  request.getParameter("qrCode");
+	p = dao.findPage(p, "from ProductItem where productId=?", new Object[]{Integer.valueOf(productId)});
 	request.setAttribute("page", p);
-	request.setAttribute("searchText", searchText);
+	request.setAttribute("productId", productId);
+	request.setAttribute("qrCode", qrCode);
+	request.setAttribute("product", product);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -31,72 +37,50 @@
 </head>
 <script type="text/javascript">
 $(function(){
-	topMenuChange();
-	if('${erjiId}'){
-		$('#level_2').val('${erjiId}');
-	}
 });
 
-	function infoDel(id){
-		layer.confirm('删除后将无法恢复，是否确定删除', {icon: 3}, function(index){
-		    layer.close(index);
-			YW.ajax({
-			    type: 'POST',
-			    url: '${projectName }/c/admin/product/delete?id='+id,
-			    mysuccess: function(data){
-			        alert('删除成功');
-			        window.location.reload();
-			    }
-		    });
-		});
-	}
+function infoDel(id){
+	layer.confirm('删除后将无法恢复，是否确定删除', {icon: 3}, function(index){
+	    layer.close(index);
+		YW.ajax({
+		    type: 'POST',
+		    url: '${projectName }/c/admin/product/delete?id='+id,
+		    mysuccess: function(data){
+		        alert('删除成功');
+		        window.location.reload();
+		    }
+	    });
+	});
+}
 
 function reloadWindow(){
 	window.location.reload();
 }
 
-	function editThis(id){
-		layer.open({
-	    	type: 2,
-	    	title: '编辑产品信息',
-		    shadeClose: false,
-		    shade: 0.5,
-		    area: ['800px', '700px'],
-		    content: 'editw.jsp?id='+id,
-		    btn: ['确定','取消'],
-		    yes:function(index){
-		    	$('[name=layui-layer-iframe'+index+']').contents().find('.save').click();
-			    return false;
-			}
-		}); 
-	}
-
-var SearchId;
-function setSearch(obj){
-	SearchId = obj.value;
-	if (SearchId=='') {
-		$('.erji').show();
-	}else{
-		$('.erji').hide();
-		$('option[type="'+SearchId+'"]').show();
-	}
-}
-
-function topMenuChange(){
-	$('#level_2 [pid]').css('display','none');
-	$('#level_2 [pid='+$('#level_1').val()+']').css('display','');
-	var arr = $('#level_2 [pid='+$('#level_1').val()+']');
-	$('#level_2').val('');
+function editThis(id){
+	layer.open({
+    	type: 2,
+    	title: '编辑产品信息',
+	    shadeClose: false,
+	    shade: 0.5,
+	    area: ['800px', '700px'],
+	    content: 'editw.jsp?id='+id,
+	    btn: ['确定','取消'],
+	    yes:function(index){
+	    	$('[name=layui-layer-iframe'+index+']').contents().find('.save').click();
+		    return false;
+		}
+	}); 
 }
 
 function openAdd(id){
 	layer.open({
     	type: 2,
-    	title: '添加产品',
+    	title: '添加二维码',
 	    shadeClose: false,
 	    shade: 0.5,
-	    area: ['800px', '650px'],
-	    content: 'add.jsp',
+	    area: ['500px', '270px'],
+	    content: 'addItem.jsp?productId=${productId}',
 	    btn: ['确定','取消'],
 	    yes:function(index){
 	    	$('[name=layui-layer-iframe'+index+']').contents().find('.save').click();
@@ -118,27 +102,35 @@ function openAdd(id){
 								<button style="float:left;margin-top: 11px;padding:5px;margin-right:20px;cursor:pointer;height: 30px; line-height: 20px;" onclick="openAdd();">添 &nbsp;加</button>
 							</c:if>
 							<form name="form1" type="form" method="post" action="list3.jsp?nav=wzlb" style="">
-									<input name="searchText" value="${searchText}"  style="margin-left:50px;height:26px;width:300px;margin-top: 12px;" placeholder="名称">
+									<input name="qrCode" value="${qrCode}"  style="margin-left:50px;height:26px;width:300px;margin-top: 12px;" placeholder="二维码(唯一码)">
 									<input style="margin-right:20px;float:right;margin-top:12px;height:28px;width:60px;cursor:pointer" type="submit" value="搜索"/>
 							</form>
 						</div>
-						
+						<div style="font-size: 21px;    height: 50px;    line-height: 50px;    text-align: center;    color: #888;">
+							${product.title}
+						</div>
 					<table class="fileList" cellspacing="0">
 						<tr style="background: aliceblue;">
-							<td>标题</td>
-							<td></td>
+							<td>唯一码</td>
+							<td>防伪码</td>
+							<td>奖券金额</td>
+							<td>批次号</td>
+							<td>兑奖状态</td>
+							<td>二维码</td>
 						</tr>
-						<c:forEach items="${page.result }" var="product" varStatus="status">
-						<tr class="statue_${status.index%2}">
-							<td> <a href="#" onclick="editThis(${product.id});">${product.title }</a> </td> 
-							<td style="width:80px;"> <a href="itemList.jsp?productId=${product.id }" onclick="">二维码</a> </td> 
-						</tr>
+						<c:forEach items="${page.result }" var="item" varStatus="status">
+							<tr class="statue_${status.index%2}">
+								<td> ${item.qrCode } </td> 
+								<td> ${item.verifyCode }</td>
+								<td> ${item.lottery }元</td>
+								<td> ${item.pici }</td>
+								<td><c:if test="${item.lotteryActive==1 }">已兑奖</c:if> <c:if test="${item.lotteryActive!=1 }">未兑奖</c:if></td> 
+								<td><a href="${projectName }/public/qrtest.jsp?id=${item.id}" target="_blank">查看</a></td>
+							</tr>
 						</c:forEach>
 					</table>
 				</div>
-
 				<jsp:include page="../inc/pagination.jsp"></jsp:include>
-
 
 			</div>
 		</div>

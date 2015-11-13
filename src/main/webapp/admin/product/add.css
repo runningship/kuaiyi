@@ -1,0 +1,58 @@
+.form-group{margin-bottom: 5px;padding-left: 0px;}
+.form-input{  width: 98%;
+  margin: 6px 0px 6px 0;
+  padding: 0 0 0 6px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 4px;
+  border: 1px solid #d4d4d4;}
+.form-select{ 
+  margin: 6px 0;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 0px;}
+.label{font-family: "宋体";
+  font-size: 14px;
+  color: #aaa;  width: 80px;
+  display: inline-block; text-align:center;
+  margin: 6px 0;
+  height: 30px;line-height: 30px;
+}
+.btn-wrap{border:none;display:inline-block;}
+.save{float:left;}
+.cancel{float:right;}
+.action{margin-bottom:0px;margin-top:15px;}
+.add-form{  padding: 20px 10px 0px 20px;
+};
+
+
+
+
+.table{ display: table;  border-collapse:separate; margin:0;}
+.tr {display:table-row;}
+.tr>.td {display:table-cell; vertical-align: top;}
+.tbody{display:table-cell;}
+.table_box{ height: 100%;}
+
+.FormGroupBorder{}
+.FormGroup{ border: 1px solid #D2D2D2; border-radius: 4px; width: 98%; padding-left: 0px;}
+.FormGroup h3{ border-bottom: 1px solid #D2D2D2;  padding: 5px 10px; font-size: 14px; color: #999;}
+
+
+.FormGroup2{}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

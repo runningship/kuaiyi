@@ -14,7 +14,7 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer id;
 	
-	public String name;
+	public String title;
 	
 	public String vender;
 	
@@ -27,4 +27,5 @@ public class Product {
 	//
 	public Date addtime;
 	
+	public String conts;
 }
