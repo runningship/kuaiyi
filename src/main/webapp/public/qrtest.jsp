@@ -1,3 +1,5 @@
+<%@page import="com.youwei.kuaiyi.util.QRCodeUtil"%>
+<%@page import="com.google.zxing.EncodeHintType"%>
 <%@page import="com.youwei.kuaiyi.entity.ProductItem"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
@@ -12,14 +14,17 @@
 String id = request.getParameter("id");
 CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
 ProductItem item = dao.get(ProductItem.class, Integer.valueOf(id));
-String url = "http://192.168.1.222:7080/kuaiyi/public/product.jsp?qrCode="+item.qrCode;
+//String url = "http://192.168.1.222:7080/kuaiyi/public/product.jsp?qrCode="+item.qrCode;
 //String url = "http://xzye.ngrok.com//kuaiyi/public/product.jsp?qrCode="+item.qrCode; 
+String url = "http://www.zhongjiebao.com/old/product3.html?pici="+item.pici+"&qrCode="+item.qrCode+"&lottery="+item.lottery;
 
-File stream = QRCode.from(url).to(ImageType.GIF).withSize(250, 250).file();
-BufferedImage bufImg = ImageIO.read(stream);
+//File stream = QRCode.from(url).to(ImageType.JPG).withSize(250, 250).file();
+//BufferedImage bufImg = ImageIO.read(stream);
 response.setContentType("image/jpeg");
 OutputStream os = response.getOutputStream();
-ImageIO.write(bufImg, "jpg", os);
+//ImageIO.write(bufImg, "jpg", os);
+QRCodeUtil.encode(url, "G:\\8034.png" , os , true);
+
 os.close();
 out.clear();
 out = pageContext.pushBody();

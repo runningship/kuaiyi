@@ -48,8 +48,9 @@ $(function(){
 		<p>生产商   : ${product.vender }</p>
 		<p>产地信息: ${product.verderPlace }</p>
 		<p>规格信息: ${product.spec }</p>
-		<p>批次号   : ${item.pici }</p>
-		<p>兑奖状态   : <c:if test="${item.lotteryActive==1 }">已兑奖</c:if> <c:if test="${item.lotteryActive!=1 }">未兑奖</c:if></p>
+		<p>批 次 号 : ${item.pici }</p>
+		<p>产品编号 : ${item.qrCode }</p>
+		<p>兑奖状态 : <c:if test="${item.lotteryActive==1 }">已兑奖</c:if> <c:if test="${item.lotteryActive!=1 }">未兑奖</c:if></p>
 		</div>
 		<div>
 		<img alt="" src="youhui.jpg" style="width:96%;z-index:9999;height:auto;">

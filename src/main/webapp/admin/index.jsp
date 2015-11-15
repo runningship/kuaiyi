@@ -34,7 +34,7 @@ request.setAttribute("filecount", filecount);
 Integer uonline = UserService.onlineUserCountMap.get(DataHelper.getServerName(request));
 request.setAttribute("uonline", uonline);
 
-request.setAttribute("domainSize",DataHelper.getDiskSize(DataHelper.getServerName(request)));
+//request.setAttribute("domainSize",DataHelper.getDiskSize(DataHelper.getServerName(request)));
 %>
 <!DOCTYPE html>
 <html>
