@@ -1,41 +1,160 @@
 package com.youwei.kuaiyi.chat;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
+import org.apache.commons.io.FileUtils;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.TransactionalServiceHelper;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
 import org.bc.web.WebMethod;
 
+import com.youwei.kuaiyi.chat.entity.Contact;
+import com.youwei.kuaiyi.chat.entity.Invitation;
 
-@Module(name="/admin/zone")
+
+@Module(name="/admin/chat")
 public class ChatService {
 
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
-
+	StorageService ss = new StorageService();
+	
 	@WebMethod
-	public ModelAndView publishShuoShuo(Integer myId , List<String> imageList , String msg){
+	public ModelAndView sendSingleChatMsg(Integer myId , String chatId, String msg){
+		ModelAndView mv = new ModelAndView();
+		String myFile = ss.getSingleChatDataPath(chatId);
+		List<String> lines = new ArrayList<String>();
+		JSONObject json = new JSONObject();
+		json.put("msg", msg);
+		json.put("sender", myId);
+		json.put("time", System.currentTimeMillis());
+		lines.add(json.toString());
+		try {
+			FileUtils.writeLines(new File(myFile), lines, "utf8", true);
+		} catch (IOException e) {
+			e.printStackTrace();
+			mv.data.put("result", -1);
+			return mv;
+		}
+		//notifyBuddy
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView sendGroupChatMsg(Integer myId , String groupUUID , String msg){
+		ModelAndView mv = new ModelAndView();
+		String file = ss.getGroupChatDataPath(groupUUID);
+		List<String> lines = new ArrayList<String>();
+		lines.add(msg);
+		try {
+			FileUtils.writeLines(new File(file), lines, "utf8", true);
+		} catch (IOException e) {
+			e.printStackTrace();
+			mv.data.put("result", -1);
+			return mv;
+		}
+		//notify group member
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView emptSingleChatMsg(Integer myId , Integer buddyId){
 		ModelAndView mv = new ModelAndView();
 		return mv;
 	}
 	
 	@WebMethod
-	public ModelAndView loadShuoShuo(Integer myId , Integer currentPage){
+	public ModelAndView emptyGroupChatMsg(Integer myId , Integer groupId){
 		ModelAndView mv = new ModelAndView();
 		return mv;
 	}
 	
-	private String getMyZoneDir(Integer myId){
-		//host+disk+dir
-		return "";
+	@WebMethod
+	public ModelAndView openSingleChat(Integer myId , Integer buddyId){
+		ModelAndView mv = new ModelAndView();
+		Contact contact = dao.getUniqueByParams(Contact.class, new String[]{"myId" , "buddyId"}, new Object[]{myId , buddyId});
+		if(contact!=null){
+			contact.lastReadTime=new Date();
+			dao.saveOrUpdate(contact);
+		}
+		return mv;
 	}
 	
-	private String getHost(Integer uid){
-		return "";
+	@WebMethod
+	public ModelAndView openGroupChat(Integer myId , Integer groupId){
+		ModelAndView mv = new ModelAndView();
+		return mv;
 	}
 	
-	private String getDir(Integer uid){
-		return "";
+	@WebMethod
+	public ModelAndView inviteContact(Integer myId , Integer buddyId , String msg){
+		ModelAndView mv = new ModelAndView();
+		Invitation invitation = new Invitation();
+		invitation.inviteeId = buddyId;
+		invitation.inviterId = myId;
+		invitation.msg = msg;
+		invitation.addtime = new Date();
+		invitation.status = 1;
+		dao.saveOrUpdate(invitation);
+		
+		Contact contact = new Contact();
+		contact.myId = invitation.inviterId;
+		contact.buddyId = invitation.inviteeId;
+		contact.addtime = new Date();
+		contact.lastReadTime = new Date();
+		contact.state = 1;
+		dao.saveOrUpdate(contact);
+		
+		//notify invitee
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView acceptInvitation(Integer id){
+		ModelAndView mv = new ModelAndView();
+		Invitation invitation = dao.get(Invitation.class, id);
+		invitation.status = 2;
+		dao.saveOrUpdate(invitation);
+		Contact contact = new Contact();
+		contact.myId = invitation.inviteeId;
+		contact.buddyId = invitation.inviterId;
+		contact.addtime = new Date();
+		contact.lastReadTime = new Date();
+		contact.state = 2;
+		dao.saveOrUpdate(contact);
+		
+		//update inviter status
+		Contact buddy = dao.getUniqueByParams(Contact.class, new String[]{"myId" , "buddyId"}, new Object[]{invitation.inviterId , invitation.inviteeId});
+		if(buddy!=null){
+			buddy.state = 2;
+			dao.saveOrUpdate(buddy);
+		}
+		
+		//notify inviter;
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView addBuddyToGroup(Integer buddyId , Integer groupId){
+		ModelAndView mv = new ModelAndView();
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView removeBuddy(Integer buddyId){
+		ModelAndView mv = new ModelAndView();
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView quitGroup(Integer groupId){
+		ModelAndView mv = new ModelAndView();
+		return mv;
 	}
 }

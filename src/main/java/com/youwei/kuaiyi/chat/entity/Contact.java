@@ -17,10 +17,14 @@ public class Contact {
 	public Integer buddyId;
 	
 	/**
-	 * -1,表示不接收消息
+	 * -1,表示不接收消息 , 1 邀请中,2好友,3拒绝加好友
 	 */
 	public Integer state;
 	
+	public Date addtime;
+	
 	//我到最后一次查看改会话的时间
 	public Date lastReadTime;
+	
+	public String chatId;
 }

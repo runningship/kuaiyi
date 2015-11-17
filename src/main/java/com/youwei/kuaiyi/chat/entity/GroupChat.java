@@ -9,7 +9,7 @@ import javax.persistence.Entity;
  * @author xzye
  */
 @Entity
-public class ChatGroup {
+public class GroupChat {
 	public Integer id;
 	
 	public Integer ownerId;
