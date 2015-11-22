@@ -16,10 +16,12 @@
 <script type="text/javascript">
 var header;
 var mainer;
+
 apiready = function(){
 	api.clearCache();
 	header = $('#header');
 	mainer = $('#mainer');
+	bindTecentPush();
 	exitApp();
 	openGroup();
 };
@@ -77,6 +79,42 @@ function exitApp(){
 		    }
 		});
     });
+}
+
+function bindTecentPush(){
+	// 注册设备并绑定用户账号
+	//blockAlert(3432);
+	var tencentPush = api.require('tencentPush');
+
+	var resultCallback = function(ret, err){
+		blockAlert(JSON.stringify(ret));
+	    if(ret.status){
+	    	blockAlert("注册成功，token为："+ret.token);
+	    }else{
+	    	blockAlert("注册失败，错误码："+err.code+"，错误信息："+err.msg);
+	    }
+	};
+
+	// 需要绑定的账号，若为"*"表示解除之前的账号绑定
+	var params = {account:"15856985122"};
+	tencentPush.registerPush( params,resultCallback);
+	
+	var notificationCallback = {name:"notifactionClick"};    
+	tencentPush.setListener(notificationCallback, function(ret, err){
+		blockAlert("收到通知被点击的回调，title："+ret.title+"，content："+ret.content+"，customContent："+ret.customContent 
+			    + ",activity:"+ret.activity+",actionType:"+ret.actionType+",msgid:"+ret.msgid);
+	});
+	
+	var messageCallback = {name:"message"};    
+	tencentPush.setListener(messageCallback, function(ret, err){
+		blockAlert("收到消息，title："+ret.title+"，content："+ret.content+"，customContent："+ret.customContent 
+			    + ",activity:"+ret.activity+",actionType:"+ret.actionType+",msgid:"+ret.msgid);
+	});
+	
+	// 清除展示的通知
+	var tencentPush = api.require('tencentPush');
+	var params = {nid: -1};    
+	tencentPush.cancelNotifaction(params);
 }
 </script>
 <style type="text/css">

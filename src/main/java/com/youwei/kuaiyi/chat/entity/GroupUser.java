@@ -30,4 +30,7 @@ public class GroupUser {
 	//我最后一次查看该群组聊天的时间
 	public Date lastReadTime;
 	
+	//是否打开聊天窗口
+	public Integer active;
+	
 }

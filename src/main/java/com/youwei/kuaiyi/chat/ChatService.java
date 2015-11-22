@@ -16,6 +16,7 @@ import org.bc.web.Module;
 import org.bc.web.WebMethod;
 
 import com.youwei.kuaiyi.chat.entity.Contact;
+import com.youwei.kuaiyi.chat.entity.GroupUser;
 import com.youwei.kuaiyi.chat.entity.Invitation;
 
 
@@ -81,6 +82,18 @@ public class ChatService {
 		Contact contact = dao.getUniqueByParams(Contact.class, new String[]{"myId" , "buddyId"}, new Object[]{myId , buddyId});
 		if(contact!=null){
 			contact.lastReadTime=new Date();
+			contact.active = 1;
+			dao.saveOrUpdate(contact);
+		}
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView closeSingleChat(Integer myId , Integer buddyId){
+		ModelAndView mv = new ModelAndView();
+		Contact contact = dao.getUniqueByParams(Contact.class, new String[]{"myId" , "buddyId"}, new Object[]{myId , buddyId});
+		if(contact!=null){
+			contact.active = 0;
 			dao.saveOrUpdate(contact);
 		}
 		return mv;
@@ -89,6 +102,23 @@ public class ChatService {
 	@WebMethod
 	public ModelAndView openGroupChat(Integer myId , Integer groupId){
 		ModelAndView mv = new ModelAndView();
+		GroupUser gu = dao.getUniqueByParams(GroupUser.class, new String[]{"uid" , "groupId"}, new Object[]{myId , groupId});
+		if(gu!=null){
+			gu.active = 1;
+			gu.lastReadTime = new Date();
+			dao.saveOrUpdate(gu);
+		}
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView closeGroupChat(Integer myId , Integer groupId){
+		ModelAndView mv = new ModelAndView();
+		GroupUser gu = dao.getUniqueByParams(GroupUser.class, new String[]{"uid" , "groupId"}, new Object[]{myId , groupId});
+		if(gu!=null){
+			gu.active = 0;
+			dao.saveOrUpdate(gu);
+		}
 		return mv;
 	}
 	

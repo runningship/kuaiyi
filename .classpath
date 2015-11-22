@@ -22,5 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/XingeApp.jar" sourcepath="src/main/src.zip"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

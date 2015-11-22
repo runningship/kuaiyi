@@ -27,4 +27,6 @@ public class Contact {
 	public Date lastReadTime;
 	
 	public String chatId;
+	
+	public Integer active;
 }
