@@ -16,11 +16,21 @@
 <script type="text/javascript">
 var header;
 var mainer;
-
+var background=false;
 apiready = function(){
 	api.clearCache();
 	header = $('#header');
 	mainer = $('#mainer');
+	api.addEventListener({
+	    name:'pause'
+	},function(ret,err){
+		background = true;
+	});
+	api.addEventListener({
+	    name:'resume'
+	},function(ret,err){
+		background = false;
+	});
 	bindTecentPush();
 	exitApp();
 	openGroup();
@@ -63,22 +73,36 @@ function openGroup(){
 }
 
 function exitApp(){
-    api.addEventListener({
-        name: 'keyback'
-    }, function(ret, err){
-		api.confirm({
-			msg: '确定要退出程序吗?',
-		    buttons:['取消', '确定']
-		},function(ret,err){
-		    if(ret.buttonIndex == 2){
-		    	 api.closeWidget({
-                     id: 'A6992433308373',     //这里改成自己的应用ID
-                     retData: {name:'closeWidget'},
-                     silent:true
-                 });
-		    }
-		});
-    });
+	//绑定安卓的后退按钮事件 两秒内后退按钮点击两次 退到后台运行
+	var backSecond = 0;
+	api.addEventListener({
+	    name : 'keyback'
+	}, function (ret, err) {
+	    var curSecond = new Date().getSeconds();
+	    if (Math.abs(curSecond - backSecond) > 2) {
+	        backSecond = curSecond;
+	    } else {
+	        var rb = api.require('runBackground');
+	        rb.hideActivity();
+	    }
+	});
+	
+//     api.addEventListener({
+//         name: 'keyback'
+//     }, function(ret, err){
+// 		api.confirm({
+// 			msg: '确定要退出程序吗?',
+// 		    buttons:['取消', '确定']
+// 		},function(ret,err){
+// 		    if(ret.buttonIndex == 2){
+// 		    	 api.closeWidget({
+//                      id: 'A6992433308373',     //这里改成自己的应用ID
+//                      retData: {name:'closeWidget'},
+//                      silent:true
+//                  });
+// 		    }
+// 		});
+//     });
 }
 
 function bindTecentPush(){
@@ -87,9 +111,8 @@ function bindTecentPush(){
 	var tencentPush = api.require('tencentPush');
 
 	var resultCallback = function(ret, err){
-		blockAlert(JSON.stringify(ret));
 	    if(ret.status){
-	    	blockAlert("注册成功，token为："+ret.token);
+	    	//blockAlert("注册成功，token为："+ret.token);
 	    }else{
 	    	blockAlert("注册失败，错误码："+err.code+"，错误信息："+err.msg);
 	    }
@@ -99,7 +122,7 @@ function bindTecentPush(){
 	var params = {account:"15856985122"};
 	tencentPush.registerPush( params,resultCallback);
 	
-	var notificationCallback = {name:"notifactionClick"};    
+	var notificationCallback = {name:"notifactionClick"}; 
 	tencentPush.setListener(notificationCallback, function(ret, err){
 		blockAlert("收到通知被点击的回调，title："+ret.title+"，content："+ret.content+"，customContent："+ret.customContent 
 			    + ",activity:"+ret.activity+",actionType:"+ret.actionType+",msgid:"+ret.msgid);
@@ -107,14 +130,27 @@ function bindTecentPush(){
 	
 	var messageCallback = {name:"message"};    
 	tencentPush.setListener(messageCallback, function(ret, err){
-		blockAlert("收到消息，title："+ret.title+"，content："+ret.content+"，customContent："+ret.customContent 
+		if(background==false){
+	 		blockAlert("收到消息，title："+ret.title+"，content："+ret.content+"，customContent："+ret.customContent 
 			    + ",activity:"+ret.activity+",actionType:"+ret.actionType+",msgid:"+ret.msgid);
+		}else{
+			var params = {
+			    title : ret.title, // 标题
+			    content : ret.content,  // 内容
+			    date : "20150127",  // 日期
+			    hour : "15",  // 时间
+			    min    : "15",   // 分钟
+		    	ring : 0,       // 是否响铃
+		        vibrate : 1    // 是否振动
+			};
+			tencentPush.addlocalNotification(params);
+		}
 	});
 	
 	// 清除展示的通知
-	var tencentPush = api.require('tencentPush');
-	var params = {nid: -1};    
-	tencentPush.cancelNotifaction(params);
+// 	var tencentPush = api.require('tencentPush');
+// 	var params = {nid: -1};    
+// 	tencentPush.cancelNotifaction(params);
 }
 </script>
 <style type="text/css">

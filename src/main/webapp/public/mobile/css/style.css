@@ -652,9 +652,9 @@ box-orient: horizontal; border-bottom: 1px solid #999;}
 .chatBox .c:focus{ border-color: #18B4ED; }
 .chatBox .content{-webkit-box-flex: 1; display: block; margin:6pt 3pt 3pt;padding: 0; resize: none; border: none; border-bottom: 1px solid #999; line-height: 1.3em; padding-top: 3pt; max-height: 3.9em; overflow: hidden; overflow-y: auto; }
 .chatBox .r{ width: 50pt; text-align: center; padding: 3pt 0 0 0; }
-.chatBox .l .btns{ display: block; width: 35pt; margin:0 auto 0; height: 27pt; line-height: 27pt; }
+.chatBox .l .btns{ display: block; width: 35pt; margin:0 auto 0; height: 27pt; line-height: 27pt;text-decoration: inherit; }
 .chatBox .l .btns i{ font-size: 16pt; line-height: 30pt; }
-.chatBox .r .btns{ display: block; width: 45pt; margin:0 auto 0; height: 27pt; line-height: 27pt; background: #CCC; color: #FFF; border-radius: 2pt; }
+.chatBox .r .btns{ display: block; width: 45pt; margin:0 auto 0; height: 24pt; line-height: 24pt; background: #CCC; color: #FFF; border-radius: 2pt; }
 .chatBox .r .btns.focus{ background:#18B4ED;  }
 
 .chatExpBox{ display: none; position: relative; z-index: 9999; padding: 5pt 3pt; }

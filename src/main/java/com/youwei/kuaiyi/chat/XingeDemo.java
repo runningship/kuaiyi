@@ -159,7 +159,7 @@ public class XingeDemo {
 		Message message = new Message();
 		message.setExpireTime(86400);
 		message.setTitle("title");
-		message.setContent("content");
+		message.setContent("content22");
 		message.setType(Message.TYPE_MESSAGE);
 		JSONObject ret = xinge.pushSingleAccount(0, "15856985122", message);
 		return (ret);

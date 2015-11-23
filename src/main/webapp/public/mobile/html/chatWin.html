@@ -19,6 +19,7 @@ apiready = function(){
 	api.clearCache();
 	header = $('#header');
 	mainer = $('#mainer');
+
 	api.openFrame({
 	    name: 'singleChat',
 	    url: 'singleChat.html',
@@ -28,7 +29,7 @@ apiready = function(){
             h: mainer.height()
         },
 	    pageParam: {name: 'test'},
-	    bounces: true,
+	    bounces: false,
 	    bgColor: 'rgba(0,0,0,0)',
 	    vScrollBarEnabled:true,
 	    hScrollBarEnabled:true
@@ -57,7 +58,7 @@ apiready = function(){
     <div id="mainer" class="mainer">
         
     </div>
-    <div class="footer" style="">
+    <div class="footer" style="display:none">
         <div class="chatBox" >
             <div class="l"><a href="#" class="btns btnExp"><i class="iconfont">&#xe65c;</i></a></div>
             <div class="c content" id="content" contenteditable="true"></div>
