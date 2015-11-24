@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<!--AUI样式框架-->
+		<link rel="stylesheet" type="text/css" href="../css/aui/aui.min.css" />
+		<!--拓展AUI字体图标-->
+		<link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+		<!--通用样式-->
+		<link rel="stylesheet" type="text/css" href="../css/winu-ui.css" />
+		<style type="text/css"></style>
+		<script id="contactlistTpl" type="text/x-dot-template">
+			{{~it:value:index}}
+			<li class="aui-user-view-cell aui-img winu-clear-both winu-min-height" data-conversationType="{{=value.conversationtype}}" data-targetId="{{=value.userid}}" data-targetName="{{=value.username}}">
+			<img class="aui-img-object aui-pull-left" src="{{=(window.uploadUrl+value.userphoto)}}" style="width:48px;height:48px;">
+			<div class="aui-img-body">
+			<span>{{=value.username}}<em>{{=_trans_php_time_to_str(value.regtime,1)}}</em></span>
+			<p class='aui-ellipsis-1 msgnr'>
+			</p>
+			</div>
+			</li>
+			{{~}}
+		</script>
+	</head>
+	<body>
+		<div class="aui-content" id="msglist">
+			<ul class="aui-user-view"></ul>
+		</div>
+	</body>
+	<!--APICloud自带前端脚本-->
+	<script type="text/javascript" src="../script/api.js"></script>
+	<!--Zepto.js,类似Jquery-->
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<!--doT.js模板引擎-->
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<!--linq.js json操作框架-->
+	<script type="text/javascript" src="../script/linq.min.js"></script>
+	<!--通用脚本库-->
+	<script type="text/javascript" src="../script/winu-base.js"></script>
+	<script type="text/javascript">
+		var page = 1, userJson = null;
+		function getUserList(page, isAppend) {
+			_ajax(window.serverUrl + "index/getGroupByPage/page/" + page, "get", {
+			}, "json", function(ret) {
+				var interText = doT.template($("#contactlistTpl").text());
+				if (!isAppend) {
+					$("#msglist ul").html(interText(ret));
+				} else {
+					$("#msglist ul").append(interText(ret));
+				}
+				api.hideProgress();
+				api.refreshHeaderLoadDone();
+			});
+		}
+
+		Zepto(function($) {
+			// 绑定会话点击事件
+			$("#msglist").on("tap", "li", function() {
+				// 获取会话类型
+				var conversationType = $(this).attr("data-conversationType");
+				// 获取目标ID
+				var targetId = $(this).attr("data-targetId");
+				// 获取目标名称
+				var targetName = $(this).attr("data-targetName");
+				api.confirm({
+					title : '温馨提示',
+					msg : '您确定要加入该群吗？',
+					buttons : ['确定', '取消']
+				}, function(ret, err) {
+					if (ret.buttonIndex == 1) {
+						_ajax(window.serverUrl + "index/addUser/userid/" + userJson.userid + "/relativeuserid/" + targetId, "get", {
+						}, "json", function(ret) {
+							if (ret.statu == 1) {
+								// 广播需要加入群
+								_sendEvent("joinGroupStart", {
+									groupId : targetId,
+									groupName : targetName
+								});
+								_toast("添加成功", null, null, function() {
+									_closeToWin("root");
+								});
+							} else if (ret.statu == 0) {
+								_toast("添加失败");
+							}
+							api.hideProgress();
+							api.refreshHeaderLoadDone();
+						});
+					} else {
+						_toast("已取消加入");
+					}
+				});
+			});
+		});
+		apiready = function() {
+			userJson = _getStorage(window.userKey + "h5");
+			// 下拉刷新
+			_setRefreshHeaderInfo(function() {
+				page = 1;
+				getUserList(page, false);
+			});
+			// 上拉加载
+			_scrolltobottom(function() {
+				page = page + 1;
+				getUserList(page, true);
+			});
+			// 主动下拉
+			api.refreshHeaderLoading();
+			// 监听是否加入群成功
+			_addEventListener("joinGroupSuccess", function(ret) {
+				_toast("加入群成功", null, null, function() {
+					// 广播刷新联系人列表
+					_sendEvent("updateContact");
+					_closeToWin("root");
+				});
+			});
+			// 监听是否加入群成功
+			_addEventListener("joinGroupError", function(ret) {
+				_toast("加入群失败");
+			});
+		};
+	</script>
+</html>

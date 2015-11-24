@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<!--AUI样式框架-->
+		<link rel="stylesheet" type="text/css" href="../css/aui/aui.min.css" />
+		<!--拓展AUI字体图标-->
+		<link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+		<!--通用样式-->
+		<link rel="stylesheet" type="text/css" href="../css/winu-ui.css" />
+		<style type="text/css">
+			body {
+				padding-top: 15px;
+			}
+			.user-pic {
+				height: 80px;
+				width: 80px;
+				border: 1px solid #ccc;
+				margin: 15px;
+			}
+			.user-pic img {
+				height: 80px;
+				width: 80px;
+			}
+			.user-pic .edit {
+				right: 0;
+				bottom: 0;
+				z-index: 100;
+				background: #eee;
+				color: #444;
+				width: 25px;
+				height: 25px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aui-content aui-card" id="frm">
+			<div class="aui-form" style="border-bottom: 1px solid #c8c7cc;">
+				<div class="aui-input-row  winu-center-all winu-clear-both winu-min-height winu-width-100">
+					<div class="user-pic winu-border-radius-50 winu-position-relative" onclick="selectPic();">
+						<span class="edit winu-display-block winu-position-absolute winu-border-radius-50 winu-center-all"> <i class="iconfont icon-bianji"></i> </span>
+						<img class="winu-border-radius-50" id="myphoto" src="../image/png.png" />
+					</div>
+				</div>
+				<div class="aui-input-row winu-clear-both winu-min-height winu-width-100">
+					<i class="aui-input-addon aui-iconfont aui-icon-people aui-text-info"></i>
+					<input type="text" class="aui-input" placeholder="请输入群名称" name="UserName" data-rule="*" data-nullmsg="请输入群名称" data-errmsg="群名称格式不正确" />
+				</div>
+				<div class="aui-btn-row winu-clear-both winu-min-height winu-width-100">
+					<input type="hidden" id="upic" value="./Public/Uploads/png.png" name="UserPhoto" data-rule="*" data-nullmsg="" data-errmsg="" data-haved="true"/>
+					<div class="aui-btn aui-btn-block aui-btn-warning" id="btn">
+						提交创建
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+	<!--APICloud自带前端脚本-->
+	<script type="text/javascript" src="../script/api.js"></script>
+	<!--Zepto.js,类似Jquery-->
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<!--通用脚本库-->
+	<script type="text/javascript" src="../script/winu-base.js"></script>
+	<!--表单验证-->
+	<script type="text/javascript" src="../script/availdate-v1.0.2.js"></script>
+	<script type="text/javascript">
+		// 压缩对象
+		var imageFilter = null, userJson = null;
+		// 选择图片
+		function selectPic() {
+			// 弹出相册选择
+			_getPicture(function(data) {
+				if (data) {
+					// 图片压缩
+					_imgCompress(imageFilter, data, 0.5, 0.5, _getExt(data), function(compressImg) {
+						_uploadImgs(compressImg, function(ret) {
+							var uploadPath = ret.path;
+							$("#myphoto").attr("src", window.uploadUrl + uploadPath);
+							$("#upic").val(uploadPath);
+						});
+					});
+				}
+			});
+		}
+
+		apiready = function() {
+			// 引入过滤压缩模块
+			imageFilter = api.require("imageFilter");
+			// 用户信息
+			userJson = _getStorage(window.userKey + "h5");
+			ac.form({
+				area : "#frm",
+				btn : "#btn",
+				startCheck : function() {
+				},
+				singleError : function(e, msg) {
+					_toast(msg);
+				},
+				endSuccess : function(data) {
+					// 显示加载
+					_showProgress();
+					_ajax(window.serverUrl + 'index/createGroup/userId/' + userJson.userid, "post", {
+						values : data
+					}, "json", function(ret) {
+						// 隐藏加载
+						api.hideProgress();
+						switch(ret.statu) {
+							case -1:
+								_toast("群名称已存在");
+								break;
+							case -2:
+								_toast("非法参数");
+								break;
+							case -3:
+								_toast("关系绑定失败");
+								break;
+							case 0:
+								_toast("创建群失败");
+								break;
+							case 1:
+								_toast("创建成功！");
+								_closeToWin("root");
+								break;
+							default:
+								break;
+						}
+					});
+				}
+			});
+		};
+	</script>
+</html>

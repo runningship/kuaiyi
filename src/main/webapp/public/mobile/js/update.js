@@ -144,7 +144,8 @@ api.download({
 //打开欢迎页面
 function openIndexFrame(){
 	//window.location='file://'+fsPrefix+'/html/index.html';
-	window.location='http://192.168.1.222:7080/kuaiyi/public/mobile/html/index.html';
+	//window.location='http://192.168.1.222:7080/kuaiyi/public/mobile/html/index.html';
+	window.location='http://192.168.1.222:7080/kuaiyi/public/mobile/html/api/index.html';
 }
 
 function loadstart(){

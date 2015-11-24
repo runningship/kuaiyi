@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<!--AUI样式框架-->
+		<link rel="stylesheet" type="text/css" href="./css/aui/aui-win.min.css" />
+		<!--拓展AUI字体图标-->
+		<link rel="stylesheet" type="text/css" href="./css/iconfont/iconfont.css" />
+		<!--通用样式-->
+		<link rel="stylesheet" type="text/css" href="./css/winu-ui.css" />
+		<style type="text/css">
+			/*设置图标变大*/
+			#aui-footer ul li span.aui-iconfont {
+				font-size: 25px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--头部集合 BEGIN-->
+		<header class="aui-bar aui-bar-nav aui-bar-primary header" id="msg">
+			<a class="aui-pull-left"></a>
+			<div class="aui-title">
+				消息
+			</div>
+			<a class="aui-pull-right" onclick="_openWin('setting_win','./html/setting_win.html');"><span class="aui-iconfont iconfont icon-shezhi"></span></a>
+		</header>
+		<header class="aui-bar aui-bar-nav aui-bar-primary header winu-display-none" id="contact">
+			<div class="aui-title">
+				通讯录
+			</div>
+			<a class="aui-pull-right" onclick='selectAddType();';><span class="aui-iconfont iconfont icon-tianjia"></span></a>
+		</header>
+		<header class="aui-bar aui-bar-nav aui-bar-primary header winu-display-none" id="qzone">
+			<a class="aui-pull-left"></a>
+			<div class="aui-title">
+				动态
+			</div>
+		</header>
+		<!--头部集合 END-->
+		<!--底部导航 BEGIN-->
+		<footer class="aui-nav" id="aui-footer">
+			<ul class="aui-bar-tab">
+				<li class="active-warning" data-id="msg" >
+					<span class="aui-iconfont iconfont icon-xiaoxi"></span>
+					<p>
+						消息
+					</p>
+				</li>
+				<li data-id="contact" >
+					<span class="aui-iconfont iconfont icon-iconfonttuandui"></span>
+					<p>
+						通讯录
+					</p>
+				</li>
+				<li data-id="qzone">
+					<span class="aui-iconfont iconfont icon-kongjian"></span>
+					<p>
+						动态
+					</p>
+				</li>
+			</ul>
+		</footer>
+		<!--底部导航 END-->
+	</body>
+	<!--APICloud自带前端脚本-->
+	<script type="text/javascript" src="./script/api.js"></script>
+	<!--Zepto.js,类似Jquery-->
+	<script type="text/javascript" src="./script/zepto.min.js"></script>
+	<!--通用脚本库-->
+	<script type="text/javascript" src="./script/winu-base.js"></script>
+	<script type="text/javascript">
+		// 5、定义首页已经打开的frame名称数组
+		var openFrameNames = [], footerOffset = null;
+		// 6、设置所有的frame都隐藏起来
+		function setAllFrameHidden() {
+			$("#aui-footer li").each(function() {
+				var frameID = $(this).attr("data-id");
+				_setFrameStatus(frameID + "_frm", true);
+			});
+		}
+
+		// 选择添加类型
+		function selectAddType() {
+			api.actionSheet({
+				title : '选择添加类型',
+				cancelTitle : '取消',
+				buttons : ['添加好友', '加入群', '加入讨论组', '加入聊天室', '创建群', '创建讨论组', '创建聊天室']
+			}, function(ret, err) {
+				var btnIndex = ret.buttonIndex;
+				switch(btnIndex) {
+					// 添加好友
+					case 1:
+						_openWin('addUser_win', './html/addUser_win.html');
+						break;
+					// 加入群
+					case 2:
+						_openWin('joinGroup_win', './html/joinGroup_win.html');
+						break;
+					// 加入讨论组
+					case 3:
+						_toast("加入讨论组和加入群一样的写法");
+						break;
+					// 加入聊天室
+					case 4:
+						_toast("加入聊天室和加入群一样的写法");
+						break;
+					// 创建群
+					case 5:
+						_openWin('createGroup_win', './html/createGroup_win.html');
+						break;
+					// 创建讨论组
+					case 6:
+						_toast("创建讨论组和创建群一样的写法");
+						break;
+					// 创建聊天室
+					case 7:
+						_toast("创建聊天室和创建聊天室一样的写法");
+						break;
+					default:
+						break;
+				}
+			});
+		}
+
+		Zepto(function($) {
+			// 1、绑定点击事件
+			$("#aui-footer").on("tap", "li", function() {
+				// 2、申明对象
+				var $that = $(this);
+				// 3、获取点击的索引和id和frame名称
+				var index = $that.index();
+				var id = $that.attr("data-id");
+				var frameName = id + "_frm";
+				// 4、设置对应头部显示
+				$(".header[id='" + id + "']").removeClass("winu-display-none").siblings(".header").addClass("winu-display-none");
+				// 4.1、设置导航栏点击高亮
+				$that.addClass("active-warning").siblings().removeClass("active-warning");
+				// 6.1、设置所有的frame都隐藏起来
+				setAllFrameHidden();
+				// 7、判断该frame是否已经打开，也就是判断openFrameNames是否有值
+				if (openFrameNames.indexOf(frameName) > -1) {
+					// 8、显示出来
+					_setFrameStatus(frameName, false);
+				} else {
+					// 9、创建并打开新的frame
+					_fixStatusBar(id, function(headerPos) {
+						_openFrame(frameName, "./html/" + frameName + ".html", {
+							x : 0,
+							y : headerPos.h,
+							h : api.winHeight - headerPos.h - footerOffset.h
+						});
+					});
+					// 10、添加到数组中
+					openFrameNames.push(frameName);
+				}
+			});
+		});
+		apiready = function() {
+			// 14、判断用户是否登录
+			_getPrefs(window.userKey, function(val) {
+				if (val && val != "") {
+				} else {
+					_openWin("login_win", "./html/login_win.html");
+				}
+			});
+			// 9.1 获取底部offset
+			footerOffset = $api.offset($api.byId("aui-footer"));
+			// 11、默认打开消息页面
+			_fixStatusBar("msg", function(headerPos) {
+				_openFrame("msg_frm", "./html/" + "msg_frm" + ".html", {
+					x : 0,
+					y : headerPos.h,
+					h : api.winHeight - headerPos.h - footerOffset.h
+				});
+			});
+			// 12、添加到数组中
+			openFrameNames.push("msg_frm");
+			// 13、双击退出应用
+			_twoClickCloseApp();
+		};
+	</script>
+</html>
