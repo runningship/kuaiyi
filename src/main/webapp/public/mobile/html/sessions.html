@@ -15,7 +15,7 @@
 function openChat(){
 	api.openWin({
 	    name: 'singleChat',
-	    url: 'http://192.168.1.222:8081/mobile/html/chating.html',
+	    url: 'chatWin.html?t='+new Date().getTime(),
 	    softInputMode:'resize',
 	    delay:200
 	});

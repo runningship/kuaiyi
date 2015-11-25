@@ -12,37 +12,135 @@
 <link href="../css/common.css" rel="stylesheet">
 <script src="../js/jquery.min.js" type="text/javascript"></script>
 <script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/api.js" type="text/javascript"></script>
+<script src="../js/apibase.js" type="text/javascript"></script>
 <script type="text/javascript">
 var header;
 var mainer;
 apiready = function(){
-	api.clearCache();
 	header = $('#header');
 	mainer = $('#mainer');
 
 	api.openFrame({
 	    name: 'singleChat',
-	    url: 'http://192.168.1.222:8081/mobile/html/chating.html',
+	    url: 'singleChat.html',
 	    rect:{x: 0,
             y: header.height(),
             w: 'auto',
             h: mainer.height()
         },
 	    pageParam: {name: 'test'},
-	    bounces: false,
+	    bounces: true,
 	    bgColor: 'rgba(0,0,0,0)',
 	    vScrollBarEnabled:true,
 	    hScrollBarEnabled:true
 	});
+	
+	initChatBox();
 };
 
+//重新调整frame会话区域
+function setChatInit(frameName, inputAreaHeight) {
+	var headerOffset = $api.offset($api.byId('header'));
+	var h = api.winHeight - headerOffset.h - inputAreaHeight;
+	//h=101;
+	api.setFrameAttr({
+		name : 'singleChat',
+		rect : {
+			x : 0,
+			y : headerOffset.h,
+			w : api.winWidth,
+			h : h
+		}
+	});
+	setTimeout(function() {
+		// 通知会话页面滚动到底部
+		api.sendEvent({
+			name : 'scrollButton',
+			extra : {}
+		});
+	}, 300);
+}
+
+function initChatBox(){
+	var chatBox = api.require('UIChatBox');
+	chatBox.open({
+	    placeholder: '',
+	    maxRows: 4,
+	    emotionPath: 'widget://image/emotion',
+	    texts: {
+	        recordBtn: {
+	            normalTitle: '按住 说话2',
+	            activeTitle: '松开 结束'
+	        }
+	    },
+	    styles: {
+	        inputBar: {
+	            borderColor: '#d9d9d9',
+	            bgColor: '#f2f2f2'
+	        },
+	        inputBox: {
+	            borderColor: '#B3B3B3',
+	            bgColor: '#FFFFFF'
+	        },
+	        emotionBtn: {
+	            normalImg: api.fsDir+'/images/chat/chat-emotion.png'
+	        },
+	        extrasBtn: {
+	            normalImg: api.fsDir+'/images/chat/chat-add.png'
+	        },
+	        keyboardBtn: {
+	            normalImg: api.fsDir+'/images/chat/chat-keyboard.png'
+	        },
+	        speechBtn: {
+	            normalImg: api.fsDir+'/images/chat/chat-record.png'
+	        },
+	        recordBtn: {
+	            normalBg: '#ff7878',
+	            activeBg: '#fac0c0',
+	            color: '#fff',
+	            size: 14
+	        },
+	        indicator: {
+	            target: 'both',
+	            color: '#c4c4c4',
+	            activeColor: '#9e9e9e'
+	        }
+	    },
+	    extras: {
+	        btns: [{
+	            title: '扔BB蛋',
+	            normalImg: api.fsDir+'/images/chat/chat-egg.png'
+	        }]
+	    }
+	}, function(ret){
+	    //点击附加功能面板
+	    if(ret.eventType == 'clickExtras'){
+	        alert("用户点击了第"+ ret.index +"个按钮");
+	    }
+	    //点击发送按钮
+	    if(ret.eventType == 'send'){
+	    	sendMsg(ret.msg);
+	    }
+	});
+	
+	// 监听输入框弹动事件
+	chatBox.addEventListener({
+		target : 'inputBar',
+		name : 'move'
+	}, function(ret, err) {
+		setChatInit("chat_frm", ret.panelHeight + ret.inputBarHeight + (_isIOS() ? 0 : 10));
+	});
+	// 监听输入框改变事件
+	chatBox.addEventListener({
+		target : 'inputBar',
+		name : 'change'
+	}, function(ret, err) {
+		setChatInit("chat_frm", ret.panelHeight + ret.inputBarHeight + (_isIOS() ? 0 : 10));
+	});
+}
 </script>
 <style type="text/css">
-#mainer{
-    -webkit-box-flex: 1; 
-    -webkit-flex: 1;
-    flex: 1;
-}
 </style>
 </head>
 <body>
@@ -57,19 +155,6 @@ apiready = function(){
     </div>
     <div id="mainer" class="mainer">
         
-    </div>
-    <div class="footer" style="display:none">
-        <div class="chatBox" >
-            <div class="l"><a href="#" class="btns btnExp"><i class="iconfont">&#xe65c;</i></a></div>
-            <div class="c content" id="content" contenteditable="true"></div>
-            <div class="r"><a href="#" class="btns submit" id="submit">发送</a></div>
-        </div>
-        <div class="chatExpBox">
-            <ul class="expList clearfix">
-                <li><img src="../images/2.jpg" alt=""></li>
-                <li><img src="../images/1.jpg" alt=""></li>
-            </ul>
-        </div>
     </div>
 </div>
 </body>
