@@ -9,15 +9,19 @@ import java.util.List;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
+import org.bc.sdak.GException;
 import org.bc.sdak.TransactionalServiceHelper;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
+import org.bc.web.PlatformExceptionType;
 import org.bc.web.WebMethod;
 
 import com.youwei.kuaiyi.chat.entity.Contact;
 import com.youwei.kuaiyi.chat.entity.GroupUser;
 import com.youwei.kuaiyi.chat.entity.Invitation;
+import com.youwei.kuaiyi.util.XingeHelper;
 
 
 @Module(name="/admin/chat")
@@ -27,23 +31,28 @@ public class ChatService {
 	StorageService ss = new StorageService();
 	
 	@WebMethod
-	public ModelAndView sendSingleChatMsg(Integer myId , String chatId, String msg){
+	public ModelAndView sendSingleChatMsg(Integer myId , String chatId, String msg , String buddyAccount){
 		ModelAndView mv = new ModelAndView();
-		String myFile = ss.getSingleChatDataPath(chatId);
-		List<String> lines = new ArrayList<String>();
-		JSONObject json = new JSONObject();
-		json.put("msg", msg);
-		json.put("sender", myId);
-		json.put("time", System.currentTimeMillis());
-		lines.add(json.toString());
-		try {
-			FileUtils.writeLines(new File(myFile), lines, "utf8", true);
-		} catch (IOException e) {
-			e.printStackTrace();
-			mv.data.put("result", -1);
-			return mv;
+		if(StringUtils.isEmpty(buddyAccount)){
+			throw new GException(PlatformExceptionType.BusinessException,"数据结构错误");
 		}
+//		String myFile = ss.getSingleChatDataPath(chatId);
+//		List<String> lines = new ArrayList<String>();
+//		JSONObject json = new JSONObject();
+//		json.put("msg", msg);
+//		json.put("sender", myId);
+//		json.put("time", System.currentTimeMillis());
+//		lines.add(json.toString());
+//		try {
+//			FileUtils.writeLines(new File(myFile), lines, "utf8", true);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			mv.data.put("result", -1);
+//			return mv;
+//		}
 		//notifyBuddy
+		XingeHelper.pushSingleAccountMsg(buddyAccount, msg);
+		mv.data.put("result", 0);
 		return mv;
 	}
 	

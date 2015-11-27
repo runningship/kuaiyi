@@ -1,4 +1,4 @@
-var server_host = "192.168.1.222:8081";
+var server_host = "192.168.1.222:7080/kuaiyi";
 //定位所在城市
 var myCity;
 var config;
@@ -64,24 +64,6 @@ YW={
     		opts.data.values=JSON.parse('{}');
     	}
     	opts.data.values.deviceId = api.deviceId;
-    	if(config.city && config.city.cityPy){
-        	opts.data.values.cityPy=config.city.cityPy;
-    	}else{
-    		if(!opts.data.values.ignoreCityCheck){
-    			alert('请先在登录页选择城市');
-        		return;
-    		}
-    	}
-    	if(config.user && config.user.tel){
-//    		if(!opts.data.values.url || opts.data.values.url.indexOf('mobile/user/login')<0 ||opts.data.values.url.indexOf('mobile/user/sendVerifyCode')<0 || opts.data.values.url.indexOf('mobile/user/verifyCode')<0){
-//    			//url 为空 或者 url不是login时
-//    			opts.data.values.tel = ret.value;
-//    		}
-    		if(!opts.data.values.tel){
-    			//如果参数中没有电话号码
-    			opts.data.values.tel = config.user.tel;
-    		}
-    	}
     	opts.data.values.cache=false;
     	api.showProgress({
 		    style: 'default',

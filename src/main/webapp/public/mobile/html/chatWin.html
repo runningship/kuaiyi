@@ -20,125 +20,25 @@ var mainer;
 apiready = function(){
 	header = $('#header');
 	mainer = $('#mainer');
-
 	api.openFrame({
-	    name: 'singleChat',
+	    name: 'singleChatFrame',
 	    url: 'singleChat.html',
 	    rect:{x: 0,
             y: header.height(),
             w: 'auto',
             h: mainer.height()
         },
-	    pageParam: {name: 'test'},
+	    pageParam: api.pageParam,
 	    bounces: true,
 	    bgColor: 'rgba(0,0,0,0)',
 	    vScrollBarEnabled:true,
 	    hScrollBarEnabled:true
 	});
 	
-	initChatBox();
+	
 };
 
-//重新调整frame会话区域
-function setChatInit(frameName, inputAreaHeight) {
-	var headerOffset = $api.offset($api.byId('header'));
-	var h = api.winHeight - headerOffset.h - inputAreaHeight;
-	//h=101;
-	api.setFrameAttr({
-		name : 'singleChat',
-		rect : {
-			x : 0,
-			y : headerOffset.h,
-			w : api.winWidth,
-			h : h
-		}
-	});
-	setTimeout(function() {
-		// 通知会话页面滚动到底部
-		api.sendEvent({
-			name : 'scrollButton',
-			extra : {}
-		});
-	}, 300);
-}
 
-function initChatBox(){
-	var chatBox = api.require('UIChatBox');
-	chatBox.open({
-	    placeholder: '',
-	    maxRows: 4,
-	    emotionPath: 'widget://image/emotion',
-	    texts: {
-	        recordBtn: {
-	            normalTitle: '按住 说话2',
-	            activeTitle: '松开 结束'
-	        }
-	    },
-	    styles: {
-	        inputBar: {
-	            borderColor: '#d9d9d9',
-	            bgColor: '#f2f2f2'
-	        },
-	        inputBox: {
-	            borderColor: '#B3B3B3',
-	            bgColor: '#FFFFFF'
-	        },
-	        emotionBtn: {
-	            normalImg: api.fsDir+'/images/chat/chat-emotion.png'
-	        },
-	        extrasBtn: {
-	            normalImg: api.fsDir+'/images/chat/chat-add.png'
-	        },
-	        keyboardBtn: {
-	            normalImg: api.fsDir+'/images/chat/chat-keyboard.png'
-	        },
-	        speechBtn: {
-	            normalImg: api.fsDir+'/images/chat/chat-record.png'
-	        },
-	        recordBtn: {
-	            normalBg: '#ff7878',
-	            activeBg: '#fac0c0',
-	            color: '#fff',
-	            size: 14
-	        },
-	        indicator: {
-	            target: 'both',
-	            color: '#c4c4c4',
-	            activeColor: '#9e9e9e'
-	        }
-	    },
-	    extras: {
-	        btns: [{
-	            title: '扔BB蛋',
-	            normalImg: api.fsDir+'/images/chat/chat-egg.png'
-	        }]
-	    }
-	}, function(ret){
-	    //点击附加功能面板
-	    if(ret.eventType == 'clickExtras'){
-	        alert("用户点击了第"+ ret.index +"个按钮");
-	    }
-	    //点击发送按钮
-	    if(ret.eventType == 'send'){
-	    	sendMsg(ret.msg);
-	    }
-	});
-	
-	// 监听输入框弹动事件
-	chatBox.addEventListener({
-		target : 'inputBar',
-		name : 'move'
-	}, function(ret, err) {
-		setChatInit("chat_frm", ret.panelHeight + ret.inputBarHeight + (_isIOS() ? 0 : 10));
-	});
-	// 监听输入框改变事件
-	chatBox.addEventListener({
-		target : 'inputBar',
-		name : 'change'
-	}, function(ret, err) {
-		setChatInit("chat_frm", ret.panelHeight + ret.inputBarHeight + (_isIOS() ? 0 : 10));
-	});
-}
 </script>
 <style type="text/css">
 </style>

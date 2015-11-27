@@ -11,7 +11,9 @@
 <link href="../css/style.css" rel="stylesheet">
 <link href="../css/common.css" rel="stylesheet">
 <script src="../js/jquery.min.js" type="text/javascript"></script>
+<script src="../js/api.js" type="text/javascript"></script>
 <script src="../js/apibase.js" type="text/javascript"></script>
+<script src="../js/common.js" type="text/javascript"></script>
 </head>
 <body>
         <ul class="chatList ing">
@@ -169,22 +171,17 @@
         </ul>
 <script type="text/javascript">
 apiready=function(){
-	// 监听是否需要滚动到底部
+	initChatBox();
+	setTimeout(_scrollToEnd,500);
 	api.addEventListener({
-	    name: 'scrollButton'
+	    name: 'recvMsg'
 	}, function(ret){
-		setTimeout(function() {
-			_scrollToEnd();
-		}, 30);
+	    if(ret && ret.value){
+	        onRecvMsg(ret.value.content);
+	    }
 	});
 };
-/* gotoScroll */
-function scrollTo(a,t,callback){
-    if(!a){a=$('.mainer')}
-    //scrollTops=a.children(0).innerHeight() - a.innerHeight();
-    //a.animate({scrollTop: 60},300,callback);
-    a.scrollTop(99999);
-}
+
 /* Hv action */
 function setHvData(name,value){
     if(window.localStorage){
@@ -213,51 +210,13 @@ function contentIndexIng(){
         setHvData('me-you',$(this).html())
     })
 }
-/* 读取用户信息并显示在消息区 */
-function contentSetVal(){
-    var val=getHvData('me-you');
-    if(val){$('.content').html(val)}
-}
-/* 删除用户信息 */
-function contentReVal(){
-    reHvData('me-you');
-}
-
-/* 判断文本框获取焦点 */
-function ifContFocus(){
-    var C=$('.content'),
-    R=$('.submit');
-    C.on('input',function(){
-        if($(this).text()){
-            R.addClass('focus');
-        }else{
-            R.removeClass('focus');
-        }
-    })
-    if(C.text()){
-        R.addClass('focus');
-    }else{
-        R.removeClass('focus');
-    }
-    C.focus();
-    scrollTo();
-}
-$(document).ready(function() {
-
-ifContFocus();
-scrollTo();
-
-contentIndexIng();
-contentSetVal();
-});
-
 
 /* 聊天功能  */
 var myName='御龙',
 myFace='龙',
 youName='',
 youFace='';
-function setChatList(v){
+function setSendMsg(v){
 	v = v.replace(/div/g ,'span')
 var str='<li class="M">'
     +'<div class="B">'
@@ -276,96 +235,160 @@ var str='<li class="M">'
     +'</li>';
     return str;
 }
-$(document).on('click touch', '.submit', function(event) {
-    var Thi=$(this),
-    content=$('.content'),
-    contentVal=content.html();
-    if(contentVal){
-        //layer.msg(content.val());
-        var EnCodeVal=contentVal//HtmlEncode(contentVal);
-        //alert(EnCodeVal)
-        $('.mainer').children(0).append(setChatList(EnCodeVal))
 
-        content.html('');
-        content.focus();
-        scrollTo();
-        contentReVal();
-    }
-    event.preventDefault();
-    /* Act on the event */
-});
-
-function sendMsg(msg){
-	var content=$('.content');
-	$('.mainer').children(0).append(setChatList(msg))
-    //content.html('');
-    //content.focus();
-    scrollTo();
+function onRecvMsg(text){
+	var tmp = $('.recvTemplate');
+	var li = $(tmp.html());
+	li.find('.msg').text(text);
+	$('.chatList').append(li);
+	_scrollToEnd();
+}
+function doSendMsg(html){
+	html = htmlEncode(html);
+	var li = setSendMsg(html);
+	$('.chatList').append(li);
+	_scrollToEnd();
+	sendMsgToServer(html);
 }
 
-
-
-/* 表情图片区 */
-function insertHtmlAtCaret(html) {
-    if(html){
-    var html=html;
-    var sel, range;
-    if (window.getSelection) {
-        // IE9 and non-IE
-        sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount) {
-            range = sel.getRangeAt(0);
-            range.deleteContents();
-            // Range.createContextualFragment() would be useful here but is
-            // non-standard and not supported in all browsers (IE9, for one)
-            var el = document.createElement("div.content");
-            el.innerHTML = html;
-            var frag = document.createDocumentFragment(), node, lastNode;
-            while ( (node = el.firstChild) ) {
-                lastNode = frag.appendChild(node);
-            }
-            range.insertNode(frag);
-            // Preserve the selection
-            if (lastNode) {
-                range = range.cloneRange();
-                range.setStartAfter(lastNode);
-                range.collapse(true);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            }
-        }
-    }
-    }
+function sendMsgToServer(msg){
+	var url ='http://'+server_host+'/c/admin/chat/sendSingleChatMsg';
+	YW.ajax({
+		url: url,
+		method:'post',
+		data:{
+        	values: {buddyAccount:api.pageParam.account , msg : msg}
+    	},
+		cache:false,
+		returnAll:false
+	},function(ret , err){
+		if(ret && ret.result==0){
+				
+		}else{
+			alert(ret.msg);
+		}
+	});
 }
-$(document).on('click touch', function(event) {
-    $('.chatExpBox').removeClass('show');
-});
-$(document).on('click touch', '.btnExp,.chatExpBox', function(event) {
-    var Thi=$(this),
-    expBox=$('.chatExpBox'),
-    content=$('.content');
-    if(!expBox.hasClass('show')){
-        expBox.addClass('show');
-    }
-    return false;
-    event.preventDefault();
-    /* Act on the event */
-});
-$(document).on('click touch', '.chatExpBox img', function(event) {
-    var Thi=$(this),
-    content=$('.content'),
-    faces=Thi.prop("outerHTML");
-//    layer.msg(Thi.attr('src'));
-//content.val(Thi.prop("outerHTML"))
-insertHtmlAtCaret(faces)
-    return false;
-    event.preventDefault();
-    /* Act on the event */
-});
 
+//重新调整frame会话区域
+function setChatInit(frameName, inputAreaHeight) {
+	var headerOffset = 50;
+	var h = api.winHeight - headerOffset - inputAreaHeight;
+	//h=101;
+	api.setFrameAttr({
+		name : 'singleChatFrame',
+		rect : {
+			x : 0,
+			y : headerOffset,
+			w : api.winWidth,
+			h : h
+		}
+	});
+	setTimeout(function() {
+		_scrollToEnd();
+	}, 300);
+}
 
+function initChatBox(){
+	var chatBox = api.require('UIChatBox');
+	chatBox.open({
+	    placeholder: '',
+	    maxRows: 4,
+	    emotionPath: 'widget://image/emotion',
+	    texts: {
+	        recordBtn: {
+	            normalTitle: '按住 说话2',
+	            activeTitle: '松开 结束'
+	        }
+	    },
+	    styles: {
+	        inputBar: {
+	            borderColor: '#d9d9d9',
+	            bgColor: '#f2f2f2'
+	        },
+	        inputBox: {
+	            borderColor: '#B3B3B3',
+	            bgColor: '#FFFFFF'
+	        },
+	        emotionBtn: {
+	            normalImg: api.fsDir+'/images/chat/chat-emotion.png'
+	        },
+	        extrasBtn: {
+	            normalImg: api.fsDir+'/images/chat/chat-add.png'
+	        },
+	        keyboardBtn: {
+	            normalImg: api.fsDir+'/images/chat/chat-keyboard.png'
+	        },
+	        speechBtn: {
+	            normalImg: api.fsDir+'/images/chat/chat-record.png'
+	        },
+	        recordBtn: {
+	            normalBg: '#ff7878',
+	            activeBg: '#fac0c0',
+	            color: '#fff',
+	            size: 14
+	        },
+	        indicator: {
+	            target: 'both',
+	            color: '#c4c4c4',
+	            activeColor: '#9e9e9e'
+	        }
+	    },
+	    extras: {
+	        btns: [{
+	            title: '扔BB蛋',
+	            normalImg: api.fsDir+'/images/chat/chat-egg.png'
+	        }]
+	    }
+	}, function(ret){
+	    //点击附加功能面板
+	    if(ret.eventType == 'clickExtras'){
+	        alert("用户点击了第"+ ret.index +"个按钮");
+	    }
+	    //点击发送按钮
+	    if(ret.eventType == 'send'){
+	    	doSendMsg(ret.msg);
+	    }
+	});
+	
+	// 监听输入框弹动事件
+	chatBox.addEventListener({
+		target : 'inputBar',
+		name : 'move'
+	}, function(ret, err) {
+		setChatInit("chat_frm", ret.panelHeight + ret.inputBarHeight + (_isIOS() ? 0 : 10));
+	});
+	// 监听输入框改变事件
+	chatBox.addEventListener({
+		target : 'inputBar',
+		name : 'change'
+	}, function(ret, err) {
+		setChatInit("chat_frm", ret.panelHeight + ret.inputBarHeight + (_isIOS() ? 0 : 10));
+	});
+}
 
-
+function htmlEncode(str) {
+    var div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+function htmlDecode(str) {
+    var div = document.createElement("div");
+    div.innerHTML = str;
+    return div.innerHTML;
+}
 </script>
+
+<span class="recvTemplate" style="display:none">
+<li class="Y ">
+    <div class="A">
+        <span>船</span><!-- 头像 -->
+    </div>
+    <div class="B">
+        <strong class="name">昵称</strong>
+        <p class="msg">你瞅啥？</p>
+    </div>
+</li>
+</span>
 </body>
 </html>

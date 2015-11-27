@@ -31,7 +31,7 @@ apiready = function(){
 	},function(ret,err){
 		background = false;
 	});
-	//bindTecentPush();
+	bindTecentPush();
 	//exitApp();
 	openGroup();
 };
@@ -131,8 +131,13 @@ function bindTecentPush(){
 	var messageCallback = {name:"message"};    
 	tencentPush.setListener(messageCallback, function(ret, err){
 		if(background==false){
-	 		blockAlert("收到消息，title："+ret.title+"，content："+ret.content+"，customContent："+ret.customContent 
-			    + ",activity:"+ret.activity+",actionType:"+ret.actionType+",msgid:"+ret.msgid);
+// 	 		blockAlert("收到消息，title："+ret.title+"，content："+ret.content+"，customContent："+ret.customContent 
+// 			    + ",activity:"+ret.activity+",actionType:"+ret.actionType+",msgid:"+ret.msgid);
+	 		
+	 		api.sendEvent({
+	 		    name: 'recvMsg',
+	 		    extra: ret
+	 		});
 		}else{
 			var params = {
 			    title : ret.title, // 标题
