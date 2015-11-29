@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>快易查</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="../css/reset.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+<link href="../css/common.css" rel="stylesheet">
+<script src="../../../js/jquery.min.js" type="text/javascript"></script>
+<script src="../../../js/common.js" type="text/javascript"></script>
+<script src="../../../js/javascript.js" type="text/javascript"></script>
+<script type="text/javascript">
+var mainer;
+var background=false;
+var rect;
+apiready = function(){
+	api.clearCache();
+	mainer = $('#mainer');
+	api.addEventListener({
+	    name:'pause'
+	},function(ret,err){
+		background = true;
+	});
+	api.addEventListener({
+	    name:'resume'
+	},function(ret,err){
+		background = false;
+	});
+	exitApp();
+	rect={x: 0,
+        y: 0,
+        w: 'auto',
+        h: mainer.height()
+    };
+	openGroup();
+};
+
+function openGroup(){
+	api.openFrameGroup ({
+	    name: 'index',
+	    background:'#fff',
+	    scrollEnabled:false,
+	    rect: rect,
+	    index:0,
+	    preload:0,
+	    frames:
+	    [{
+	        name: 'chacha',
+	        bounces:false,
+	        url: 'chacha.html',
+	        bgColor: '#fff'
+	    },{
+	        name: 'history',
+	        bounces:false,
+	        url: 'history.html',
+	        bgColor: '#fff'
+	    },{
+	        name: 'message',
+	        bounces:false,
+	        url: 'message.html', 
+	        bgColor: '#fff'
+	    },{
+	        name: 'profile',
+	        bounces:true,
+	        url: 'profile.html', 
+	        bounces: true,
+	        bgColor: '#fff'
+	    }]
+	}, function(ret, err){
+	});
+}
+
+function exitApp(){
+	
+    api.addEventListener({
+        name: 'keyback'
+    }, function(ret, err){
+		api.confirm({
+			msg: '确定要退出程序吗?',
+		    buttons:['取消', '确定']
+		},function(ret,err){
+		    if(ret.buttonIndex == 2){
+		    	 api.closeWidget({
+                     id: 'A6992958696021',     //这里改成自己的应用ID
+                     retData: {name:'closeWidget'},
+                     silent:true
+                 });
+		    }
+		});
+    });
+}
+
+function openChaCha(){
+	$('.footer .item').removeClass('active');
+	$('.footer .chacha').addClass('active');
+	api.openFrame({
+        name: 'chacha',
+		url: 'chacha.html',
+		rect: rect,
+		reload:false,
+        bounces: false
+    });
+}
+function openHistory(){
+	$('.footer .item').removeClass('active');
+	$('.footer .history').addClass('active');
+	api.openFrame({
+        name: 'history',
+		url: 'history.html',
+		rect: rect,
+		reload:false,
+        bounces: false
+    });
+}
+function openMsg(){
+	$('.footer .item').removeClass('active');
+	$('.footer .message').addClass('active');
+	api.openFrame({
+        name: 'message',
+		url: 'message.html',
+		rect: rect,
+		reload:false,
+        bounces: false
+    });
+}
+function openProfile(){
+	$('.footer .item').removeClass('active');
+	$('.footer .profile').addClass('active');
+	api.openFrame({
+        name: 'profile',
+		url: 'me.html',
+		rect: rect,
+		reload:false,
+        bounces: false
+    });
+}
+
+</script>
+<style type="text/css">
+#mainer{
+    -webkit-box-flex: 1; 
+    -webkit-flex: 1;
+    flex: 1;
+}
+</style>
+</head>
+<body>
+<div id="wrap" class="bodyer">
+    
+    <div id="mainer" class="mainer">
+        
+    </div>
+    <div id="footer" class="footer">
+        <a class="item chacha active">
+            <div>
+                <i class="iconfont n">&#xe61a;</i>
+                <i class="iconfont y">&#xe61a;</i>
+            </div>
+            <h2 onclick="openChaCha()">易查查</h2>
+        </a>
+        <a class="item  history">
+            <div>
+                <i class="iconfont n">&#xe617;</i>
+                <i class="iconfont y">&#xe617;</i>
+            </div>
+            <h2 onclick="openHistory()">历史记录</h2>
+        </a>
+        <a class="item  message">
+            <div>
+                <i class="iconfont n">&#xe630;</i>
+                <i class="iconfont y">&#xe630;</i>
+            </div>
+            <h2 onclick="openMsg()">消息</h2>
+        </a>
+        <a class="item  profile">
+            <div>
+                <i class="iconfont n">&#xe673;</i>
+                <i class="iconfont y">&#xe673;</i>
+            </div>
+            <h2 onclick="openProfile()">个人中心</h2>
+        </a>
+    </div>
+</div>
+</body>
+</html>

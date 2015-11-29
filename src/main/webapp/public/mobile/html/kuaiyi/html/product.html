@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>商品详情</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="../css/reset.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+<link href="../css/common.css" rel="stylesheet">
+<script src="../../../js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+apiready=function(){
+	var header = $('#header');
+	var mainer = $('#mainer');
+	api.openFrame({
+        name: 'profile',
+		url: api.pageParam.productUrl,
+		rect:{x: 0,
+		        y: header.height(),
+		        w: 'auto',
+		        h: mainer.height()
+		},
+		reload:true,
+		showProgress:true,
+        bounces: true
+    });
+};
+</script>
+<style type="text/css">
+.footer .item{width:33.3%}
+</style>
+</head>
+<body>
+<div id="wrap" class="bodyer chacha">
+	<div id="header" class="header">
+        <span class="left">
+            
+        </span>
+        <span class="conter">
+        	<span>商品详情</span>
+        </span>
+        <span class="right" >
+        </span>
+    </div>
+    <div id="mainer" class="mainer">
+    </div>
+    
+    <div id="footer" class="footer">
+        <a class="item">
+            <div>
+                <i class="iconfont n">&#xe646;</i>
+                <i class="iconfont y">&#xe646;</i>
+            </div>
+            <h2 onclick="triggerFav();">收藏</h2>
+        </a>
+        <a class="item  history">
+            <div>
+                <i class="iconfont n">&#xe61a;</i>
+                <i class="iconfont y">&#xe61a;</i>
+            </div>
+            <h2 onclick="startScan()">扫一扫</h2>
+        </a>
+        <a class="item  message">
+            <div>
+                <i class="iconfont n">&#xe633;</i>
+                <i class="iconfont y">&#xe633;</i>
+            </div>
+            <h2 onclick="openPinlun()">评一评</h2>
+        </a>
+    </div>
+</div>
+</body>
+</html>
