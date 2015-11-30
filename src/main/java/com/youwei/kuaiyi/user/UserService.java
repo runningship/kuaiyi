@@ -76,7 +76,7 @@ public class UserService {
 	}
 
 	@WebMethod
-	public ModelAndView login(User user){
+	public ModelAndView adminLogin(User user){
 		ModelAndView mv = new ModelAndView();
 		String pwd = SecurityHelper.Md5(user.pwd);
 		User po = dao.getUniqueByParams(User.class, new String[]{"account" , "pwd"}, new Object[]{user.account  , pwd});
@@ -121,7 +121,7 @@ public class UserService {
 	}
 	
 	@WebMethod
-	public ModelAndView logout(){
+	public ModelAndView adminLogout(){
 		ModelAndView mv = new ModelAndView();
 		ThreadSession.getHttpSession().removeAttribute("user");
 		ThreadSession.getHttpSession().removeAttribute(MakesiteConstant.Session_Auth_List);

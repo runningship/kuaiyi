@@ -19,7 +19,7 @@ function login(){
 	var a=$('form[name=form1]').serialize();
 	YW.ajax({
 	    type: 'post',
-	    url: '${projectName}/c/admin/user/login',
+	    url: '${projectName}/c/admin/user/adminLogin',
 	    data: a,
 	    beforeSend: function(XMLHttpRequest){
         	index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2

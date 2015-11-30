@@ -33,7 +33,7 @@ function editMe(){
 			<div class="account">
 				<div class="account_meta account_info">
 					<a href="${projectName }/index.jsp" target="_blank" class="nickname">网站首页</a><span style="color:#ddd">|</span>
-					<a href="${projectName }/admin/user/info.jsp?nav=me" class="nickname">${user.name }</a><span style="color:#ddd">|</span><a class="logout"  style="" href="${projectName }/c/admin/user/logout">退出</a>
+					<a href="${projectName }/admin/user/info.jsp?nav=me" class="nickname">${user.name }</a><span style="color:#ddd">|</span><a class="logout"  style="" href="${projectName }/c/admin/user/adminLogout">退出</a>
 				</div>
 			</div>
 		</div>

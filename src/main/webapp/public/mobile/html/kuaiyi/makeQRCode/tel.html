@@ -7,33 +7,16 @@
 <title>快易查</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
-<link href="../../css/reset.css" rel="stylesheet">
-<link href="../../css/style.css" rel="stylesheet">
-<link href="../../css/common.css" rel="stylesheet">
-<script src="../../../../js/jquery.min.js" type="text/javascript"></script>
+<link href="../../../css/reset.css" rel="stylesheet">
+<link href="../../../css/style.css" rel="stylesheet">
+<link href="../../../css/common.css" rel="stylesheet">
+<script src="../../../js/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 apiready=function(){
 	api.parseTapmode();
 };
 
-function keyup(input){
-	input.value=input.value.substring(0, 200);
-	$('.tips').text(200-input.value.length);
-}
-
-function keydown(input){
-	input.value=input.value.substring(0, 200);
-	$('.tips').text(200-input.value.length);
-}
-
-function change(input){
-	input.value=input.value.substring(0, 200);
-	$('.tips').text(200-input.value.length);
-}
 </script>
-<style type="text/css">
-.qrCode .step2 .tips{top:180pt;}
-</style>
 </head>
 <body>
 <div id="wrap" class="bodyer qrCode">
@@ -42,7 +25,7 @@ function change(input){
             <span>返回</span>
         </span>
         <span class="conter">
-        	<span>短信</span>
+        	<span>电话</span>
         </span>
         <span class="right" >
         	<span>生成</span>
@@ -50,8 +33,6 @@ function change(input){
     </div>
     <div id="mainer" class="mainer step2">
     	<input class="tel" placeholder="请输入电话号码"  type="tel" /> 
-    	<textarea class="text" placeholder="请输入短信内容"  maxlength="200"  onchange="change(this)" onkeydown="keydown(this)" onkeyup="keyup(this);"></textarea>
-    	<span class="tips">200</span>
     </div>
 </div>
 </body>
