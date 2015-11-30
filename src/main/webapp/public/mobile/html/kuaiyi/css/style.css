@@ -25,7 +25,7 @@ box-orient: horizontal;
 .header .conter{-webkit-box-flex: 1;display: block; height: inherit; line-height: inherit;}
 .header .left{padding-left: 10pt;}
 .header .conter{text-align: center;}
-.header .right{ text-align: right; }
+.header .right{ text-align: right; padding-right:10pt;}
 .header h1{ display: inline-block; font-size: 14pt;line-height: 100%;}
 .header h2{ display: inline-block; font-size: 12pt;line-height: 100%;padding-left: 6pt; }
 .header a.btns{ display: inline-block; width: 36px; height: inherit; line-height: inherit; text-align: center; color: #FFF; }
@@ -198,3 +198,11 @@ background-size: cover;}
 .chacha .article .item img{width:100%; height:120pt;}
 .chacha .article .item .title{height: 25pt;background: #D71616;color: white;position: absolute;bottom: 5px;line-height: 25pt;width: 100%;text-align: center;}
 .chacha .article .item .time{color:#888;}
+
+/*制作二维码*/
+.qrCode .step1 .item{width:33%; display: inline-block; height:150pt;line-height: 150pt;text-align: center;}
+.qrCode .step1 .item .iconfont{display:block; height:25pt; font-size:35pt;color:#0808EA; }
+.qrCode .step1 .item .url{height:28pt;}
+.qrCode .step2 .text{width:98%;     margin-left: 1%;    margin-top: 10pt; height:115pt;}
+.qrCode .step2 .tel{width:98%;     margin-left: 1%;    margin-top: 10pt; height:23pt;    padding-left: 8pt;}
+.qrCode .step2 .tips{ color: #aaa;    float: right;    position: absolute;    right: 2%;    top: 150pt;}
