@@ -11,10 +11,35 @@
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/common.css" rel="stylesheet">
 <script src="../../js/jquery.min.js" type="text/javascript"></script>
+<script src="../../js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
 apiready=function(){
 	api.parseTapmode();
+	api.addEventListener({
+	    name: 'login_success'
+	}, function(ret){
+	    getConfig(function(cfg){
+	    	config = cfg;
+	    	$('.detail').show();
+	    	$('.login').hide();
+	    	$('.logout').show();
+	    });
+	});
+
 };
+function openLogin(){
+	api.openWin({
+	    name: 'login',
+	    url: 'login.html?t='+new Date().getTime(),
+	    delay:200
+	});
+}
+
+function logout(){
+	$('.detail').hide();
+	$('.login').show();
+	$('.logout').hide();
+}
 </script>
 </head>
 <body>
@@ -23,9 +48,16 @@ apiready=function(){
     	<div class="avatar"><img src="../../images/71.jpg"/></div>
     	
     	<div class="info">
-    		<div class="name">runningship</div>
-    		<div>积分: <span class="jifen">234分</span></div>
+    		<div class="login">
+	    		<div>hi,欢迎来到快易查</div>
+	    		<div><a onclick="openLogin();">请先登录</a></div>
+	    	</div>
+	    	<div class="hidden detail">
+	    		<div class="name">runningship</div>
+	    		<div>积分: <span class="jifen">234分</span></div>
+    		</div>
     	</div>
+    	
     	<div class="signin"  tapmode="tapped">签到</div>
     </div>
     
@@ -47,8 +79,8 @@ apiready=function(){
     	<div class="innerItem"   tapmode="tapped"><i class="iconfont">&#xe62c;</i> <span class="text">设置</span></div>
     </div>
     
-    <div class="logout" >
-    	<button class="btn"  tapmode="tapped">退出登录</button>
+    <div class="logout hide" >
+    	<button onclick="logout()" class="btn"  tapmode="tapped">退出登录</button>
     </div>
 </div>
 </body>

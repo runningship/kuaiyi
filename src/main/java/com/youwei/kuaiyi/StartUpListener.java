@@ -57,7 +57,7 @@ public class StartUpListener implements ServletContextListener{
 		settings.put(AvailableSettings.PROXOOL_POOL_ALIAS, "MSSQLProxool");
 		
 //		settings.put("annotated.packages", HouseRent.class.getPackage().getName());
-		settings.put("annotated.packages", "com.youwei.kuaiyi");
+		settings.put("annotated.packages", "com.youwei.kuaiyi.entity");
 		SessionFactoryBuilder.applySettings(settings);
 //		SimpDaoTool.getGlobalCommonDaoService().getUnique(User.class, 0);
 	}

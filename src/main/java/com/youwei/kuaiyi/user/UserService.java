@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -15,7 +17,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.GException;
+import org.bc.sdak.SimpDaoTool;
 import org.bc.sdak.TransactionalServiceHelper;
+import org.bc.sdak.utils.JSONHelper;
 import org.bc.sdak.utils.LogUtil;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
@@ -23,13 +27,17 @@ import org.bc.web.PlatformExceptionType;
 import org.bc.web.ThreadSession;
 import org.bc.web.WebMethod;
 
+import com.cloopen.rest.sdk.CCPRestSDK;
 import com.youwei.kuaiyi.MakesiteConstant;
 import com.youwei.kuaiyi.entity.Group;
+import com.youwei.kuaiyi.entity.TelVerifyCode;
 import com.youwei.kuaiyi.entity.User;
 import com.youwei.kuaiyi.entity.UserGroup;
 import com.youwei.kuaiyi.entity.UserRole;
 import com.youwei.kuaiyi.util.DataHelper;
 import com.youwei.kuaiyi.util.SecurityHelper;
+import com.youwei.kuaiyi.util.ShortMessageHelper;
+import com.youwei.kuaiyi.util.VerifyCodeHelper;
 //
 //import com.sun.image.codec.jpeg.JPEGCodec;
 //import com.sun.image.codec.jpeg.JPEGImageEncoder;
@@ -272,4 +280,81 @@ public class UserService {
 		return arr;
 	}
 	
+	@WebMethod
+	public ModelAndView sendVerifyCode(String tel){
+		ModelAndView mv = new ModelAndView();
+		TelVerifyCode tvc = new TelVerifyCode();
+		if(StringUtils.isEmpty(tel)){
+			throw new GException(PlatformExceptionType.BusinessException,"电话号码不能为空");
+		}
+		tvc.tel = tel;
+        int max=9999;
+        int min=1000;
+        Random random = new Random();
+        int s = random.nextInt(max)%(max-min+1) + min;
+        String code = String.valueOf(s);
+        tvc.code = code ;
+      //send code to tel
+        boolean result = ShortMessageHelper.sendRongLianMsg(tel, tvc.code);
+        if(!result){
+        	throw new GException(PlatformExceptionType.BusinessException,"发送短信失败，请稍后重试");
+        }
+        tvc.sendtime =  new Date();
+		dao.saveOrUpdate(tvc);
+		mv.data.put("result", 0);
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView reg(String tel , String account, String verifyCode , String pwd){
+		ModelAndView mv = new ModelAndView();
+		if(StringUtils.isEmpty(account)){
+			throw new GException(PlatformExceptionType.BusinessException,"请先填写登录账号");
+		}
+		if(StringUtils.isEmpty(pwd)){
+			throw new GException(PlatformExceptionType.BusinessException,"密码不能为空");
+		}
+		TelVerifyCode tvc = VerifyCodeHelper.verifySMSCode(tel, verifyCode);
+		User po = dao.getUniqueByKeyValue(User.class, "account", account);
+		if(po!=null){
+			throw new GException(PlatformExceptionType.BusinessException,"账号 "+account+" 已经被注册");
+		}
+		User user = new User();
+		user.tel = tel;
+		user.pwd =	SecurityHelper.Md5(pwd);
+		user.addtime = new Date();
+		user.account = account;
+		user.isSuperAdmin=0;
+		user.name="";
+		dao.saveOrUpdate(user);
+		tvc.verifyTime = new Date();
+		dao.saveOrUpdate(tvc);
+		
+		mv.data.put("result", 0);
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView login(String account, String pwd){
+		ModelAndView mv = new ModelAndView();
+		if(StringUtils.isEmpty(account)){
+			throw new GException(PlatformExceptionType.BusinessException,"请先填写登录账号");
+		}
+		if(StringUtils.isEmpty(pwd)){
+			throw new GException(PlatformExceptionType.BusinessException,"请先填写登录密码");
+		}
+		User po = dao.getUniqueByKeyValue(User.class, "account", account);
+		if(po==null){
+			throw new GException(PlatformExceptionType.BusinessException,"账号不存在");
+		}
+		if(po.pwd==null){
+			po.pwd="";
+		}
+		if(!po.pwd.equals(SecurityHelper.Md5(pwd))){
+			throw new GException(PlatformExceptionType.BusinessException,"密码不正确");
+		}
+		mv.data.put("user", JSONHelper.toJSON(po));
+		mv.data.put("result", 0);
+		return mv;
+	}
 }

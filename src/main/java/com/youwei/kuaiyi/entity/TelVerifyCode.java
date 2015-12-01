@@ -2,33 +2,28 @@ package com.youwei.kuaiyi.entity;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
+/**
+ * 手机验证码码
+ */
 @Entity
-@Table(name="uc_user")
-public class User {
+@Cacheable
+public class TelVerifyCode {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer id;
-
+	
+	public String code;
+	
 	public String tel;
 	
-	public String account;
+	public Date sendtime;
 	
-	public String name;
-	
-	public String pwd;
-	
-	public Date addtime;
-	
-	public Date lasttime;
-	
-	public Integer isSuperAdmin;
-	
-	
+	public Date verifyTime;
 }

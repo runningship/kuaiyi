@@ -178,6 +178,7 @@ background-size: cover;}
 .me .my .card{color:#1CA17E}
 .me .logout{text-align: center;position: absolute;bottom: 10pt;width: 100%;}
 .me .logout .btn{width: 94%;background: white;border: 1px solid #106EBD;height: 25pt;border-radius: 5pt;}
+.me .info .login a{    text-decoration: underline;    color: #E7EFE6;}
 
 /*chacha*/
 .chacha {background:#fff; overflow: auto;}
@@ -201,12 +202,21 @@ background-size: cover;}
 
 /*reg*/
 .mainer{background:inherit}
-.reg .row{ height:35pt;line-height:35pt;margin-top:15pt; position:relative;}
-.reg .action{ height:35pt;line-height:35pt;margin-top:15pt; position:relative;}
-.reg .action button{height: 30pt;width: 80%;margin-left: 10%;font-size: 12pt;font-family: inherit;background: #8FC07F;border: none;}
-.reg .row:before{	content: "";position: absolute;left: 0;bottom: -2pt;margin-left:10%;border-left: 1px solid #bbb;height: 8px;}
-.reg .row:after{	content: "";position: absolute;right: 0;bottom: -2pt;margin-right:10%;border-left: 1px solid #bbb;height: 8px;}
-.reg .row input{ height:100%; width:80%;margin-left:10%;border:none;border-bottom:1px solid #bbb;background:none;}
+.reg .row{ height:35pt;line-height:35pt;margin-top:15pt; position:relative;width:80%;margin-left:10%; }
+.reg .action{ height:35pt;line-height:35pt;margin-top:15pt; position:relative;    width: 80%;    margin-left: 10%;}
+.reg .action button{height: 40pt;width: 100%;font-size: 12pt;font-family: inherit;background: #8FC07F;border: none;  margin-top: 20pt;}
+.reg .action div{margin-top:10pt;}
+.reg .action .reg{color:blue;}
+.reg .action .pwd{color:#888;float:right;}
+
+.reg .row:before{	content: "";position: absolute;left: 0;bottom: -2pt;margin-left:0%;border-left: 1px solid #bbb;height: 8px;}
+.reg .row:after{	content: "";position: absolute;right: 0;bottom: -2pt;margin-right:0%;border-left: 1px solid #bbb;height: 8px;}
+.reg .row input{ height:100%; width:100%;border:none;border-bottom:1px solid #bbb;background:none;}
+.reg .row.yzm{width:80%;}
+.reg .row.yzm:after{margin-right:50%;}
+.reg .row.yzm input{width:50%;}
+.reg .row.yzm .btn{    float: right;    border: 1px solid #199E55;    padding: 0px 15pt;    border-radius: 6pt;    color: #199E55;line-height: 20pt;    margin-top: 10pt;}
+.reg .row.yzm .btn.gray{color:gray; border:1px solid gray;}
 
 /*制作二维码*/
 .qrCode .step1 .item{width:33%; display: inline-block; height:150pt;line-height: 150pt;text-align: center;}

@@ -12,11 +12,11 @@ function ready(){
 	api.removeLaunchView();
 	try{
 		//updateIfNeed();
-		window.location='http://192.168.1.101:7080/kuaiyi/public/mobile/html/kuaiyi/html/index.html';
+		window.location='http://192.168.1.222:7080/kuaiyi/public/mobile/html/kuaiyi/index.html';
 	}catch(e){
 		alert('连接服务器失败!');
 		api.closeWidget({
-             id: 'A6992433308373',     //这里改成自己的应用ID
+             id: 'A6992958696021',     //这里改成自己的应用ID
              retData: {name:'closeWidget'},
              silent:true
          });
@@ -145,7 +145,7 @@ api.download({
 //打开欢迎页面
 function openIndexFrame(){
 	//window.location='file://'+fsPrefix+'/html/index.html';
-	window.location='http://192.168.1.101:7080/kuaiyi/public/mobile/html/kuaiyi/html/index.html';
+	window.location='http://192.168.1.222:7080/kuaiyi/public/mobile/html/kuaiyi/index.html';
 	//window.location='http://192.168.1.222:7080/kuaiyi/public/mobile/html/api/index.html';
 }
 
