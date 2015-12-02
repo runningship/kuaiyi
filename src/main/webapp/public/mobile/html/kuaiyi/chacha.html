@@ -18,13 +18,20 @@ apiready=function(){
 function startScan(){
 	var scanner = api.require('scanner');
 	scanner.open(function(ret,err) {
-		alert(ret.msg);
 		api.openWin({
 		    name: 'scanResult',
 		    url: 'product.html',
 		    pageParam:{productUrl:ret.msg}
 		});
     });
+}
+
+function openMakeQRCode(){
+	api.openWin({
+	    name: 'qrCodeStep1',
+	    bounces:false,
+	    url: 'qrCodeStep1.html?t='+new Date().getTime()
+	});
 }
 </script>
 </head>
@@ -50,7 +57,7 @@ function startScan(){
     </div>
     
     <div class="module">
-    	<div class="item"   tapmode="tapped">
+    	<div class="item"   tapmode="tapped" onclick="openMakeQRCode();">
     		<img src="../../images/qrcode.png" />
     		<div class="text"><span class="func">二维码</span><div class="tips">快捷制作</div></div>
     	</div>

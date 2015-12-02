@@ -20,12 +20,17 @@ apiready=function(){
 	}, function(ret){
 	    getConfig(function(cfg){
 	    	config = cfg;
-	    	$('.detail').show();
-	    	$('.login').hide();
-	    	$('.logout').show();
+	    	loginSuccess();
 	    });
 	});
-
+	getConfig(function(cfg){
+		config = cfg;
+		if(config.login){
+			loginSuccess();
+		}else{
+			logoutSuccess();
+		}
+	});
 };
 function openLogin(){
 	api.openWin({
@@ -35,17 +40,45 @@ function openLogin(){
 	});
 }
 
-function logout(){
+function openProfile(){
+	api.openWin({
+	    name: 'myProfile',
+	    bounces:false,
+	    url: 'myProfile.html?t='+new Date().getTime(),
+	    delay:200
+	});
+}
+
+function loginSuccess(){
+	$('.detail').show();
+	$('.login').hide();
+	$('.logout').show();
+}
+
+function logoutSuccess(){
 	$('.detail').hide();
 	$('.login').show();
 	$('.logout').hide();
+}
+function logout(){
+	api.confirm({
+	    title: '提醒',
+	    msg: '确定要退出当前账户吗?',
+	    buttons:['确定', '取消']
+	},function(ret,err){
+	    if(ret.buttonIndex == 1){
+	    	config.login=false;
+	    	saveConfig(config);
+	    	logoutSuccess();
+	    }
+	});
 }
 </script>
 </head>
 <body>
 <div id="wrap" class="bodyer me">
     <div class="account">
-    	<div class="avatar"><img src="../../images/71.jpg"/></div>
+    	<div class="avatar"><img src="../../images/71.jpg"  onclick="openProfile();" /></div>
     	
     	<div class="info">
     		<div class="login">

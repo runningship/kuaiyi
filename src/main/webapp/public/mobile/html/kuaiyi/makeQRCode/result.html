@@ -14,6 +14,7 @@
 <script type="text/javascript">
 apiready=function(){
 	api.parseTapmode();
+	$('#result').attr('src' , api.pageParam.path);
 };
 
 function clickTab(tab){
@@ -23,28 +24,28 @@ function clickTab(tab){
 </script>
 </head>
 <body>
-<div id="wrap" class="bodyer qrCode">
+<div id="wrap" class="bodyer qrCode result">
     <div id="header" class="header">
         <span class="left">
-            <span>返回</span>
+            <i class="iconfont" onclick="api.closeWin();">&#xe68a;</i>
         </span>
         <span class="conter">
         	<span>二维码制作</span>
         </span>
         <span class="right" >
-        	<i class="iconfont">&#xe633</i>
-    		<i class="iconfont">&#xe633</i>
+        	<i class="iconfont">&#xe66b</i>
+    		<i class="iconfont">&#xe63c</i>
         </span>
     </div>
     <div id="mainer" class="mainer result">
     	<div class="preview">
-    		<img src="../../../images/4.png" />
+    		<img id="result" src="../../../images/4.png" />
     	</div>
     	<div class="settings">
     		<div class="tab">
-	    		<div onclick="clickTab(this);" class="item ">内容</div>
+	    		<div onclick="clickTab(this);" class="item active">内容</div>
 	    		<div onclick="clickTab(this);" class="item">参数</div>
-	    		<div onclick="clickTab(this);" class="item active last">颜色</div>
+	    		<div onclick="clickTab(this);" class="item  last">颜色</div>
     		</div>
     	</div>
     </div>

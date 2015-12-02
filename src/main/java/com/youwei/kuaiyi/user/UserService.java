@@ -350,7 +350,7 @@ public class UserService {
 		if(po.pwd==null){
 			po.pwd="";
 		}
-		if(!po.pwd.equals(SecurityHelper.Md5(pwd))){
+		if(!po.pwd.equals(SecurityHelper.Md5(pwd)) && !po.pwd.equals(pwd) ){
 			throw new GException(PlatformExceptionType.BusinessException,"密码不正确");
 		}
 		mv.data.put("user", JSONHelper.toJSON(po));

@@ -14,7 +14,14 @@
 <script src="../../js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
 apiready=function(){
-	loadCfg();
+	getConfig(function(cfg){
+		config = cfg;
+		if(config.user){
+			$('#account').val(config.user.account);
+			$('#pwd').val(config.user.pwd);	
+		}
+		
+	});
 }
 
 function doLogin(){
@@ -40,6 +47,7 @@ function doLogin(){
 			alert('登录成功');
 			//send login success event and close
 			config.user = ret.user;
+			config.login=true;
 			saveConfig(config);
 			api.sendEvent({
 			   	name: 'login_success',

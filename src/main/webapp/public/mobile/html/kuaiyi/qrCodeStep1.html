@@ -15,13 +15,21 @@
 apiready=function(){
 	api.parseTapmode();
 };
+
+function openMakeTxt(){
+	api.openWin({
+	    name: 'makeText',
+	    url: 'makeQRCode/text.html?t='+new Date().getTime(),
+	    delay:200
+	});
+}
 </script>
 </head>
 <body>
 <div id="wrap" class="bodyer qrCode">
     <div id="header" class="header">
         <span class="left">
-            <span>返回</span>
+            <i class="iconfont" onclick="api.closeWin();">&#xe68a;</i>
         </span>
         <span class="conter">
         	<span>二维码制作</span>
@@ -30,13 +38,13 @@ apiready=function(){
         </span>
     </div>
     <div id="mainer" class="mainer step1">
-    	<div tapmode="tapped" class="item"><i class="iconfont text">&#xe640;</i><span class="text">文本</span></div>
-    	<div tapmode="tapped"  class="item"><i class="iconfont url">&#xe64c;</i><span class="text">网址</span></div>
-    	<div tapmode="tapped"  class="item"><i class="iconfont card">&#xe65b;</i><span class="text">名片</span></div>
-    	<div tapmode="tapped"  class="item"><i class="iconfont wifi">&#xe666;</i><span class="text">Wifi</span></div>
-    	<div tapmode="tapped"  class="item"><i class="iconfont tel">&#xe660;</i><span class="text">电话</span></div>
-    	<div tapmode="tapped"  class="item"><i class="iconfont msg">&#xe633;</i><span class="text">短信</span></div>
-    	<div tapmode="tapped"  class="item"><i class="iconfont email">&#xe639;</i><span class="text">邮箱</span></div>
+    	<div onclick="openMakeTxt();" tapmode="tapped" class="item"><i class="iconfont text">&#xe6ca;</i><span class="text">文本</span></div>
+    	<div tapmode="tapped"  class="item"><i class="iconfont url">&#xe6cb;</i><span class="text">网址</span></div>
+    	<div tapmode="tapped"  class="item"><i class="iconfont card">&#xe613;</i><span class="text">名片</span></div>
+    	<div tapmode="tapped"  class="item"><i class="iconfont wifi">&#xe6c9;</i><span class="text">Wifi</span></div>
+    	<div tapmode="tapped"  class="item"><i class="iconfont tel">&#xe658;</i><span class="text">电话</span></div>
+    	<div tapmode="tapped"  class="item"><i class="iconfont msg">&#xe6cc;</i><span class="text">短信</span></div>
+    	<div tapmode="tapped"  class="item"><i class="iconfont email">&#xe620;</i><span class="text">邮箱</span></div>
     </div>
 </div>
 </body>
