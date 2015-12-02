@@ -13,7 +13,7 @@ public class ConfigCache {
 
 	private static Properties props = new Properties();
 	
-	private static final String confFilePath = "D:\\conf\\kuaiyi.properties";
+	private static final String confFilePath = "E:\\tool\\conf\\kcloud.properties";
 	static{
 		load();
 	}
@@ -23,7 +23,7 @@ public class ConfigCache {
 			if(file.exists()){
 				props.load(FileUtils.openInputStream(file));
 			}else{
-				InputStream is = ConfigCache.class.getResourceAsStream("kuaiyi.properties");
+				InputStream is = ConfigCache.class.getResourceAsStream("kcloud.properties");
 				props.load(is);
 				is.close();
 			}

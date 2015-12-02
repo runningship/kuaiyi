@@ -17,7 +17,7 @@
 		p.currentPageNo = Integer.valueOf(currentPageNo);
 	}catch(Exception ex){
 	}
-	p  = dao.findPage(p,"from Role where _site=? and isSystemRole=0 order by id desc",DataHelper.getServerName(request));
+	p  = dao.findPage(p,"from Role where isSystemRole=0 order by id desc");
 	request.setAttribute("page", p);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

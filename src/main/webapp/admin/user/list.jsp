@@ -15,7 +15,6 @@
 	String currentPageNo =  request.getParameter("currentPageNo");
 	String userName =  request.getParameter("userName");
 	String userTel =  request.getParameter("userTel");
-	String _site =  DataHelper.getServerName(request);
 	try{
 		p.currentPageNo = Integer.valueOf(currentPageNo);
 	}catch(Exception ex){
@@ -29,10 +28,6 @@
 	if(StringUtils.isNotEmpty(userTel)){
 		hql.append(" and tel like ?");
 		params.add("%"+userTel+"%");
-	}
-	if(StringUtils.isNotEmpty(_site)){
-		hql.append(" and _site = ?");
-		params.add(_site);
 	}
 	hql.append(" order by id desc");
 	p  = dao.findPage(p, hql.toString(), params.toArray());

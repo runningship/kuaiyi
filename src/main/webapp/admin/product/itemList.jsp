@@ -6,7 +6,6 @@
 <%@page import="com.youwei.kuaiyi.entity.Menu"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.bc.sdak.Page"%>
-<%@page import="com.youwei.kuaiyi.entity.SharedFile"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>

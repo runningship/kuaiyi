@@ -17,7 +17,7 @@
 	}catch(Exception ex){
 	}
 	int gid = Integer.valueOf(groupId);
-	p  = dao.findPage(p,"from User where id not in (select distinct(uid) from UserGroup where gid=?) and _site=?" , new Object[]{gid , DataHelper.getServerName(request)});
+	p  = dao.findPage(p,"from User where id not in (select distinct(uid) from UserGroup where gid=?)" , new Object[]{gid});
 	request.setAttribute("page", p);
 	request.setAttribute("groupId", groupId);
 %>

@@ -4,7 +4,6 @@
 <%@page import="com.youwei.kuaiyi.util.DataHelper"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.bc.sdak.Page"%>
-<%@page import="com.youwei.kuaiyi.entity.SharedFile"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
@@ -16,16 +15,14 @@
 	Page<Map> p = new Page<Map>();
 	String currentPageNo =  request.getParameter("currentPageNo");
 	String parentId =  request.getParameter("parentId");
-	String _site =  DataHelper.getServerName(request);
 	try{
 		p.currentPageNo = Integer.valueOf(currentPageNo);
 	}catch(Exception ex){
 	}
-	List<Menu> yiji  = dao.listByParams(Menu.class, "from Menu where parentId is null and _site = ? order by orderx desc" , _site);
+	List<Menu> yiji  = dao.listByParams(Menu.class, "from Menu where parentId is null order by orderx desc");
 	StringBuilder hql = new StringBuilder("select m1.id as id , m2.name as fname , m1.orderx as orderx , m1.name as name , m1.isImgMenu as isImgMenu from Menu m1 left join "
-			+" Menu m2 on m1.parentId = m2.id where m1._site =?");
+			+" Menu m2 on m1.parentId = m2.id");
 	List<Object> params = new ArrayList<Object>();
-	params.add(_site);
 	if(StringUtils.isNotEmpty(parentId)){
 		hql.append(" and m1.parentId =?");
 		params.add(Integer.valueOf(parentId));

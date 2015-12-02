@@ -10,26 +10,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
-long yiji = dao.countHql("SELECT COUNT(*) FROM Menu where parentId is null and _site = ?" , DataHelper.getServerName(request));
+long yiji = dao.countHql("SELECT COUNT(*) FROM Menu where parentId is null ");
 request.setAttribute("yiji", yiji);
 
-long erji = dao.countHql("SELECT COUNT(*) FROM Menu where parentId is not null and _site = ?" , DataHelper.getServerName(request));
+long erji = dao.countHql("SELECT COUNT(*) FROM Menu where parentId is not null");
 request.setAttribute("erji", erji);
 
-long Artcount = dao.countHql("SELECT COUNT(*) FROM Article where  _site = ?" , DataHelper.getServerName(request));
+long Artcount = dao.countHql("SELECT COUNT(*) FROM Article" );
 request.setAttribute("Artcount", Artcount);
 
-long ucount = dao.countHql("SELECT COUNT(*) FROM User where  _site = ?" , DataHelper.getServerName(request));
+long ucount = dao.countHql("SELECT COUNT(*) FROM User");
 request.setAttribute("ucount", ucount);
 
 long nrcount = dao.countHql("SELECT COUNT(*) FROM NoticeReceiver where receiverId = ?" ,ThreadSessionHelper.getUser().id);
 request.setAttribute("nrcount", nrcount);
 
-long ncount = dao.countHql("SELECT COUNT(*) FROM Notice where senderId = ? and _site = ?" ,ThreadSessionHelper.getUser().id , DataHelper.getServerName(request));
+long ncount = dao.countHql("SELECT COUNT(*) FROM Notice where senderId = ?" ,ThreadSessionHelper.getUser().id);
 request.setAttribute("ncount", ncount);
-
-long filecount = dao.countHql("SELECT COUNT(*) FROM SharedFile where _site = ?" , DataHelper.getServerName(request));
-request.setAttribute("filecount", filecount);
 
 Integer uonline = UserService.onlineUserCountMap.get(DataHelper.getServerName(request));
 request.setAttribute("uonline", uonline);
@@ -90,9 +87,6 @@ function openWin(){
 						</a></li>
 						<li class="mp_news_item"><a target="_blank"> <strong>我发的通知
 							</strong> <span class="read_more">${ncount}条</span>
-						</a></li>
-						<li class="mp_news_item"><a target="_blank"> <strong>共享文件数
-							</strong> <span class="read_more">${filecount}条</span>
 						</a></li>
 						<li class="mp_news_item"><a target="_blank"> <strong>占用磁盘空间</strong> 
 							<c:choose>

@@ -15,7 +15,6 @@
 	Page<Notice> p = new Page<Notice>();
 	String currentPageNo =  request.getParameter("currentPageNo");
 	String title =  request.getParameter("title");
-	String _site =  DataHelper.getServerName(request);
 	try{
 		p.currentPageNo = Integer.valueOf(currentPageNo);
 	}catch(Exception ex){
@@ -24,8 +23,6 @@
 	List<Object> params = new ArrayList<Object>();
 	hql.append(" where senderId = ?");
 	params.add(ThreadSessionHelper.getUser().id);
-	hql.append(" and _site = ?");
-	params.add(_site);
 	if(StringUtils.isNotEmpty(title)){
 		hql.append(" and title like ?");
 		params.add("%"+title+"%");

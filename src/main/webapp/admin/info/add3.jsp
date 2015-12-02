@@ -8,8 +8,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%
  CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
- List<Menu> list1 = dao.listByParams(Menu.class, "from Menu where parentId is null and _site=?" , DataHelper.getServerName(request));
- List<Menu> list2 = dao.listByParams(Menu.class, "from Menu where parentId is not null and _site=?", DataHelper.getServerName(request));
+ List<Menu> list1 = dao.listByParams(Menu.class, "from Menu where parentId is null ");
+ List<Menu> list2 = dao.listByParams(Menu.class, "from Menu where parentId is not null ");
  request.setAttribute("list1", list1);
  request.setAttribute("list2", list2);
  %>

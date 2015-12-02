@@ -8,7 +8,7 @@
     pageEncoding="UTF-8"%>
  <%
  CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
- List<Menu> list1 = dao.listByParams(Menu.class, "from Menu where parentId is null and _site=?" , DataHelper.getServerName(request));
+ List<Menu> list1 = dao.listByParams(Menu.class, "from Menu where parentId is null ");
  request.setAttribute("list1", list1);
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
