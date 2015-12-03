@@ -42,7 +42,7 @@ function updateIfNeed(){
                 key:'version'
             },function(data,err){
             	fs.exist({
-            	    path: 'file://'+fsPrefix+'/html/welcome.html'
+            	    path: 'file://'+fsPrefix+'/html/kuaiyi/index.html'
             	},function(fsret,err){
             	    if(fsret.exist){
             	    	if(data.value && ret.version!='debug' && data.value==ret.version){
@@ -50,6 +50,7 @@ function updateIfNeed(){
                     		return;
                     	}
             	    }
+            	    
             	    $('body').css('background' , '#000');
             		loadstart();
             		loadtext('系统启动中...');

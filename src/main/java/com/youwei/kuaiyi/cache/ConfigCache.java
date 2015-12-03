@@ -13,7 +13,7 @@ public class ConfigCache {
 
 	private static Properties props = new Properties();
 	
-	private static final String confFilePath = "E:\\tool\\conf\\kcloud.properties";
+	private static final String confFilePath = "E:\\tool\\config\\kcloud.properties";
 	static{
 		load();
 	}

@@ -28,11 +28,10 @@ function editMe(){
 	<div class="head_box">
 		<div class="inner wrp">
 			<div class="logo">
-				<img src="${projectName }/assets/${domain}/logo.png"  style="height:48px;float:left;padding-right:10px;"/><div style="float:right;line-height:53px;"> · 管理后台</div>
+				<img src="${projectName }/assets/logo.png"  style="height:48px;float:left;padding-right:10px;"/><div style="float:right;line-height:53px;"> · 管理后台</div>
 			</div>
 			<div class="account">
 				<div class="account_meta account_info">
-					<a href="${projectName }/index.jsp" target="_blank" class="nickname">网站首页</a><span style="color:#ddd">|</span>
 					<a href="${projectName }/admin/user/info.jsp?nav=me" class="nickname">${user.name }</a><span style="color:#ddd">|</span><a class="logout"  style="" href="${projectName }/c/admin/user/adminLogout">退出</a>
 				</div>
 			</div>

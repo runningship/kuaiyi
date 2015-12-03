@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript">
+apiready = function(){
+	setTimeout(function(){
+		//window.location='index.html';
+		openIndexFrame();
+		//openGroup();
+	} , 2000);
+};
+
+
+function openIndexFrame(){
+	api.openSlidLayout ({
+	    type: 'left',
+	    leftEdge:120,
+	    rightEdge:100,
+	    fixedPane: {
+	        name: 'user', 
+	        url: 'uside.html', 
+	        bgColor: '#fff', 
+	        bounces:false,
+	        vScrollBarEnabled:true,
+	        hScrollBarEnabled:false
+	    },
+	    slidPane: {
+	        name: 'index', 
+	        url: 'index.html', 
+	        pageParam:{isLayoutOpen:true},
+	        bgColor: '#fff', 
+	        bounces:false,
+	        vScrollBarEnabled:true,
+	        hScrollBarEnabled:false
+	    }
+	});
+	
+}
+
+
+
+</script>
+<style type="text/css">
+html{height:100%}
+body{background:white;
+    background: url("../images/welcome.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center 0;
+    background-color: rgb(87,185,255);
+}
+
+</style>
+</head>
+<body>
+<div class="body" >
+</div>
+</body>
+</html>

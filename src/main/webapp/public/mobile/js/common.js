@@ -1,4 +1,4 @@
-var server_host = "192.168.1.222:7080/kuaiyi";
+var server_host = "172.16.33.73";
 //定位所在城市
 var myCity;
 var config;
