@@ -1,4 +1,4 @@
-var server_host = "172.16.33.73";
+var server_host = "kcloud.iflytek.com";
 //定位所在城市
 var myCity;
 var config;

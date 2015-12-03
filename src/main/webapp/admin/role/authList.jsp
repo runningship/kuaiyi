@@ -1,10 +1,10 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.youwei.kuaiyi.entity.RoleAuth"%>
+<%@page import="com.kuaiyi.entity.RoleAuth"%>
 <%@page import="java.io.File"%>
 <%@page import="net.sf.json.JSONArray"%>
 <%@page import="org.apache.commons.io.FileUtils"%>
 <%@page import="org.bc.sdak.Page"%>
-<%@page import="com.youwei.kuaiyi.entity.User"%>
+<%@page import="com.kuaiyi.entity.User"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>

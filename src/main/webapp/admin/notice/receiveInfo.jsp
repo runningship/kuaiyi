@@ -1,6 +1,6 @@
-<%@page import="com.youwei.kuaiyi.entity.NoticeReceiver"%>
-<%@page import="com.youwei.kuaiyi.entity.User"%>
-<%@page import="com.youwei.kuaiyi.entity.Notice"%>
+<%@page import="com.kuaiyi.entity.NoticeReceiver"%>
+<%@page import="com.kuaiyi.entity.User"%>
+<%@page import="com.kuaiyi.entity.Notice"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

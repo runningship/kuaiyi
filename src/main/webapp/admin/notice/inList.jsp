@@ -1,10 +1,10 @@
-<%@page import="com.youwei.kuaiyi.util.DataHelper"%>
-<%@page import="com.youwei.kuaiyi.ThreadSessionHelper"%>
+<%@page import="com.kuaiyi.util.DataHelper"%>
+<%@page import="com.kuaiyi.ThreadSessionHelper"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.bc.sdak.Page"%>
-<%@page import="com.youwei.kuaiyi.entity.User"%>
+<%@page import="com.kuaiyi.entity.User"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>

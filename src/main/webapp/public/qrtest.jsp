@@ -1,6 +1,6 @@
-<%@page import="com.youwei.kuaiyi.util.QRCodeUtil"%>
+<%@page import="com.kuaiyi.util.QRCodeUtil"%>
 <%@page import="com.google.zxing.EncodeHintType"%>
-<%@page import="com.youwei.kuaiyi.entity.ProductItem"%>
+<%@page import="com.kuaiyi.entity.ProductItem"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@page import="java.io.OutputStream"%>

@@ -1,4 +1,4 @@
-<%@page import="com.youwei.kuaiyi.util.FileHelper"%>
+<%@page import="com.kuaiyi.util.FileHelper"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.apache.commons.io.filefilter.DirectoryFileFilter"%>
 <%@page import="org.apache.commons.io.filefilter.FileFileFilter"%>

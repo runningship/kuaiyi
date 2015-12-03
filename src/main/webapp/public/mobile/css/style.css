@@ -19,7 +19,7 @@ box-orient: horizontal;
 /* default */
 .bodyer{}
 
-.header{ height: 50px; line-height: 50px; background: #444; color:#FFF; display: -moz-box;display: -webkit-box;display: box;-moz-box-orient: horizontal;-webkit-box-orient: horizontal;box-orient: horizontal;white-space:nowrap;word-break: keep-all;}
+.header{ height: 50px; line-height: 50px; background: #444; color:#fff;font-size:12pt; display: -moz-box;display: -webkit-box;display: box;-moz-box-orient: horizontal;-webkit-box-orient: horizontal;box-orient: horizontal;white-space:nowrap;word-break: keep-all;}
 .header .left,
 .header .right,
 .header .conter{-webkit-box-flex: 1;display: block; height: inherit; line-height: inherit;}
@@ -185,8 +185,9 @@ background-size: cover;}
 .chacha {background:#fff; overflow: auto;}
 .chacha .saoma{text-align:center;background:#FF1910; padding-top:20pt;padding-bottom:20pt;}
 .chacha .saoma .item{display: inline-block; width:45%;text-align:center; }
+.chacha .saoma .item .iconfont{font-size:70pt;color:white;height: 50pt;line-height: 50pt}
 .chacha .saoma img{width:55pt;}
-.chacha .saoma .text{color:#fff; font-size:9pt;}
+.chacha .saoma .text{color:#fff; font-size:9pt;margin-top: 10pt;}
 .chacha .module {text-align:center;}
 .chacha .module .item{width:46%; display: inline-block;margin-top:5pt; border-radius: 6pt; margin-left:1%; margin-right:1%;
 	height:60pt;padding-top:18pt;border: 1px solid #dedede;
@@ -200,6 +201,8 @@ background-size: cover;}
 .chacha .article .item img{width:100%; height:120pt;}
 .chacha .article .item .title{height: 25pt;background: #D71616;color: white;position: absolute;bottom: 5px;line-height: 25pt;width: 100%;text-align: center;}
 .chacha .article .item .time{color:#888;}
+.chacha .guangao{margin-top:2pt;}
+.chacha .guangao img{width:100%;margin-left:0%;height: 170pt;}
 
 /*reg*/
 .mainer{background:inherit}

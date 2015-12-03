@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="com.youwei.kuaiyi.util.DataHelper"%>
+<%@page import="com.kuaiyi.util.DataHelper"%>
 <%@page import="java.util.List"%>
-<%@page import="com.youwei.kuaiyi.entity.Menu"%>
+<%@page import="com.kuaiyi.entity.Menu"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
