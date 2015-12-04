@@ -251,3 +251,9 @@ background-size: cover;}
 .myprofile .mainer .btn{	    height: 25pt;    line-height: 25pt;    width: 100pt;    margin-left: auto;    display: block;    margin-right: auto;    text-align: center;    background: #E46A10;
     margin-top: 12pt;border-radius:2pt;    color: white;border:none;
 }
+
+.search .mainer{background:#efefef}
+.search .condition input{outline:none;border:none;font-size:10pt;padding-left:23pt;width:70%;border-bottom: 1px solid green; height:20pt;}
+.search .condition .iconfont{font-size:15pt;color:green;position: absolute;}
+.search .condition{background:#fff;height:37pt;line-height:30pt;padding-left:5%; margin-top:18pt;margin-bottom:10pt;}
+.search .condition .btn{float:right;margin-right:5pt;}

@@ -18,11 +18,21 @@ apiready=function(){
 function startScan(){
 	var scanner = api.require('scanner');
 	scanner.open(function(ret,err) {
-		api.openWin({
-		    name: 'scanResult',
-		    url: 'product.html',
-		    pageParam:{productUrl:ret.msg}
-		});
+		alert(JSON.stringify(ret));
+		if(!ret.msg){
+			alert('无法识别的内容');
+			return;
+		}
+		if(ret.msg.indexOf('http:')>-1){
+			api.openWin({
+			    name: 'scanResult',
+			    url: 'product.html',
+			    pageParam:{productUrl:ret.msg}
+			});	
+		}else{
+			//queryBarcode(ret.msg);
+		}
+		
     });
 }
 
@@ -31,6 +41,59 @@ function openMakeQRCode(){
 	    name: 'qrCodeStep1',
 	    bounces:false,
 	    url: 'qrCodeStep1.html?t='+new Date().getTime()
+	});
+}
+
+function formatterDateTime() {
+	var date=new Date()
+	var month=date.getMonth() + 1
+  	var datetime = date.getFullYear()
+                + ""// "年"
+                + (month >= 10 ? month : "0"+ month)
+                + ""// "月"
+                + (date.getDate() < 10 ? "0" + date.getDate() : date
+                        .getDate())
+                + ""
+                + (date.getHours() < 10 ? "0" + date.getHours() : date
+                        .getHours())
+                + ""
+                + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date
+                        .getMinutes())
+                + ""
+                + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date
+                        .getSeconds());
+ 	return datetime;
+}
+
+function queryBarcode(code){
+	$.ajax({
+	    type: 'post',
+	    url: 'http://route.showapi.com/66-22',
+	    dataType: 'jsonp',
+	    data: {
+	        "showapi_timestamp": formatterDateTime(), //注意要使用当前时间。服务器只处理时间误差10分钟以内的请求
+	        "showapi_appid": '13436', //这里需要改成自己的appid
+	        "showapi_sign": '46fded9c1c6f4be887f4d417a3382d98',  //这里需要改成自己的密钥
+	        "code":code
+	    },
+	    jsonp: 'jsonpcallback',
+	    error: function(XmlHttpRequest, textStatus, errorThrown) {
+	        alert("查询失败!");
+	    },
+	    success: function(result) {
+	        if(!result.showapi_res_error){
+	        	return;
+	        }
+// 	        code: "6920475910281"
+//         	flag: true
+//         	goodsName: "花帜抽取式面巾纸"
+//         	img: ""
+//         	manuName: "上海月月舒妇女用品有限公司"
+//         	price: "4.00"
+//         	ret_code: 0
+//         	spec: "抽取式面巾纸400张"
+//         	trademark: ""
+	    }
 	});
 }
 </script>
@@ -49,13 +112,13 @@ function openMakeQRCode(){
     </div>
     <div class="saoma">
     	<div class="item">
-    		<i class="iconfont card">&#xe6ce;</i>
+    		<i  onclick="startScan();"  class="iconfont card">&#xe6ce;</i>
     		<div class="text">扫一扫查真伪</div>
     		<!-- 版本控制 -->
 <!--     		<img  tapmode="tapped" src="../../images/scan.png" onclick="startScan();"/><div class="text">扫一扫查价格</div> -->
     	</div>
     	<div class="item">
-    		<i class="iconfont card">&#xe6cd;</i>
+    		<i  onclick="startScan();" class="iconfont card">&#xe6cd;</i>
     		<div class="text">扫一扫查兑奖</div>
 <!--     		<img  tapmode="tapped" src="../../images/scan.png" onclick="startScan();" /><div class="text">扫一扫查真伪</div> -->
     	</div>

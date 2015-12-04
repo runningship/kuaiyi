@@ -11,7 +11,7 @@
   </welcome-file-list>
   
   	<listener>
-	    <listener-class>com.youwei.kuaiyi.StartUpListener</listener-class>
+	    <listener-class>com.kuaiyi.StartUpListener</listener-class>
 	</listener>
 	<session-config>
 	  <session-timeout>1440</session-timeout>
@@ -19,7 +19,7 @@
 	 
 	 <filter>
     	<filter-name>siteFilter</filter-name>
-    	<filter-class>com.youwei.kuaiyi.SiteFilter</filter-class>
+    	<filter-class>com.kuaiyi.SiteFilter</filter-class>
     </filter>
     <filter-mapping>
     	<filter-name>siteFilter</filter-name>
@@ -28,7 +28,7 @@
     
 <!-- 	 <filter> -->
 <!--     	<filter-name>UserSessionFilter</filter-name> -->
-<!--     	<filter-class>com.youwei.kuaiyi.UserSessionFilter</filter-class> -->
+<!--     	<filter-class>com.kuaiyi.UserSessionFilter</filter-class> -->
 <!--     </filter> -->
 <!--     <filter-mapping> -->
 <!--     	<filter-name>UserSessionFilter</filter-name> -->
