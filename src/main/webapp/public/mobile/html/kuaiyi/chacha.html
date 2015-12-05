@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-<title>快易查</title>
+<title>快易扫</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
 <link href="../../css/reset.css" rel="stylesheet">
@@ -18,7 +18,6 @@ apiready=function(){
 function startScan(){
 	var scanner = api.require('scanner');
 	scanner.open(function(ret,err) {
-		alert(JSON.stringify(ret));
 		if(!ret.msg){
 			alert('无法识别的内容');
 			return;
@@ -101,43 +100,63 @@ function queryBarcode(code){
 <body>
 <div id="wrap" class="bodyer chacha">
 	<div id="header" class="header">
-        <span class="left">
-            
-        </span>
-        <span class="conter">
-        	<span>易查查</span><!--  -->
-        </span>
-        <span class="right" >
-        </span>
+<!--         <span class="left"> -->
+<!--             <span>合肥市</span><i class="iconfont pinlun">&#xe6d1;</i> -->
+<!--         </span> -->
+<!--         <div class="conter search"> -->
+<!--         	<i class="iconfont ">&#xe608;</i><input placeholder="口子窖" /> -->
+<!--         </div> -->
+<!--         <span class="right" > -->
+<!--         	<i class="iconfont ">&#xe6d4;</i> -->
+<!--         </span> -->
+       	<table>
+       		<tr>
+       			<td><span class="city">合肥市</span><i class="iconfont pinlun">&#xe6d1;</i></td>
+       			<td class="search" style="width:100%;"><i class="iconfont ">&#xe608;</i><input placeholder="口子窖" /></td>
+       			<td class="right"><i class="iconfont ">&#xe6d4;</i></td>
+       		</tr>
+        </table>
     </div>
-    <div class="saoma">
-    	<div class="item">
-    		<i  onclick="startScan();"  class="iconfont card">&#xe6ce;</i>
-    		<div class="text">扫一扫查真伪</div>
-    		<!-- 版本控制 -->
-<!--     		<img  tapmode="tapped" src="../../images/scan.png" onclick="startScan();"/><div class="text">扫一扫查价格</div> -->
+<!--     <div class="saoma"> -->
+<!--     	<div class="item"> -->
+<!--     		<i  onclick="startScan();"  class="iconfont card">&#xe6ce;</i> -->
+<!--     		<div class="text">扫一扫查真伪</div> -->
+<!--     		版本控制 -->
+<!--     	</div> -->
+<!--     	<div class="item"> -->
+<!--     		<i  onclick="startScan();" class="iconfont card">&#xe6cd;</i> -->
+<!--     		<div class="text">扫一扫查兑奖</div> -->
+<!--     	</div> -->
+<!--     </div> -->
+	<div id="mainer" class="mainer">
+	
+   	<img class="logo"  alt="" src="../../images/zhongzi.jpg" />
+    <div class="action">
+    	<div class="item" tapmode="tapped">
+	    	<img src="../../images/scan.png"  onclick="startScan();" />
+	    	<div class="text">扫一扫查真伪</div>
     	</div>
-    	<div class="item">
-    		<i  onclick="startScan();" class="iconfont card">&#xe6cd;</i>
-    		<div class="text">扫一扫查兑奖</div>
-<!--     		<img  tapmode="tapped" src="../../images/scan.png" onclick="startScan();" /><div class="text">扫一扫查真伪</div> -->
+    	<div class="item" tapmode="tapped">
+	    	<img src="../../images/gift.png" />
+	    	<div class="text">兑奖</div>
     	</div>
-    </div>
-    <div class="guangao">
-    	<img alt="" src="../../images/kouzijiao.jpg" />
+    	<div class="item last" tapmode="tapped">
+	    	<img src="../../images/qiandao.png" />
+	    	<div class="text">签到</div>
+    	</div>
     </div>
     <div class="module">
-    	<div class="item"   tapmode="tapped" onclick="openMakeQRCode();">
-    		<img src="../../images/qrcode.png" />
-    		<div class="text"><span class="func">二维码</span><div class="tips">快捷制作</div></div>
+    	<div class="item"  tapmode="tapped">
+    		<img src="../../images/shopping-cart.png" />
+    		<div class="text"><span class="func">快易商城</span><div class="tips">实惠 时尚</div></div>
     	</div>
     	<div class="item"  tapmode="tapped">
     		<img src="../../images/jifen.png" />
-    		<div class="text"><span class="func">积分兑换</span><div class="tips">乐享缤纷好礼</div></div>
+    		<div class="text"><span class="func">积分兑换</span><div class="tips">乐享好礼</div></div>
     	</div>
-    	<div class="item"  tapmode="tapped">
-    		<img src="../../images/qiandao.png" />
-    		<div class="text"><span class="func">每日签到</span><div class="tips">轻松赚积分</div></div>
+    	<div class="item"   tapmode="tapped" onclick="openMakeQRCode();">
+    		<img src="../../images/qrcode.png" />
+    		<div class="text"><span class="func">二维码</span><div class="tips">快捷制作</div></div>
     	</div>
     	<div class="item"  tapmode="tapped">
     		<img src="../../images/youhui.png" />
@@ -145,12 +164,18 @@ function queryBarcode(code){
     	</div>
     </div>
     
-    <div class="article">
-    	<div class="item">
-    		<div class="time">2015-11-28 19:33:23</div>
-    		<img src="../../images/wz2.jpg"/>
-    		<div  class="title">【暖冬】暖心暖胃的鸭汤云吞</div>
-    	</div>
+<!--     <div class="article"> -->
+<!--     	<div class="item"> -->
+<!--     		<div class="time">2015-11-28 19:33:23</div> -->
+<!--     		<img src="../../images/wz2.jpg"/> -->
+<!--     		<div  class="title">【暖冬】暖心暖胃的鸭汤云吞</div> -->
+<!--     	</div> -->
+<!--     </div> -->
+
+	<div class="guangao">
+    	<img alt="" src="../../images/kouzijiao.jpg" />
+    </div>
+    
     </div>
 </div>
 </body>

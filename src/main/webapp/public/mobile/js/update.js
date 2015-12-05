@@ -12,7 +12,7 @@ function ready(){
 	api.removeLaunchView();
 	try{
 		//updateIfNeed();
-		window.location='http://192.168.1.222:7080/kuaiyi/public/mobile/html/kuaiyi/index.html';
+		window.location='http://192.168.1.91:7080/public/mobile/html/kuaiyi/index.html';
 	}catch(e){
 		alert('连接服务器失败!');
 		api.closeWidget({

@@ -195,15 +195,27 @@ background-size: cover;}
 .chacha .module .item img{height:40pt; float:left; margin-left:8%;}
 .chacha .module .item .text{float:right; margin-right:4%;margin-top:5pt;}
 .chacha .module .item .text .func{font-size:11pt;}
-.chacha .module .item .text .tips{font-size:10pt;color:#888 }
+.chacha .module .item .text .tips{font-size:9pt;color:#888 }
 .chacha .article{margin-left:5pt;margin-right:5pt;background: #efefef;}
 .chacha .article .item{margin-top:5pt;position:relative;background: #fff;}
 .chacha .article .item img{width:100%; height:120pt;}
 .chacha .article .item .title{height: 25pt;background: #D71616;color: white;position: absolute;bottom: 5px;line-height: 25pt;width: 100%;text-align: center;}
 .chacha .article .item .time{color:#888;}
 .chacha .guangao{margin-top:2pt;}
-.chacha .guangao img{width:100%;margin-left:0%;height: 170pt;}
-
+.chacha .guangao img{width:100%;margin-left:0%;height: 100pt;}
+.chacha .search{position:relative;width:100%;vertical-align: -webkit-baseline-middle;}
+.chacha .search input{height:23pt;line-height:23pt; padding-left:24pt;padding-right:24pt;border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
+.chacha .search .iconfont{color:#aaa; position:absolute;left:6pt; font-size:10pt;}
+.chacha .header .left{display:inline;}
+.chacha .header .right {display:inline;padding-right:10pt;}
+.chacha .action{width: 98%;margin-left: 1%;text-align: center;margin-top: -4pt;}
+.chacha .action .item{width:32%;display: inline-block;line-height: 20pt;border-right: 1px solid #eee;padding-top: 10pt;}
+.chacha .action .item.last{border-right:none;}
+.chacha .action img{height:48pt;}
+.chacha .action .item .iconfont{font-size: 25pt; padding:8pt;border-radius: 100px;background: green;color: white;}
+.chacha .action .item .text{font-size: 9pt;color: #999;}
+.chacha .logo{height:80pt;width:100%;}
+.chacha .header .city{margin-left:10pt;}
 /*reg*/
 .mainer{background:inherit}
 .reg .row{ height:35pt;line-height:35pt;margin-top:15pt; position:relative;width:80%;margin-left:10%; }
