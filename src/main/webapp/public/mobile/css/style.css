@@ -204,10 +204,11 @@ background-size: cover;}
 .chacha .guangao{margin-top:2pt;}
 .chacha .guangao img{width:100%;margin-left:0%;height: 100pt;}
 .chacha .search{position:relative;width:100%;vertical-align: -webkit-baseline-middle;}
-.chacha .search input{height:23pt;line-height:23pt; padding-left:24pt;padding-right:24pt;border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
-.chacha .search .iconfont{color:#aaa; position:absolute;left:6pt; font-size:10pt;}
+.chacha .search input{height:23pt;line-height:23pt; text-indent: 20pt;color:#aaa;width: 100%;
+border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
+.chacha .search .iconfont{color:#aaa; position:absolute;left:6pt; font-size:10pt;z-index: 99999;top: -1pt;}
 .chacha .header .left{display:inline;}
-.chacha .header .right {display:inline;padding-right:10pt;}
+.chacha .header .right {display:inline;padding-right:6pt;margin-left:6pt;}
 .chacha .action{width: 98%;margin-left: 1%;text-align: center;margin-top: -4pt;}
 .chacha .action .item{width:32%;display: inline-block;line-height: 20pt;border-right: 1px solid #eee;padding-top: 10pt;}
 .chacha .action .item.last{border-right:none;}
