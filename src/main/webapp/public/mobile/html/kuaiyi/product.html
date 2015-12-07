@@ -11,13 +11,15 @@
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/common.css" rel="stylesheet">
 <script src="../../js/jquery.min.js" type="text/javascript"></script>
+<script src="../../js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
 apiready=function(){
 	var header = $('#header');
 	var mainer = $('#mainer');
+	var url = "http://"+server_host+"/public/itemView.jsp?qrCode="+api.pageParam.code;
 	api.openFrame({
-        name: 'profile',
-		url: api.pageParam.productUrl,
+        name: 'productFrame',
+		url: url,
 		rect:{x: 0,
 		        y: header.height(),
 		        w: 'auto',

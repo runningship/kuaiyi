@@ -8,7 +8,7 @@ request.setAttribute("domain", DataHelper.getServerName(request));
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>联信投资 - 后台登录</title>
+	<title>快易扫 - 后台登录</title>
 	<script type="text/javascript" src="../admin/js/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="../admin/js/buildHtml.js"></script>
 	<script type="text/javascript" src="../admin/js/layer-v1.9.3/layer/layer.js"></script>

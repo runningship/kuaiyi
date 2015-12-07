@@ -1,3 +1,4 @@
+<%@page import="com.kuaiyi.util.EndecryptHelper"%>
 <%@page import="com.kuaiyi.util.QRCodeUtil"%>
 <%@page import="com.google.zxing.EncodeHintType"%>
 <%@page import="com.kuaiyi.entity.ProductItem"%>
@@ -14,9 +15,12 @@
 String id = request.getParameter("id");
 CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
 ProductItem item = dao.get(ProductItem.class, Integer.valueOf(id));
-//String url = "http://192.168.1.222:7080/kuaiyi/public/product.jsp?qrCode="+item.qrCode;
+EndecryptHelper.get3DESEncrypt(item.qrCode, "kuaiyisao");
+String code = "kuaiyisao:"+item.qrCode;
+//String url = "http://192.168.1.222:7080/public/product.jsp?qrCode="+ code;
+String url = code;
 //String url = "http://xzye.ngrok.com//kuaiyi/public/product.jsp?qrCode="+item.qrCode; 
-String url = "http://www.zhongjiebao.com/old/product3.html?pici="+item.pici+"&qrCode="+item.qrCode+"&lottery="+item.lottery;
+//String url = "http://www.zhongjiebao.com/old/product3.html?pici="+item.pici+"&qrCode="+item.qrCode+"&lottery="+item.lottery;
 
 //File stream = QRCode.from(url).to(ImageType.JPG).withSize(250, 250).file();
 //BufferedImage bufImg = ImageIO.read(stream);

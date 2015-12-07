@@ -119,7 +119,7 @@ function openAdd(id){
 						</tr>
 						<c:forEach items="${page.result }" var="item" varStatus="status">
 							<tr class="statue_${status.index%2}">
-								<td> ${item.qrCode } </td> 
+								<td> <a href="../../public/itemView.jsp?qrCode=${item.qrCode }" target="_blank">${item.qrCode }</a> </td> 
 								<td> ${item.verifyCode }</td>
 								<td> ${item.lottery }元</td>
 								<td> ${item.pici }</td>

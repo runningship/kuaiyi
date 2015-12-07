@@ -130,7 +130,7 @@ function openAdd(id){
 						<c:forEach items="${page.result }" var="product" varStatus="status">
 						<tr class="statue_${status.index%2}">
 							<td> <a href="#" onclick="editThis(${product.id});">${product.title }</a> </td> 
-							<td style="width:80px;"> <a href="itemList.jsp?productId=${product.id }" onclick="">二维码</a> </td> 
+							<td style="width:80px;"> <a href="itemList.jsp?productId=${product.id }" >二维码</a> </td> 
 						</tr>
 						</c:forEach>
 					</table>

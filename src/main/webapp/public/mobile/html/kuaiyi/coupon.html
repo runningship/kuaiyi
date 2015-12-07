@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>优惠券</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="../../css/reset.css" rel="stylesheet">
+<link href="../../css/style.css" rel="stylesheet">
+<link href="../../css/common.css" rel="stylesheet">
+<script src="../../js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+apiready=function(){
+	api.parseTapmode();
+};
+
+function openMakeTxt(){
+	api.openWin({
+	    name: 'makeText',
+	    url: 'makeQRCode/text.html?t='+new Date().getTime(),
+	    delay:200
+	});
+}
+</script>
+</head>
+<body>
+<div id="wrap" class="bodyer coupon">
+    <div id="header" class="header">
+        <span class="left">
+            <i class="iconfont" onclick="api.closeWin();">&#xe68a;</i>
+        </span>
+        <span class="conter">
+        	<span>优惠券</span>
+        </span>
+        <span class="right" >
+        </span>
+    </div>
+    <div id="mainer" class="mainer ">
+    	<table style="width:100%">
+    		<tr class="item">
+    			<td class="value"><span class="unit">￥</span><span class="price">10</span></td>
+    			<td class="desc">
+    				<li>订单满足0元可使用</li>
+	    			<li class="date"><span>有效期: </span><span>2015-12-07 11:09至</span><p class="end">2016-01-07 11:09</p></li></td>
+    			<td class="action">使用</td>
+    		</tr>
+    		<tr class="tips"><td colspan="3">会员积分抵换优惠券</td></tr>
+    		<tr class="item">
+    			<td class="value"><span class="unit">￥</span><span class="price">22</span></td>
+    			<td class="desc">
+    				<li>订单满足0元可使用</li>
+	    			<li class="date"><span>有效期: </span><span>2015-12-07 11:09至</span><p class="end">2016-01-07 11:09</p></li></td>
+    			<td class="action">使用</td>
+    		</tr>
+    		<tr class="tips"><td colspan="3">会员积分抵换优惠券</td></tr>
+    		<tr class="item">
+    			<td class="value"><span class="unit">￥</span><span class="price">16</span></td>
+    			<td class="desc">
+    				<li>订单满足0元可使用</li>
+	    			<li class="date"><span>有效期: </span><span>2015-12-07 11:09至</span><p class="end">2016-01-07 11:09</p></li></td>
+    			<td class="action">使用</td>
+    		</tr>
+    		<tr class="tips"><td colspan="3">会员积分抵换优惠券</td></tr>
+    	</table>
+    </div>
+</div>
+</body>
+</html>

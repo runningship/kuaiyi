@@ -22,13 +22,19 @@ function startScan(){
 			alert('无法识别的内容');
 			return;
 		}
-		if(ret.msg.indexOf('http:')>-1){
+		if(ret.msg.indexOf('kuaiyisao:')>-1){
+			var code = ret.msg.replace("kuaiyisao:" , "");
 			api.openWin({
 			    name: 'scanResult',
 			    url: 'product.html',
-			    pageParam:{productUrl:ret.msg}
+			    pageParam:{code: code}
 			});	
 		}else{
+			api.openWin({
+			    name: 'scanResult',
+			    url: 'scanResult.html',
+			    pageParam:{conts:ret.msg}
+			});
 			//queryBarcode(ret.msg);
 		}
 		
