@@ -287,3 +287,17 @@ border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
 .coupon .mainer .desc .date{    color: rgb(240,140,77); margin-top: 16pt;    word-break: break-all;}
 .coupon .mainer .desc .date .end{padding-left:41pt; }
 .coupon .mainer .action{    width: 40pt; text-align:center;vertical-align: middle; background:rgb(254,126,0); color:white;}
+
+.product .bodyer {text-align:center;font-size: 12pt;}
+.product .bodyer .title{text-align:center;}
+.product .bodyer .ads{color: #aaa;font-size: 1.0em;}
+.product .bodyer .addtime{margin: 10px 0;color: #999999;  background-color: #f4f4f4;  line-height: 36px}
+.product .bodyer .field{width:96%;text-align:left;    text-align: left;    margin-left: auto;    margin-right: auto;}
+.product .bodyer .field p{margin-bottom:5pt;}
+.product .bodyer .duijiang{position: relative;}
+.product .bodyer .duijiang .img{width:100%;z-index:9999;height:170pt;}
+.product .bodyer .duijiang .value{ position: absolute;    top: 89pt;    font-size: 67pt;    left: 30%;    width: 40%;    text-align: center;color:#C19511; }
+.product .bodyer .duijiang .value .unit{font-size:25pt;color:chocolate;}
+.product .bodyer .duijiang .code{ position:absolute; bottom: 10pt;width: 90%; left: 5%;}
+.product .bodyer .duijiang .code input{height: 20pt;line-height: 20pt;font-size: 14pt;}
+.product .bodyer .duijiang .code .getBtn{padding: 8pt 10pt; background: rgb(255,72,92); color: white; font-weight: bold;}

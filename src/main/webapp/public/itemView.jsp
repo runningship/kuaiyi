@@ -53,12 +53,18 @@ window.onload=function(){
 		<p>兑奖状态 :  未兑奖</p>
 		</div>
 		<div>
-		<img alt="" src="youhui.jpg" style="width:96%;z-index:9999;height:auto;">
+		<div style="position: relative;">
+			<img src="youhuiquan.png" style="width:100%;z-index:9999;height:250pt;"/>
+			<div style="    position: absolute;    top: 90pt;    font-size: 60pt;    left: 30%;    width: 40%;    text-align: center;color:#C19511;"><SUP style="font-size:25pt;color:chocolate;">￥</SUP>10</div>
+			<div style="position:absolute; bottom: 10pt;width: 70%; left: 15%;height: 78pt; border: 2px solid red; line-height: 78pt;">
+				<span>请输入兑奖码: </span><input style="height: 25pt;line-height: 25pt;font-size: 14pt;" /> <span style="padding: 8pt 10pt; background: rgb(255,72,92); color: white; font-weight: bold;">立即领取</span>
+			</div>
+		</div>
 		
 		<div class="conts" style="  width: 100%;  margin-left: auto;  margin-right: auto;">
 			<p>${product.conts }</p>
 		</div>
-	
-	
 
-</div></form></body></html>
+		</div>
+</form>
+</body></html>

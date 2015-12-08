@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.GException;
 import org.bc.sdak.TransactionalServiceHelper;
+import org.bc.sdak.utils.JSONHelper;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
 import org.bc.web.PlatformExceptionType;
@@ -48,6 +49,20 @@ public class ProductService {
 		if(po!=null){
 			dao.delete(po);
 		}
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView getItem(String code){
+		ModelAndView mv = new ModelAndView();
+		ProductItem item = dao.getUniqueByKeyValue(ProductItem.class, "qrCode", code);
+		if(item==null){
+			throw new GException(PlatformExceptionType.BusinessException,"没有找到商品信息");
+		}
+		mv.data.put("item", JSONHelper.toJSON(item));
+
+		Product product = dao.get(Product.class, item.productId);
+		mv.data.put("product", JSONHelper.toJSON(product));
 		return mv;
 	}
 	
