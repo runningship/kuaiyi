@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class ScanRecord {
+public class Record {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -30,4 +30,8 @@ public class ScanRecord {
 	
 	public Date addtime;
 	
+	/**
+	 * 1 扫描记录 , 2 兑奖记录 ,3 积分记录
+	 */
+	public Integer type;
 }

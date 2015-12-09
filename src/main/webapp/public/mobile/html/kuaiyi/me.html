@@ -73,6 +73,15 @@ function logout(){
 	    }
 	});
 }
+
+function openCoupon(){
+	api.openWin({
+	    name: 'coupon',
+	    bounces:false,
+	    url: 'coupon.html?t='+new Date().getTime(),
+	    delay:200
+	});
+}
 </script>
 </head>
 <body>
@@ -102,7 +111,7 @@ function logout(){
     </div>
     
     <div class="money item">
-    	<div class="innerItem"  tapmode="tapped"><i class="iconfont">&#xe6a8;</i> <span class="text">中奖记录</span></div>
+    	<div onclick="openCoupon();" class="innerItem"  tapmode="tapped"><i class="iconfont">&#xe6a8;</i> <span class="text">我的优惠券</span></div>
     </div>
     
     <div class="yijian item" >

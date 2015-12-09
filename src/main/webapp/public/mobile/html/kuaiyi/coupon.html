@@ -11,11 +11,42 @@
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/common.css" rel="stylesheet">
 <script src="../../js/jquery.min.js" type="text/javascript"></script>
+<script src="../../js/common.js" type="text/javascript"></script>
+<script src="../../js/buildHtml.js" type="text/javascript"></script>
 <script type="text/javascript">
 apiready=function(){
-	api.parseTapmode();
+	api.setRefreshHeaderInfo({
+		visible : true,
+		loadingImg : 'widget://image/refresh.png',
+		textDown : '下拉刷新...',
+		textUp : '松开刷新...',
+		showTime : true
+	}, function(ret, err) {
+	});
+	getConfig(function(cfg){
+		config = cfg;
+		init();
+	});
 };
 
+function init(){
+	YW.ajax({
+		url: 'http://'+server_host+'/c/admin/lottery/list',
+		method:'post',
+		data:{
+        	values: {uid : config.user.id}
+    	},
+		cache:false,
+		returnAll:false
+	},function(ret , err){
+		if(ret && ret.result==0){
+			buildHtmlWithJsonArray('repeat',ret.list , false,false);
+			api.parseTapmode();
+		}else{
+			alert(ret.msg);
+		}
+	});
+}
 function openMakeTxt(){
 	api.openWin({
 	    name: 'makeText',
@@ -38,31 +69,23 @@ function openMakeTxt(){
         </span>
     </div>
     <div id="mainer" class="mainer ">
-    	<table style="width:100%">
-    		<tr class="item">
-    			<td class="value"><span class="unit">￥</span><span class="price">10</span></td>
-    			<td class="desc">
-    				<li>订单满足0元可使用</li>
-	    			<li class="date"><span>有效期: </span><span>2015-12-07 11:09至</span><p class="end">2016-01-07 11:09</p></li></td>
-    			<td class="action">使用</td>
+    	<table cellspacing="0" style="width:100%;margin-top: 5pt;">
+    		<tr class="repeat" style="display:none">
+    			<td>
+    				<table style="width:100%"  >
+    					<tr class="item" >
+			    			<td class="value"><span class="price">$[lottery]</span><i class="iconfont unit">&#xe6d8;</i></td>
+			    			<td class="desc">
+			    				<li>订单满足0元可使用</li>
+				    			<li class="date"><span>有效期: </span><span>2015-12-07 11:09至</span><p class="end">2016-01-07 11:09</p></li></td>
+			    			<td tapmode="tapped" class="action">使用</td>
+			    		</tr>
+			    		<tr class="tips"><td colspan="3">会员积分抵换优惠券</td></tr>
+    				</table>
+    			</td>
     		</tr>
-    		<tr class="tips"><td colspan="3">会员积分抵换优惠券</td></tr>
-    		<tr class="item">
-    			<td class="value"><span class="unit">￥</span><span class="price">22</span></td>
-    			<td class="desc">
-    				<li>订单满足0元可使用</li>
-	    			<li class="date"><span>有效期: </span><span>2015-12-07 11:09至</span><p class="end">2016-01-07 11:09</p></li></td>
-    			<td class="action">使用</td>
-    		</tr>
-    		<tr class="tips"><td colspan="3">会员积分抵换优惠券</td></tr>
-    		<tr class="item">
-    			<td class="value"><span class="unit">￥</span><span class="price">16</span></td>
-    			<td class="desc">
-    				<li>订单满足0元可使用</li>
-	    			<li class="date"><span>有效期: </span><span>2015-12-07 11:09至</span><p class="end">2016-01-07 11:09</p></li></td>
-    			<td class="action">使用</td>
-    		</tr>
-    		<tr class="tips"><td colspan="3">会员积分抵换优惠券</td></tr>
+    		
+    		
     	</table>
     </div>
 </div>

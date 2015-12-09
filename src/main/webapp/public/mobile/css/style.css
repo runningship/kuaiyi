@@ -278,10 +278,10 @@ border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
 
 /*优惠券*/
 .coupon .mainer .value{    width: 50pt;text-align:center;vertical-align: middle; color: rgb(233,132,16);}
-.coupon .mainer .value .unit{font-size:9pt;}
-.coupon .mainer .value .price{font-size:22pt;}
+.coupon .mainer .value .unit{font-size:16pt;}
+.coupon .mainer .value .price{font-size:40pt;}
 .coupon .mainer .item {background: #fff;}
-.coupon .mainer .tips{font-size: 9pt;color: gray; height:30pt;background: #efefef;}
+.coupon .mainer .tips{font-size: 9pt;color: gray; height:24pt;background: #efefef;    line-height: 20pt;}
 .coupon .mainer .desc {font-size:9pt;}
 .coupon .mainer .desc  li {margin-top:4pt;}
 .coupon .mainer .desc .date{    color: rgb(240,140,77); margin-top: 16pt;    word-break: break-all;}
@@ -292,7 +292,7 @@ border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
 .product .bodyer .title{text-align:center;}
 .product .bodyer .ads{color: #aaa;font-size: 1.0em;}
 .product .bodyer .addtime{margin: 10px 0;color: #999999;  background-color: #f4f4f4;  line-height: 36px}
-.product .bodyer .field{width:96%;text-align:left;    text-align: left;    margin-left: auto;    margin-right: auto;}
+.product .bodyer .field{width:100%;text-align:left;    text-align: left;    margin-left: auto;    margin-right: auto; word-break: break-all;}
 .product .bodyer .field p{margin-bottom:5pt;}
 .product .bodyer .duijiang{position: relative;}
 .product .bodyer .duijiang .img{width:100%;z-index:9999;height:170pt;}
@@ -301,3 +301,4 @@ border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
 .product .bodyer .duijiang .code{ position:absolute; bottom: 10pt;width: 90%; left: 5%;}
 .product .bodyer .duijiang .code input{height: 20pt;line-height: 20pt;font-size: 14pt;}
 .product .bodyer .duijiang .code .getBtn{padding: 8pt 10pt; background: rgb(255,72,92); color: white; font-weight: bold;}
+.product .bodyer .duijiang .code .success{margin-bottom: 10pt;    color: #aaa;}

@@ -69,7 +69,7 @@ YW={
     		opts.data=JSON.parse('{}');
     		opts.data.values=JSON.parse('{}');
     	}
-    	opts.data.values.deviceId = api.deviceId;
+    	//opts.data.values.deviceId = api.deviceId;
     	opts.data.values.cache=false;
     	api.showProgress({
 		    style: 'default',

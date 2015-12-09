@@ -10,7 +10,7 @@ import org.bc.web.ModelAndView;
 import org.bc.web.Module;
 import org.bc.web.WebMethod;
 
-import com.kuaiyi.biz.entity.ScanRecord;
+import com.kuaiyi.biz.entity.Record;
 import com.kuaiyi.entity.ProductItem;
 
 
@@ -20,7 +20,7 @@ public class ScanService {
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
 	@WebMethod
-	public ModelAndView save(ScanRecord record){
+	public ModelAndView save(Record record){
 		ModelAndView mv = new ModelAndView();
 		ProductItem po = dao.getUniqueByParams(ProductItem.class, new String[]{"" , ""}, new Object[]{record.uid , record.ProductItemId});
 		if(po!=null){
@@ -31,7 +31,7 @@ public class ScanService {
 	}
 	
 	@WebMethod
-	public ModelAndView listRecord(Page<ScanRecord> page , Integer uid){
+	public ModelAndView listRecord(Page<Record> page , Integer uid){
 		ModelAndView mv = new ModelAndView();
 		page = dao.findPage(page, "from ScanRecord where uid = ?", uid);
 		mv.data.put("page", JSONHelper.toJSON(page));

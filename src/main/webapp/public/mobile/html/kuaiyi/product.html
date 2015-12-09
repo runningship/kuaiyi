@@ -19,13 +19,15 @@ apiready=function(){
 	var url = "http://"+server_host+"/public/itemView.jsp?qrCode="+api.pageParam.code;
 	api.openFrame({
         name: 'productFrame',
-		url: url,
+		url: 'productConts.html',
 		rect:{x: 0,
 		        y: header.height(),
 		        w: 'auto',
 		        h: mainer.height()
 		},
 		reload:true,
+		hScrollBarEnabled:false,
+		pageParam: api.pageParam,
 		showProgress:true,
         bounces: true
     });

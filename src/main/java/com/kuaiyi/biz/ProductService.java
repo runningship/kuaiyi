@@ -63,6 +63,7 @@ public class ProductService {
 
 		Product product = dao.get(Product.class, item.productId);
 		mv.data.put("product", JSONHelper.toJSON(product));
+		mv.data.put("result", 0);
 		return mv;
 	}
 	

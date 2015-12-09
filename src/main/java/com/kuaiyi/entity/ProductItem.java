@@ -27,10 +27,11 @@ public class ProductItem {
 	public Date addtime;
 	
 	//是否已兑奖
-	public Integer lotteryActive;
+	public int lotteryActive;
 	
 	public Integer buyerId;
 	
 	//批次号
 	public String pici;
+	
 }
