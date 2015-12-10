@@ -18,6 +18,12 @@ apiready=function(){
 function startScan(){
 	var scanner = api.require('scanner');
 	scanner.open(function(ret,err) {
+// 		alert(ret.msg);
+// 		api.openWin({
+// 		    name: 'scanResult',
+// 		    url: ret.msg
+// 		});
+		return;
 		if(!ret.msg){
 			alert('无法识别的内容');
 			return;

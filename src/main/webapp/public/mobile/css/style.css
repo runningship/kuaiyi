@@ -296,7 +296,7 @@ border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
 .product .bodyer .field p{margin-bottom:5pt;}
 .product .bodyer .duijiang{position: relative;}
 .product .bodyer .duijiang .img{width:100%;z-index:9999;height:170pt;}
-.product .bodyer .duijiang .value{ position: absolute;    top: 89pt;    font-size: 67pt;    left: 30%;    width: 40%;    text-align: center;color:#C19511; }
+.product .bodyer .duijiang .value{ position: absolute;    top: 89pt;    font-size: 67pt;    left: 0%;    width: 100%;    text-align: center;color:#C19511; }
 .product .bodyer .duijiang .value .unit{font-size:25pt;color:chocolate;}
 .product .bodyer .duijiang .code{ position:absolute; bottom: 10pt;width: 90%; left: 5%;}
 .product .bodyer .duijiang .code input{height: 20pt;line-height: 20pt;font-size: 14pt;}

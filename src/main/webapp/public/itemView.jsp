@@ -11,6 +11,7 @@ String qrCode = request.getParameter("qrCode");
 ProductItem item = dao.getUniqueByKeyValue(ProductItem.class, "qrCode", qrCode);
 if(item==null){
 	//404
+	out.println("没有找打商品信息");
 	return;
 }
 request.setAttribute("item", item);
@@ -25,9 +26,15 @@ request.setAttribute("product", product);
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
 <title>产品信息</title>
-
+<link href="mobile/css/reset.css" rel="stylesheet">
+<link href="mobile/css/style.css?2" rel="stylesheet">
 <style type="text/css">
 .conts img{width:100%;}
+.product .bodyer .duijiang .img {height:140pt;}
+.product .bodyer .duijiang .code{bottom:1pt;}
+.product .bodyer .duijiang .code .erweima{height:70pt;}
+.product .bodyer .duijiang .value{top:79pt;}
+.product .bodyer .duijiang .value p{font-size:11pt;padding-top: 5pt;}
 </style>
 <script type="text/javascript">
 window.onload=function(){
@@ -37,34 +44,35 @@ window.onload=function(){
 </script>
 </head>
 
-<body style="background-color:white">
-	<form name="form1" style="text-align:center;">
-		<h2 style="text-align:center;">${product.title }</h2>
-		<div style="color: #aaa;font-size: 1.0em;">(平台由安徽厚易科技有限公司提供)</div>
-		<p style="margin: 10px 0;color: #999999;  background-color: #f4f4f4;  line-height: 36px">${product.addtime }</p>
+<body class="product">
+	<div class="bodyer">
+		<h2 class="title"  id="title">${product.title }</h2>
+		<div class="ads" >(平台由安徽厚易科技有限公司提供)</div>
+		<p class="addtime" id="addtime">${product.addtime }</p>
 		
-		<div style="width:96%;text-align:left;    text-align: left;    margin-left: auto;    margin-right: auto;">
-		<p>生产商   : ${product.vender }</p>
-		<p>产地信息: ${product.verderPlace }</p>
-		<p>规格信息: ${product.spec }</p>
+		<div class="field">
+		<p>生产商   : <span id="vender">${product.vender }</span></p>
+		<p>产地信息: <span id="verderPlace">${product.verderPlace }</span></p>
+		<p>规格信息: <span id="spec">${product.spec }</span></p>
 		<p>批 次 号 : <span id="pici">${item.pici }</span></p>
-		<p>产品编号 : <span id="qrCode">${item.qrCode}</span></p>
-		<p>奖券金额 : <span id="lottery">10</span></p>
-		<p>兑奖状态 :  未兑奖</p>
+		<p style="word-break: break-all;">产品编号 : <span id="qrCode">${item.qrCode }</span></p>
+<!-- 		<p>奖券金额 : <span id="lottery">10</span></p> -->
 		</div>
 		<div>
-		<div style="position: relative;">
-			<img src="youhuiquan.png" style="width:100%;z-index:9999;height:250pt;"/>
-			<div style="    position: absolute;    top: 90pt;    font-size: 60pt;    left: 30%;    width: 40%;    text-align: center;color:#C19511;"><SUP style="font-size:25pt;color:chocolate;">￥</SUP>10</div>
-			<div style="position:absolute; bottom: 10pt;width: 70%; left: 15%;height: 78pt; border: 2px solid red; line-height: 78pt;">
-				<span>请输入兑奖码: </span><input style="height: 25pt;line-height: 25pt;font-size: 14pt;" /> <span style="padding: 8pt 10pt; background: rgb(255,72,92); color: white; font-weight: bold;">立即领取</span>
+		<div class="duijiang">
+			<img class="img" src="youhuiquan.png"/>
+			<div class="value" ><span id="value">10</span><SUP class=""><i class="iconfont unit">&#xe6d8;</i></SUP>
+				<p>下载快易扫，千万优惠券等你来拿哦！</p>
+			</div>
+			<div class="app" >
+				<img class="erweima" src="erweima.jpg"/>
 			</div>
 		</div>
 		
 		<div class="conts" style="  width: 100%;  margin-left: auto;  margin-right: auto;">
-			<p>${product.conts }</p>
+			<p id="conts">${product.conts }</p>
 		</div>
 
 		</div>
-</form>
+</div>
 </body></html>

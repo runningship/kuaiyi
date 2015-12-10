@@ -17,8 +17,8 @@ CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
 ProductItem item = dao.get(ProductItem.class, Integer.valueOf(id));
 EndecryptHelper.get3DESEncrypt(item.qrCode, "kuaiyisao");
 String code = "kuaiyisao:"+item.qrCode;
-//String url = "http://192.168.1.222:7080/public/product.jsp?qrCode="+ code;
-String url = code;
+String url = "http://192.168.1.222:7080/public/itemView.jsp?qrCode="+ item.qrCode;
+//String url = code;
 //String url = "http://xzye.ngrok.com//kuaiyi/public/product.jsp?qrCode="+item.qrCode; 
 //String url = "http://www.zhongjiebao.com/old/product3.html?pici="+item.pici+"&qrCode="+item.qrCode+"&lottery="+item.lottery;
 
@@ -27,7 +27,8 @@ String url = code;
 response.setContentType("image/jpeg");
 OutputStream os = response.getOutputStream();
 //ImageIO.write(bufImg, "jpg", os);
-QRCodeUtil.encode(url, "G:\\8034.png" , os , true);
+String realPath = request.getServletContext().getRealPath("public/logo.png");
+QRCodeUtil.encode(url, realPath , os , true);
 
 os.close();
 out.clear();
