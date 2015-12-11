@@ -1,7 +1,7 @@
 <%@page import="java.util.Map"%>
-<%@page import="com.kuaiyi.entity.NoticeReceiver"%>
-<%@page import="com.kuaiyi.entity.User"%>
-<%@page import="com.kuaiyi.entity.Notice"%>
+<%@page import="com.houyi.entity.NoticeReceiver"%>
+<%@page import="com.houyi.entity.User"%>
+<%@page import="com.houyi.entity.Notice"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>

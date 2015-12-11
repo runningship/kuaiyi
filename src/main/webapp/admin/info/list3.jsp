@@ -1,7 +1,7 @@
-<%@page import="com.kuaiyi.util.DataHelper"%>
+<%@page import="com.houyi.util.DataHelper"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="com.kuaiyi.entity.Menu"%>
+<%@page import="com.houyi.entity.Menu"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.bc.sdak.Page"%>
 <%@page import="java.util.List"%>

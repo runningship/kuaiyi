@@ -1,4 +1,4 @@
-<%@page import="com.kuaiyi.entity.Menu"%>
+<%@page import="com.houyi.entity.Menu"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

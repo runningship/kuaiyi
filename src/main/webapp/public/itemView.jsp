@@ -1,7 +1,7 @@
-<%@page import="com.kuaiyi.entity.Product"%>
+<%@page import="com.houyi.entity.Product"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
-<%@page import="com.kuaiyi.entity.ProductItem"%>
+<%@page import="com.houyi.entity.ProductItem"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -61,7 +61,7 @@ window.onload=function(){
 		<div>
 		<div class="duijiang">
 			<img class="img" src="youhuiquan.png"/>
-			<div class="value" ><span id="value">10</span><SUP class=""><i class="iconfont unit">&#xe6d8;</i></SUP>
+			<div class="value" ><span id="value">${item.lottery}</span><SUP class=""><i class="iconfont unit">&#xe6d8;</i></SUP>
 				<p>下载快易扫，千万优惠券等你来拿哦！</p>
 			</div>
 			<div class="app" >

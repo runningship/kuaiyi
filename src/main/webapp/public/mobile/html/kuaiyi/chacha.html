@@ -15,6 +15,13 @@
 apiready=function(){
 	api.parseTapmode();
 };
+
+function getQueryString(url , name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = url.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
 function startScan(){
 	var scanner = api.require('scanner');
 	scanner.open(function(ret,err) {
@@ -23,13 +30,21 @@ function startScan(){
 // 		    name: 'scanResult',
 // 		    url: ret.msg
 // 		});
-		return;
+// 		return;
 		if(!ret.msg){
 			alert('无法识别的内容');
 			return;
 		}
 		if(ret.msg.indexOf('kuaiyisao:')>-1){
 			var code = ret.msg.replace("kuaiyisao:" , "");
+			api.openWin({
+			    name: 'scanResult',
+			    url: 'product.html',
+			    pageParam:{code: code}
+			});	
+		}else if(ret.msg.indexOf('itemView.jsp')>-1){
+			var url = new URL(ret.msg);
+			var code = getQueryString(url , 'qrCode');
 			api.openWin({
 			    name: 'scanResult',
 			    url: 'product.html',

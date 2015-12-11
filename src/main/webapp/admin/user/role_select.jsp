@@ -1,6 +1,6 @@
-<%@page import="com.kuaiyi.util.DataHelper"%>
-<%@page import="com.kuaiyi.entity.UserRole"%>
-<%@page import="com.kuaiyi.entity.Role"%>
+<%@page import="com.houyi.util.DataHelper"%>
+<%@page import="com.houyi.entity.UserRole"%>
+<%@page import="com.houyi.entity.Role"%>
 <%@page import="org.bc.sdak.Page"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>

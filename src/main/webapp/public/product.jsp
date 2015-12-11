@@ -1,7 +1,7 @@
-<%@page import="com.kuaiyi.entity.ProductItem"%>
-<%@page import="com.kuaiyi.entity.Product"%>
-<%@page import="com.kuaiyi.entity.Article"%>
-<%@page import="com.kuaiyi.entity.User"%>
+<%@page import="com.houyi.entity.ProductItem"%>
+<%@page import="com.houyi.entity.Product"%>
+<%@page import="com.houyi.entity.Article"%>
+<%@page import="com.houyi.entity.User"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

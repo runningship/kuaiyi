@@ -1,8 +1,8 @@
-<%@page import="com.kuaiyi.entity.Role"%>
-<%@page import="com.kuaiyi.entity.UserRole"%>
+<%@page import="com.houyi.entity.Role"%>
+<%@page import="com.houyi.entity.UserRole"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
-<%@page import="com.kuaiyi.entity.User"%>
+<%@page import="com.houyi.entity.User"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

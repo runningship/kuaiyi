@@ -1,6 +1,6 @@
 <%@page import="java.util.Map"%>
 <%@page import="org.bc.sdak.Page"%>
-<%@page import="com.kuaiyi.entity.User"%>
+<%@page import="com.houyi.entity.User"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>

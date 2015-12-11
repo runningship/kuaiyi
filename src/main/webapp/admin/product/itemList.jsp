@@ -1,9 +1,9 @@
-<%@page import="com.kuaiyi.entity.Product"%>
-<%@page import="com.kuaiyi.entity.ProductItem"%>
-<%@page import="com.kuaiyi.util.DataHelper"%>
+<%@page import="com.houyi.entity.Product"%>
+<%@page import="com.houyi.entity.ProductItem"%>
+<%@page import="com.houyi.util.DataHelper"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="com.kuaiyi.entity.Menu"%>
+<%@page import="com.houyi.entity.Menu"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.bc.sdak.Page"%>
 <%@page import="java.util.List"%>
@@ -124,7 +124,7 @@ function openAdd(id){
 								<td> ${item.lottery }元</td>
 								<td> ${item.pici }</td>
 								<td><c:if test="${item.lotteryActive==1 }">已兑奖</c:if> <c:if test="${item.lotteryActive!=1 }">未兑奖</c:if></td> 
-								<td><a href="${projectName }/public/qrtest.jsp?id=${item.id}" target="_blank">查看</a></td>
+								<td><a href="${projectName }/public/genQR.jsp?id=${item.id}" target="_blank">查看</a></td>
 							</tr>
 						</c:forEach>
 					</table>

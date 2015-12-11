@@ -1,4 +1,4 @@
-<%@page import="com.kuaiyi.entity.Group"%>
+<%@page import="com.houyi.entity.Group"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

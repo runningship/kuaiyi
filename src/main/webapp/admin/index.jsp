@@ -1,10 +1,10 @@
-<%@page import="com.kuaiyi.user.UserService"%>
-<%@page import="com.kuaiyi.ThreadSessionHelper"%>
-<%@page import="com.kuaiyi.entity.Menu"%>
+<%@page import="com.houyi.user.UserService"%>
+<%@page import="com.houyi.ThreadSessionHelper"%>
+<%@page import="com.houyi.entity.Menu"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
-<%@page import="com.kuaiyi.util.DataHelper"%>
+<%@page import="com.houyi.util.DataHelper"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

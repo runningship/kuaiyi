@@ -1,6 +1,6 @@
-<%@page import="com.kuaiyi.util.DataHelper"%>
+<%@page import="com.houyi.util.DataHelper"%>
 <%@page import="java.util.List"%>
-<%@page import="com.kuaiyi.entity.Menu"%>
+<%@page import="com.houyi.entity.Menu"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

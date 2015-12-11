@@ -1,5 +1,5 @@
-<%@page import="com.kuaiyi.util.DataHelper"%>
-<%@page import="com.kuaiyi.MakesiteConstant"%>
+<%@page import="com.houyi.util.DataHelper"%>
+<%@page import="com.houyi.MakesiteConstant"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>

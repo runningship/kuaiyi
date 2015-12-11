@@ -1,5 +1,5 @@
-<%@page import="com.kuaiyi.cache.ConfigCache"%>
-<%@page import="com.kuaiyi.util.DataHelper"%>
+<%@page import="com.houyi.cache.ConfigCache"%>
+<%@page import="com.houyi.util.DataHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	import="com.baidu.ueditor.ActionEnter"
     pageEncoding="UTF-8"%>

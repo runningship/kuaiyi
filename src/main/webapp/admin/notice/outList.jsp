@@ -1,8 +1,8 @@
-<%@page import="com.kuaiyi.util.DataHelper"%>
+<%@page import="com.houyi.util.DataHelper"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="com.kuaiyi.ThreadSessionHelper"%>
+<%@page import="com.houyi.ThreadSessionHelper"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.kuaiyi.entity.Notice"%>
+<%@page import="com.houyi.entity.Notice"%>
 <%@page import="org.bc.sdak.Page"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>

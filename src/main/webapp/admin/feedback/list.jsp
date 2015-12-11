@@ -1,4 +1,4 @@
-<%@page import="com.kuaiyi.entity.Feedback"%>
+<%@page import="com.houyi.entity.Feedback"%>
 <%@page import="java.util.Map"%>
 <%@page import="org.bc.sdak.Page"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>

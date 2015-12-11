@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>kuaiyi</display-name>
+  <display-name>kuaiyisao</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -11,7 +11,7 @@
   </welcome-file-list>
   
   	<listener>
-	    <listener-class>com.kuaiyi.StartUpListener</listener-class>
+	    <listener-class>com.houyi.StartUpListener</listener-class>
 	</listener>
 	<session-config>
 	  <session-timeout>1440</session-timeout>
@@ -19,7 +19,7 @@
 	 
 	 <filter>
     	<filter-name>siteFilter</filter-name>
-    	<filter-class>com.kuaiyi.SiteFilter</filter-class>
+    	<filter-class>com.houyi.SiteFilter</filter-class>
     </filter>
     <filter-mapping>
     	<filter-name>siteFilter</filter-name>

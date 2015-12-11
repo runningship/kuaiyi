@@ -12,6 +12,11 @@
 <link href="../../css/common.css" rel="stylesheet">
 <script src="../../js/jquery.min.js" type="text/javascript"></script>
 <script src="../../js/common.js" type="text/javascript"></script>
+<style type="text/css">
+.product .bodyer .duijiang .img{height:180pt;}
+.product .bodyer .duijiang .code{bottom:5pt;}
+.product .bodyer .duijiang .code .success{margin-bottom:0pt;}
+</style>
 <script type="text/javascript">
 var lat , lng;
 var itemId;
@@ -28,13 +33,24 @@ apiready=function(){
 	    	loginSuccess();
 	    });
 	});
-	var baiduLocation = api.require('baiduLocation');
-    baiduLocation.getLocation(
-        function (ret, err) {
-            lat = ret.latitude;
-            lng = ret.longitude;
-        }
-    );
+	try{
+		var baiduLocation = api.require('baiduLocation');
+		if(baiduLocation==null){
+			blockAlert('需要升级到最新版本才能使用');
+			return;
+		}
+	    baiduLocation.getLocation(
+	        function (ret, err) {
+	            lat = ret.latitude;
+	            lng = ret.longitude;
+	        }
+	    );	
+	}catch(e){
+		blockAlert('需要升级到最新版本才能使用');
+		window.location='http://kcloud.iflytek.com/public/download.html';
+		return;
+	}
+	
 	getItem(api.pageParam.code);
 };
 
