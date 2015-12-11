@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<link href="../css/reset.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript">
+var header;
+var mainer;
+apiready = function(){
+	header = $('#header');
+	mainer = $('#mainer');
+// 	api.addEventListener({
+// 		name : 'setHeaderHtml'
+// 	}, function(ret, err) {
+// 		blockAlert(ret.value.html);
+// 		$('.header').html(ret.value.html);
+// 	});
+	$('.header').html(api.pageParam.headerHtml);
+	api.openFrame({
+	    name: api.pageParam.frameName,
+	    url: api.pageParam.url,
+	    rect:{x: 0,
+            y: header.height(),
+            w: 'auto',
+            h: mainer.height()
+        },
+	    pageParam: api.pageParam,
+	    bounces: false,
+	    bgColor: 'rgba(0,0,0,0)',
+	    vScrollBarEnabled:true,
+	    hScrollBarEnabled:true
+	});
+};
+
+</script>
+</head>
+<body>
+<div id="wrap" class="bodyer">
+	<div id="header" class="header">
+    </div>
+    <div id="mainer" class="mainer">
+    </div>
+</div>
+</body>
+</html>

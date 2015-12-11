@@ -23,25 +23,27 @@ function openChat(account){
 }
 apiready=function(){
 	api.parseTapmode();
+// 	api.sendEvent({
+// 		name : 'setHeaderHtml',
+// 		extra : {html:$('.header').html()}
+// 	});
+	api.setRefreshHeaderInfo({
+	    visible: true,
+	    loadingImg: 'widget://image/refresh.png',
+	    bgColor: '#ccc',
+	    textColor: '#fff',
+	    textDown: '下拉刷新...',
+	    textUp: '松开刷新...',
+	    showTime: true
+	}, function(ret, err){
+		api.refreshHeaderLoadDone();
+	    //从服务器加载数据，完成后调用api.refreshHeaderLoadDone()方法恢复组件到默认状态
+	});
 };
 </script>
 </head>
 <body>
-<div id="wrap" class="bodyer chat">
-	<div id="header" class="header">
-        <span class="left">
-            
-        </span>
-        <span class="conter">
-        	<span>消息</span>
-        </span>
-        <span class="right" >
-        	<i class="iconfont">&#xe608;</i>
-        	<i class="iconfont" >&#xe6c3;</i>
-        </span>
-    </div>
-    <div id="mainer" class="mainer">
-        <ul class="chatList">
+    <ul class="chatList">
             <li onclick="openChat('15856985122')" tapmode="tapped" class="li">
                 <div class="A">
                     <span>船</span>
@@ -163,7 +165,5 @@ apiready=function(){
                 </div>
             </li>
         </ul>
-    </div>
-</div>
 </body>
 </html>

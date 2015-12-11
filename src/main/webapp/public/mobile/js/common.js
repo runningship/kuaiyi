@@ -1,5 +1,5 @@
-//var server_host = "192.168.1.222:7080";
-var server_host = "kcloud.iflytek.com";
+var server_host = "192.168.1.222:7080";
+//var server_host = "kcloud.iflytek.com";
 //定位所在城市
 var myCity;
 var config;

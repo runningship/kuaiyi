@@ -92,6 +92,7 @@ function formatterDateTime() {
 }
 
 function queryBarcode(code){
+	//http://www.topscan.com/tiaoma/query.php?ean=6920475910281
 	$.ajax({
 	    type: 'post',
 	    url: 'http://route.showapi.com/66-22',
@@ -126,33 +127,6 @@ function queryBarcode(code){
 </head>
 <body>
 <div id="wrap" class="bodyer chacha">
-	<div id="header" class="header">
-<!--         <span class="left"> -->
-<!--             <span>合肥市</span><i class="iconfont pinlun">&#xe6d1;</i> -->
-<!--         </span> -->
-<!--         <div class="conter search"> -->
-<!--         	<i class="iconfont ">&#xe608;</i><input placeholder="口子窖" /> -->
-<!--         </div> -->
-<!--         <span class="right" > -->
-<!--         	<i class="iconfont ">&#xe6d4;</i> -->
-<!--         </span> -->
-
-
-       	<table>
-       		<tr>
-       			<td><span class="city">合肥市</span><i class="iconfont pinlun">&#xe6d1;</i></td>
-       			<td class="search" style="width:100%;"><i class="iconfont ">&#xe608;</i><input value="口子窖" /></td>
-       			<td class="right"><i class="iconfont ">&#xe6d4;</i></td>
-       		</tr>
-        </table>
-<!--         <table> -->
-<!--        		<tr> -->
-<!--        			<td><span class="city">合肥市</span><i class="iconfont pinlun">&#xe6d1;</i></td> -->
-<!--        			<td class="" style="width:100%;"><i class="iconfont ">&#xe608;</i><input value="口子窖" /></td> -->
-<!--        			<td class="right"><i class="iconfont ">&#xe6d4;</i></td> -->
-<!--        		</tr> -->
-<!--         </table> -->
-    </div>
 <!--     <div class="saoma"> -->
 <!--     	<div class="item"> -->
 <!--     		<i  onclick="startScan();"  class="iconfont card">&#xe6ce;</i> -->

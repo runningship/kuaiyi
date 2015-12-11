@@ -15,11 +15,14 @@
 <script src="../../js/javascript.js" type="text/javascript"></script>
 <script type="text/javascript">
 var mainer;
+var header;
 var background=false;
 var rect;
 apiready = function(){
+	$('.header').html($('.chachaHeader').html());
 	api.clearCache();
 	mainer = $('#mainer');
+	header = $('#header');
 	api.addEventListener({
 	    name:'pause'
 	},function(ret,err){
@@ -32,7 +35,7 @@ apiready = function(){
 	});
 	exitApp();
 	rect={x: 0,
-        y: 0,
+        y: header.height(),
         w: 'auto',
         h: mainer.height()
     };
@@ -61,13 +64,12 @@ function openGroup(){
 	    },{
 	        name: 'message',
 	        bounces:false,
-	        url: 'message.html', 
+	        url: 'message.html',
 	        bgColor: '#fff'
 	    },{
 	        name: 'profile',
 	        bounces:true,
 	        url: 'profile.html', 
-	        bounces: true,
 	        bgColor: '#fff'
 	    }]
 	}, function(ret, err){
@@ -97,6 +99,7 @@ function exitApp(){
 function openChaCha(){
 	$('.footer .item').removeClass('active');
 	$('.footer .chacha').addClass('active');
+	$('.header').html($('.chachaHeader').html());
 	api.openFrame({
         name: 'chacha',
 		url: 'chacha.html',
@@ -108,6 +111,7 @@ function openChaCha(){
 function openHistory(){
 	$('.footer .item').removeClass('active');
 	$('.footer .history').addClass('active');
+	$('.header').html($('.historyHeader').html());
 	api.openFrame({
         name: 'history',
 		url: 'history.html',
@@ -119,13 +123,15 @@ function openHistory(){
 function openMsg(){
 	$('.footer .item').removeClass('active');
 	$('.footer .message').addClass('active');
+	$('.header').html($('.messageHeader').html());
 	api.openFrame({
         name: 'message',
-		url: 'message.html',
+        url: 'message.html',
 		rect: rect,
 		reload:false,
         bounces: false
     });
+	
 }
 function openProfile(){
 	$('.footer .item').removeClass('active');
@@ -141,16 +147,13 @@ function openProfile(){
 
 </script>
 <style type="text/css">
-#mainer{
-    -webkit-box-flex: 1; 
-    -webkit-flex: 1;
-    flex: 1;
-}
 </style>
 </head>
 <body>
-<div id="wrap" class="bodyer">
+<div id="wrap" class="bodyer chacha">
     
+    <div id="header" class="header">
+    </div>
     <div id="mainer" class="mainer">
         
     </div>
@@ -186,5 +189,38 @@ function openProfile(){
         </a>
     </div>
 </div>
+
+<div class="messageHeader hide">
+	<span class="left">
+     </span>
+     <span class="conter">
+     	<span>消息</span>
+     </span>
+     <span class="right" >
+     	<i class="iconfont">&#xe608;</i>
+     	<i class="iconfont" >&#xe6c3;</i>
+     </span>
+ </div>
+ 
+ <div class="chachaHeader hide">
+	<table>
+       		<tr>
+       			<td><span class="city">合肥市</span><i class="iconfont pinlun">&#xe6d1;</i></td>
+       			<td class="search" style="width:100%;"><i class="iconfont ">&#xe608;</i><input value="口子窖" /></td>
+       			<td class="right"><i class="iconfont ">&#xe6d4;</i></td>
+       		</tr>
+        </table>
+ </div>
+ 
+ <div class="historyHeader hide">
+	<span class="left">
+        
+    </span>
+    <span class="conter">
+    	<span>历史记录</span>
+    </span>
+    <span class="right" >
+    </span>
+ </div>
 </body>
 </html>
