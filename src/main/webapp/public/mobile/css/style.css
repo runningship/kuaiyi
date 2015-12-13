@@ -90,6 +90,7 @@ a.switch input:checked ~ label i:after{opacity: 1; color: rgba(56,116,4,0.6);tex
 .chatList li .B,
 .chatList li .C{display: block;}
 .chatList li .A{ width: 52pt; text-align: center; padding-top: 4pt; }
+.chatList li .avatar{width: 40pt;}
 .chatList li .A span{ position: relative; overflow: hidden; display: block; border-radius: 46pt; width: 42pt; height: 42pt; line-height:42pt; text-align: center; background: #6CF; color: #FFF; margin:0 auto 0; font-size: 16pt;  }
 .chatList li .B{-webkit-box-flex: 1; line-height: 20pt; padding: 6pt 0 0 0; }
 .chatList li:last-child .B{ border: none; }
@@ -289,8 +290,8 @@ border-radius: 3px;border:none;font-size:9pt;position: absolute;top:6pt;}
 .coupon .mainer .action{    width: 40pt; text-align:center;vertical-align: middle; background:rgb(254,126,0); color:white;}
 
 .product .bodyer {text-align:center;font-size: 12pt;}
-.product .bodyer .title{text-align:center;}
-.product .bodyer .ads{color: #aaa;font-size: 1.0em;}
+.product .bodyer .title{text-align:center;font-size: 16pt;margin-top: 10pt;}
+.product .bodyer .ads{color: #aaa;font-size: 9pt;}
 .product .bodyer .addtime{margin: 10px 0;color: #999999;  background-color: #f4f4f4;  line-height: 36px}
 .product .bodyer .field{width:100%;text-align:left;    text-align: left;    margin-left: auto;    margin-right: auto; word-break: break-all;}
 .product .bodyer .field p{margin-bottom:5pt;}

@@ -1,3 +1,4 @@
+<%@page import="com.houyi.util.EncodeImgZxing"%>
 <%@page import="com.houyi.util.EndecryptHelper"%>
 <%@page import="com.houyi.util.QRCodeUtil"%>
 <%@page import="com.google.zxing.EncodeHintType"%>
@@ -22,14 +23,15 @@ String code = "kuaiyisao:"+item.qrCode;
 String url = "http://kcloud.iflytek.com/public/itemView.jsp?qrCode="+item.qrCode; 
 //String url = "http://www.zhongjiebao.com/old/product3.html?pici="+item.pici+"&qrCode="+item.qrCode+"&lottery="+item.lottery;
 
-//File stream = QRCode.from(url).to(ImageType.JPG).withSize(250, 250).file();
+//File stream = QRCode.from(url).to(ImageType.PNG).withSize(250, 250).file();
 //BufferedImage bufImg = ImageIO.read(stream);
-response.setContentType("image/jpeg");
+response.setContentType("image/bmp");
 OutputStream os = response.getOutputStream();
 //ImageIO.write(bufImg, "jpg", os);
-String realPath = request.getServletContext().getRealPath("public/logo.png");
-QRCodeUtil.encode(url, realPath , os , true);
+String realLogoPath = request.getServletContext().getRealPath("public/logo.png");
+//QRCodeUtil.encode(url, realPath , os , false);
 
+EncodeImgZxing.writeToStream(url,new File(realLogoPath), "bmp", os);
 os.close();
 out.clear();
 out = pageContext.pushBody();

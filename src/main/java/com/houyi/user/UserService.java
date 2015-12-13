@@ -60,9 +60,9 @@ public class UserService {
 		if(StringUtils.isEmpty(user.pwd)){
 			throw new GException(PlatformExceptionType.BusinessException,"请先设置密码");
 		}
-		user.isSuperAdmin = 0;
 		user.addtime = new Date();
 		user.pwd = SecurityHelper.Md5(user.pwd);
+		user.type = 2;
 		//TODO
 		dao.saveOrUpdate(user);
 		if(groupId!=null){
@@ -320,11 +320,11 @@ public class UserService {
 			throw new GException(PlatformExceptionType.BusinessException,"账号 "+account+" 已经被注册");
 		}
 		User user = new User();
+		user.type = 1;
 		user.tel = tel;
 		user.pwd =	SecurityHelper.Md5(pwd);
 		user.addtime = new Date();
 		user.account = account;
-		user.isSuperAdmin=0;
 		user.name="";
 		dao.saveOrUpdate(user);
 		tvc.verifyTime = new Date();

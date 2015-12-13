@@ -27,6 +27,7 @@ public class ProductService {
 	@WebMethod
 	public ModelAndView save(Product product){
 		ModelAndView mv = new ModelAndView();
+		product.addtime = new Date();
 		dao.saveOrUpdate(product);
 		return mv;
 	}

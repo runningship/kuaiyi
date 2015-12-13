@@ -28,7 +28,6 @@ public class User {
 	
 	public Date lasttime;
 	
-	public Integer isSuperAdmin;
-	
-	
+	//1买家 , 2卖家
+	public Integer type;
 }

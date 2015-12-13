@@ -108,7 +108,7 @@ function closeThis(){
 		<div class="form-group">
 			<label>用户职位</label>
 			<input name="roleName" id="roleName" readonly="readonly" class="form-input" value="${roleName}"/>
-			<c:if test="${user.isSuperAdmin!=1 }"><a onclick="editRole();return false" href="#">设置</a></c:if>
+			<c:if test="${user.type==1 }"><a onclick="editRole();return false" href="#">设置</a></c:if>
 		</div>
 		<div class="form-group">
 			<label>用户密码</label>

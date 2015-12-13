@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.GException;
 import org.bc.sdak.TransactionalServiceHelper;
+import org.bc.sdak.utils.JSONHelper;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
 import org.bc.web.PlatformExceptionType;
@@ -21,6 +22,7 @@ import org.bc.web.WebMethod;
 import com.houyi.chat.entity.Contact;
 import com.houyi.chat.entity.GroupUser;
 import com.houyi.chat.entity.Invitation;
+import com.houyi.entity.User;
 import com.houyi.util.XingeHelper;
 
 
@@ -70,6 +72,14 @@ public class ChatService {
 			return mv;
 		}
 		//notify group member
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView getSingleChatMsgHistory(Integer myId , Integer buddyId){
+		ModelAndView mv = new ModelAndView();
+		String userDir = ss.getDir(myId);
+		File msgFile = new File(userDir+File.pathSeparator+"msg.db");
 		return mv;
 	}
 	
@@ -194,6 +204,15 @@ public class ChatService {
 	@WebMethod
 	public ModelAndView quitGroup(Integer groupId){
 		ModelAndView mv = new ModelAndView();
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView listBuddies(Integer uid){
+		ModelAndView mv = new ModelAndView();
+		List<User> list = dao.listByParams(User.class, "from User where type=1");
+		mv.data.put("list", JSONHelper.toJSONArray(list));
+		mv.data.put("result", 0);
 		return mv;
 	}
 }

@@ -59,13 +59,16 @@ window.onload=function(){
 <!-- 		<p>奖券金额 : <span id="lottery">10</span></p> -->
 		</div>
 		<div>
+		
 		<div class="duijiang">
+			<c:if test="${item.lottery >0 }">
 			<img class="img" src="youhuiquan.png"/>
 			<div class="value" ><span id="value">${item.lottery}</span><SUP class=""><i class="iconfont unit">&#xe6d8;</i></SUP>
 				<p>下载快易扫，千万优惠券等你来拿哦！</p>
 			</div>
+			</c:if>
 			<div class="app" >
-				<img class="erweima" src="erweima.jpg"/>
+				<img class="erweima" src="erweima.jpg?123"/>
 			</div>
 		</div>
 		

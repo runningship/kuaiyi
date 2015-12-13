@@ -28,7 +28,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QRCodeUtil {
 	private static final String CHARSET = "utf-8";
-	private static final String FORMAT_NAME = "JPG";
+	private static final String FORMAT_NAME = "BMP";
 	// 二维码尺寸
 	private static final int QRCODE_SIZE = 200;
 	// LOGO宽度
@@ -39,9 +39,9 @@ public class QRCodeUtil {
 	private static BufferedImage createImage(String content, String imgPath,
 			boolean needCompress) throws Exception {
 		Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
-		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
 		hints.put(EncodeHintType.CHARACTER_SET, CHARSET);
-		hints.put(EncodeHintType.MARGIN, 1);
+		//hints.put(EncodeHintType.MARGIN, 1);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content,
 				BarcodeFormat.QR_CODE, QRCODE_SIZE, QRCODE_SIZE, hints);
 		int width = bitMatrix.getWidth();
@@ -265,7 +265,7 @@ public class QRCodeUtil {
 
 	public static void main(String[] args) throws Exception {
 		String text = "薯　灯可分列式本上楞珂要瓜熟蒂落！000000000000000";
-		QRCodeUtil.encode(text, "c:/df.jsp", "c:/a/", true);
+		QRCodeUtil.encode(text, "c:/a/", true);
 	}
 
 }

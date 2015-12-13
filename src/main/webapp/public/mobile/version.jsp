@@ -38,7 +38,7 @@ for(File file : allFiles){
 jobj.put("files", files);
 //jobj.put("statusBarHeight", 25);
 String server = request.getServerName();
-if("192.168.1.222".equals(server)){
+if("192.168.1.91".equals(server)){
 	jobj.put("version","debug");	
 }else{
 	jobj.put("version",15121101);
