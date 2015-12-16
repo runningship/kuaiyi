@@ -29,7 +29,8 @@ public class ProductItem {
 	//是否已兑奖
 	public int lotteryActive;
 	
-	public Integer buyerId;
+	//优惠券拥有者
+	public Integer lotteryOwnerId;
 	
 	//批次号
 	public String pici;

@@ -17,6 +17,14 @@
 	  <session-timeout>1440</session-timeout>
 	 </session-config>
 	 
+	 <servlet>
+	 	<servlet-name>reset</servlet-name>
+	 	<servlet-class>com.houyi.RestServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>reset</servlet-name>
+	 	<url-pattern>/p/v/*</url-pattern>
+	 </servlet-mapping>
 	 <filter>
     	<filter-name>siteFilter</filter-name>
     	<filter-class>com.houyi.SiteFilter</filter-class>

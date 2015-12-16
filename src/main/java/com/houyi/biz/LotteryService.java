@@ -51,7 +51,7 @@ public class LotteryService {
 		record.productId = item.productId;
 		dao.saveOrUpdate(record);
 		
-		item.buyerId = uid;
+		item.lotteryOwnerId = uid;
 		item.lotteryActive = 1;
 		dao.saveOrUpdate(item);
 		mv.data.put("result", 0);
