@@ -160,7 +160,7 @@ function openAdd(id){
 						<c:if test="${session_auth_list.indexOf('$info_article')>-1 }">
 							<button style="float:left;margin-top: 11px;padding:5px;margin-right:20px;cursor:pointer;height: 30px; line-height: 20px;" onclick="openAdd();">添 &nbsp;加</button>
 						</c:if>
-					<form name="form1" type="form" method="post" action="list3.jsp?nav=wzlb" style="">
+					<form class="pageform"  name="form1" type="form" method="post" action="list3.jsp?nav=wzlb" style="">
 							<select name="yijiId" style="height:32px;width:120px;word-wrap: normal;" id="level_1" onchange="topMenuChange()">
 								<option value="">全部</option>
 							<c:forEach items="${yijiList }" var="first">
@@ -173,6 +173,7 @@ function openAdd(id){
 									<option class="erji" pid="${second.parentId}" value="${second.id}" >${second.name}</option>
 								</c:forEach>
 							</select>
+							<input type="hidden" name="currentPageNo" class="pageNo" value="${ page.currentPageNo}" />
 							<input name="searchText" value="${searchText}"  style="margin-left:50px;height:26px;width:300px;" placeholder="标题名称">
 							<input style="margin-right:20px;float:right;margin-top:12px;height:28px;width:60px;cursor:pointer" type="submit" value="搜索"/>
 					</form>

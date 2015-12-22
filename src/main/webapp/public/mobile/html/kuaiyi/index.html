@@ -18,6 +18,8 @@ var mainer;
 var header;
 var background=false;
 var rect;
+var cityopen=false;
+var UICityList;
 apiready = function(){
 	$('.header').html($('.chachaHeader').html());
 	api.clearCache();
@@ -81,6 +83,11 @@ function exitApp(){
     api.addEventListener({
         name: 'keyback'
     }, function(ret, err){
+    	if(cityopen && UICityList){
+    		UICityList.close();
+    		cityopen = false;
+    		return;
+    	}
 		api.confirm({
 			msg: '确定要退出程序吗?',
 		    buttons:['取消', '确定']
@@ -146,6 +153,54 @@ function openProfile(){
     });
 }
 
+function openCitys(){
+	UICityList = api.require('UICityList');
+	UICityList.open({
+	    rect: {
+	        x: 0,
+	        y: 0,
+	        w: 'auto',
+	        h: 'auto'
+	    },
+	    resource: api.fsDir+'/html/cityList.json',
+	    styles: {
+	        searchBar: {
+	            bgColor: '#696969',
+	            cancelColor: '#E3E3E3'
+	        },
+	        location: {
+	            color: '#696969',
+	            size: 12
+	        },
+	        sectionTitle: {
+	            bgColor: '#eee', 
+	            color: '#000',
+	            size: 12
+	        },
+	        item: {
+	            bgColor: '#fff',
+	            activeBgColor: '#696969',
+	            color: '#000',
+	            size: 14,
+	            height: 40
+	        },
+	        indicator: {
+	            bgColor: '#fff',
+	            color: '#696969'
+	        }
+	    },
+	    currentCity: '合肥',
+	    locationWay: 'GPS',
+	    hotTitle: '热门城市',
+	    placeholder: '输入城市名或首字母查询'
+	}, function( ret, err ) {
+		cityopen = true;
+	    if( ret && ret.cityInfo){
+	         //alert( JSON.stringify( ret ) );
+	    }else{
+	    }
+	});
+}
 </script>
 <style type="text/css">
 </style>
@@ -206,7 +261,7 @@ function openProfile(){
  <div class="chachaHeader hide">
 	<table>
        		<tr>
-       			<td><span class="city">合肥市</span><i class="iconfont pinlun">&#xe6d1;</i></td>
+       			<td><span class="city" onclick="openCitys();">合肥市</span><i class="iconfont pinlun">&#xe6d1;</i></td>
        			<td class="search" style="width:100%;"><i class="iconfont ">&#xe608;</i><input value="口子窖" /></td>
        			<td class="right"><i class="iconfont ">&#xe6d4;</i></td>
        		</tr>

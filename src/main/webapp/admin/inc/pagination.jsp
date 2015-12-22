@@ -4,12 +4,16 @@
 
 function prePage(currentPageNo){
 	currentPageNo--;
-	window.location = window.location.pathname+"?currentPageNo="+currentPageNo;
+	$('.pageNo').val(currentPageNo);
+	$('.pageform').submit();
+	//window.location = window.location.pathname+"?currentPageNo="+currentPageNo;
 }
 
 function nextPage(currentPageNo){
 	currentPageNo++;
-	window.location = window.location.pathname+"?currentPageNo="+currentPageNo;
+	$('.pageNo').val(currentPageNo);
+	$('.pageform').submit();
+	//window.location = window.location.pathname+"?currentPageNo="+currentPageNo;
 }
 
 function jumpPage(totalPageCount){
@@ -18,7 +22,9 @@ function jumpPage(totalPageCount){
 		alert('请输入正确的页码!');
 		return;
 	};
+	$('.pageNo').val(currentPageNo);
 	window.location = window.location.pathname+"?currentPageNo="+currentPageNo;
+	$('.pageform').submit();
 }
 </script>
 

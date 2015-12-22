@@ -16,6 +16,9 @@
 	CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
 	Page<ProductItem> p = new Page<ProductItem>();
 	String currentPageNo =  request.getParameter("currentPageNo");
+	if(StringUtils.isNotEmpty(currentPageNo)){
+		p.currentPageNo = Integer.valueOf(currentPageNo);	
+	}
 	String productId =  request.getParameter("productId");
 	Product product = dao.get(Product.class, Integer.valueOf(productId));
 	String qrCode =  request.getParameter("qrCode");
@@ -100,8 +103,9 @@ function openAdd(id){
 							<c:if test="${session_auth_list.indexOf('$info_article')>-1 }">
 								<button style="float:left;margin-top: 11px;padding:5px;margin-right:20px;cursor:pointer;height: 30px; line-height: 20px;" onclick="openAdd();">添 &nbsp;加</button>
 							</c:if>
-							<form name="form1" type="form" method="post" action="list3.jsp?nav=wzlb" style="">
+							<form class="pageform" name="form1" type="form" method="post" action="itemList.jsp?nav=wzlb&productId=${productId }" style="">
 									<input name="qrCode" value="${qrCode}"  style="margin-left:50px;height:26px;width:300px;margin-top: 12px;" placeholder="二维码(唯一码)">
+									<input name="currentPageNo"  type="hidden" class="pageNo" value="${ page.currentPageNo}" />
 									<input style="margin-right:20px;float:right;margin-top:12px;height:28px;width:60px;cursor:pointer" type="submit" value="搜索"/>
 							</form>
 						</div>

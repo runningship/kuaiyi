@@ -82,7 +82,8 @@ public class ProductService {
 			item.lotteryActive = 0;
 			item.pici = pici;
 			item.productId = productId;
-			item.qrCode = UUID.randomUUID().toString();
+			//item.qrCode = UUID.randomUUID().toString();
+			item.qrCode = System.currentTimeMillis()+String.valueOf(i);
 			item.verifyCode = String.valueOf(r.nextInt(999999));
 			dao.saveOrUpdate(item);
 		}

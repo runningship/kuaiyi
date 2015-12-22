@@ -78,7 +78,7 @@ public class EncodeImgZxing {
      * */  
     public static void writeToFile(String contents,File logoImg ,String format,File file){  
         BufferedImage image = encodeImg(contents);  
-        image = encodeImgLogo(image , logoImg);
+        //image = encodeImgLogo(image , logoImg);
         try {  
             ImageIO.write(image, format, file);  
         } catch (IOException e) {  
@@ -140,8 +140,8 @@ public class EncodeImgZxing {
         return twodimensioncode;  
     }  
     public static void main(String[] args){
-    	String contents = "http://blog.csdn.net/typa01_kk";  
-        String format = "bmp"; //***此处如果格式为"gif"，则logo图片为黑色，其他格式ok  
+    	String contents = "http://kcloud.iflytek.com/p/v/14503241303791";  
+        String format = "png"; //***此处如果格式为"gif"，则logo图片为黑色，其他格式ok  
         //生成二维码  
         File logoImg = new File("G:\\8034.png");  
         File img = new File("D:"+File.separator+"csdn.jpg");  

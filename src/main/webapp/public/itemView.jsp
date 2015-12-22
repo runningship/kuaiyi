@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.lang.StringUtils"%>
 <%@page import="com.houyi.entity.Product"%>
 <%@page import="org.bc.sdak.SimpDaoTool"%>
 <%@page import="org.bc.sdak.CommonDaoService"%>
@@ -8,6 +9,9 @@
 <%
 CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
 String qrCode = request.getParameter("qrCode");
+if(StringUtils.isEmpty(qrCode)){
+	qrCode = (String)request.getAttribute("qrCode");
+}
 ProductItem item = dao.getUniqueByKeyValue(ProductItem.class, "qrCode", qrCode);
 if(item==null){
 	//404
@@ -26,8 +30,8 @@ request.setAttribute("product", product);
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
 <title>产品信息</title>
-<link href="mobile/css/reset.css" rel="stylesheet">
-<link href="mobile/css/style.css?2" rel="stylesheet">
+<link href="/public/mobile/css/reset.css" rel="stylesheet">
+<link href="/public/mobile/css/style.css?2" rel="stylesheet">
 <style type="text/css">
 .conts img{width:100%;}
 .product .bodyer .duijiang .img {height:140pt;}
@@ -62,13 +66,13 @@ window.onload=function(){
 		
 		<div class="duijiang">
 			<c:if test="${item.lottery >0 }">
-			<img class="img" src="youhuiquan.png"/>
+			<img class="img" src="/public/youhuiquan.png"/>
 			<div class="value" ><span id="value">${item.lottery}</span><SUP class=""><i class="iconfont unit">&#xe6d8;</i></SUP>
 				<p>下载快易扫，千万优惠券等你来拿哦！</p>
 			</div>
 			</c:if>
 			<div class="app" >
-				<img class="erweima" src="erweima.jpg?123"/>
+				<img class="erweima" src="/public/erweima.jpg?123"/>
 			</div>
 		</div>
 		

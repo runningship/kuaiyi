@@ -19,19 +19,18 @@ ProductItem item = dao.get(ProductItem.class, Integer.valueOf(id));
 EndecryptHelper.get3DESEncrypt(item.qrCode, "kuaiyisao");
 String code = "kuaiyisao:"+item.qrCode;
 //String url = "http://192.168.1.222:7080/public/itemView.jsp?qrCode="+ item.qrCode;
-//String url = code;
-String url = "http://kcloud.iflytek.com/public/itemView.jsp?qrCode="+item.qrCode; 
-//String url = "http://www.zhongjiebao.com/old/product3.html?pici="+item.pici+"&qrCode="+item.qrCode+"&lottery="+item.lottery;
+//String url = "http://kcloud.iflytek.com/p/v/"+item.qrCode; 
+String url = "http://192.168.1.222:7080/p/v/"+item.qrCode; 
 
 //File stream = QRCode.from(url).to(ImageType.PNG).withSize(250, 250).file();
 //BufferedImage bufImg = ImageIO.read(stream);
-response.setContentType("image/bmp");
+response.setContentType("image/PNG");
 OutputStream os = response.getOutputStream();
 //ImageIO.write(bufImg, "jpg", os);
 String realLogoPath = request.getServletContext().getRealPath("public/logo.png");
-//QRCodeUtil.encode(url, realPath , os , false);
+QRCodeUtil.encode(url, realLogoPath , os , true);
 
-EncodeImgZxing.writeToStream(url,new File(realLogoPath), "bmp", os);
+//EncodeImgZxing.writeToStream(url,new File(""), "bmp", os);
 os.close();
 out.clear();
 out = pageContext.pushBody();

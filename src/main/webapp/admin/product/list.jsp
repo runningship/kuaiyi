@@ -14,6 +14,9 @@
 	CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
 	Page<Map> p = new Page<Map>();
 	String currentPageNo =  request.getParameter("currentPageNo");
+	if(StringUtils.isNotEmpty(currentPageNo)){
+		p.currentPageNo = Integer.valueOf(currentPageNo);	
+	}
 	String searchText =  request.getParameter("searchText");
 	p = dao.findPage(p, "select id as id ,  title as title from Product where 1=1", true , new Object[]{});
 	request.setAttribute("page", p);
@@ -116,7 +119,8 @@ function openAdd(id){
 							<c:if test="${session_auth_list.indexOf('$info_article')>-1 }">
 								<button style="float:left;margin-top: 11px;padding:5px;margin-right:20px;cursor:pointer;height: 30px; line-height: 20px;" onclick="openAdd();">添 &nbsp;加</button>
 							</c:if>
-							<form name="form1" type="form" method="post" action="list3.jsp?nav=wzlb" style="">
+							<form class="pageform" name="form1" type="form" method="post" action="list.jsp?nav=product" style="">
+									<input type="hidden" name="currentPageNo" class="pageNo" value="${ page.currentPageNo}" />
 									<input name="searchText" value="${searchText}"  style="margin-left:50px;height:26px;width:300px;margin-top: 12px;" placeholder="名称">
 									<input style="margin-right:20px;float:right;margin-top:12px;height:28px;width:60px;cursor:pointer" type="submit" value="搜索"/>
 							</form>

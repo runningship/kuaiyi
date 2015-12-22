@@ -28,20 +28,20 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QRCodeUtil {
 	private static final String CHARSET = "utf-8";
-	private static final String FORMAT_NAME = "BMP";
+	private static final String FORMAT_NAME = "PNG";
 	// 二维码尺寸
-	private static final int QRCODE_SIZE = 200;
+	private static final int QRCODE_SIZE = 160;
 	// LOGO宽度
-	private static final int WIDTH = 30;
+	private static final int WIDTH = 22;
 	// LOGO高度
-	private static final int HEIGHT = 30;
+	private static final int HEIGHT = 22;
 
 	private static BufferedImage createImage(String content, String imgPath,
 			boolean needCompress) throws Exception {
 		Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
 		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
 		hints.put(EncodeHintType.CHARACTER_SET, CHARSET);
-		//hints.put(EncodeHintType.MARGIN, 1);
+		hints.put(EncodeHintType.MARGIN, 0);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content,
 				BarcodeFormat.QR_CODE, QRCODE_SIZE, QRCODE_SIZE, hints);
 		int width = bitMatrix.getWidth();
@@ -264,7 +264,7 @@ public class QRCodeUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String text = "薯　灯可分列式本上楞珂要瓜熟蒂落！000000000000000";
+		String text = "http://kcloud.iflytek.com/p/v/14503241303791";
 		QRCodeUtil.encode(text, "c:/a/", true);
 	}
 
