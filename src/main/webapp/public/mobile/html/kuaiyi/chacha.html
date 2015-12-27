@@ -42,10 +42,10 @@ function startScan(){
 			    url: 'product.html',
 			    pageParam:{code: code}
 			});	
-		}else if(ret.msg.indexOf('/p/v')>-1){
+		}else if(ret.msg.indexOf('/p/')>-1){
 			var url = new URL(ret.msg);
 			//var code = getQueryString(url , 'qrCode');
-			var code = url.pathname.replace('/p/v/','');
+			var code = url.pathname.replace('/p/','');
 			api.openWin({
 			    name: 'scanResult',
 			    url: 'product.html',

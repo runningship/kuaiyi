@@ -58,7 +58,8 @@ public class StartUpListener implements ServletContextListener{
 		
 //		settings.put("annotated.packages", HouseRent.class.getPackage().getName());
 		settings.put("annotated.packages", "com.houyi.entity;com.houyi.biz.entity");
-		SessionFactoryBuilder.applySettings(settings);
+		//settings.put("NamingStrategy", "com.houyi.MyNamingStrategy");
+		SessionFactoryBuilder.applySettings(settings , MyNamingStrategy.getInstance());
 //		SimpDaoTool.getGlobalCommonDaoService().getUnique(User.class, 0);
 	}
 }

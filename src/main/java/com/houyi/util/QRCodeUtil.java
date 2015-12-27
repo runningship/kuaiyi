@@ -30,11 +30,11 @@ public class QRCodeUtil {
 	private static final String CHARSET = "utf-8";
 	private static final String FORMAT_NAME = "PNG";
 	// 二维码尺寸
-	private static final int QRCODE_SIZE = 160;
+	private static final int QRCODE_SIZE = 75;
 	// LOGO宽度
-	private static final int WIDTH = 22;
+	private static final int WIDTH =10;
 	// LOGO高度
-	private static final int HEIGHT = 22;
+	private static final int HEIGHT = 10;
 
 	private static BufferedImage createImage(String content, String imgPath,
 			boolean needCompress) throws Exception {
@@ -59,6 +59,11 @@ public class QRCodeUtil {
 		}
 		// 插入图片
 		QRCodeUtil.insertImage(image, imgPath, needCompress);
+		//缩小图片到40%
+		
+//		int size = 60;
+//		BufferedImage _image = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+//		_image.getGraphics().drawImage(image, 0, 0, size, size, null); // 绘制缩小后的图
 		return image;
 	}
 
@@ -128,8 +133,8 @@ public class QRCodeUtil {
 		BufferedImage image = QRCodeUtil.createImage(content, imgPath,
 				needCompress);
 		mkdirs(destPath);
-		String file = new Random().nextInt(99999999)+".jpg";
-		ImageIO.write(image, FORMAT_NAME, new File(destPath+"/"+file));
+		//String file = new Random().nextInt(99999999)+".jpg";
+		ImageIO.write(image, FORMAT_NAME, new File(destPath));
 	}
 
 	/**
@@ -205,11 +210,11 @@ public class QRCodeUtil {
 	 *            是否压缩LOGO
 	 * @throws Exception
 	 */
-	public static void encode(String content, String imgPath,
+	public static BufferedImage encode(String content, String imgPath,
 			OutputStream output, boolean needCompress) throws Exception {
 		BufferedImage image = QRCodeUtil.createImage(content, imgPath,
 				needCompress);
-		ImageIO.write(image, FORMAT_NAME, output);
+		return image;
 	}
 
 	/**

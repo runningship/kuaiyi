@@ -23,7 +23,7 @@
 	 </servlet>
 	 <servlet-mapping>
 	 	<servlet-name>reset</servlet-name>
-	 	<url-pattern>/p/v/*</url-pattern>
+	 	<url-pattern>/p/*</url-pattern>
 	 </servlet-mapping>
 	 <filter>
     	<filter-name>siteFilter</filter-name>
