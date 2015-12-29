@@ -14,12 +14,12 @@ public class MyNamingStrategy extends DefaultNamingStrategy{
 	
 	private static MyNamingStrategy instance = new MyNamingStrategy();
 	
-	public int offset =1;
+	public int productItemTableIndexOffset =1;
 	
 	@Override
     public String classToTableName(String className) {
         if(className.equals(ProductItem.class.getSimpleName())) {
-            className = className+"_"+offset;
+            className = className+"_"+productItemTableIndexOffset;
         }
         return super.classToTableName(className);
     }

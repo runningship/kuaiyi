@@ -29,7 +29,7 @@ public class TableService {
 
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
-	public static final int MAX_TABLE_ROWS=10000000;
+	public static final int MAX_TABLE_ROWS=20;
 	
 	private QRTableInfo getTableNotFull(){
 		List<QRTableInfo> list = dao.listByParams(QRTableInfo.class, "from QRTableInfo where size < ? ", MAX_TABLE_ROWS);
@@ -42,9 +42,10 @@ public class TableService {
 	public QRTableInfo addNewQRTable(){
 		long count = dao.countHql("select count(*) from QRTableInfo");
 		count++;
-		String sql = "CREATE TABLE [dbo].[ProductItem_"+count+"] ([id] int NOT NULL IDENTITY(1,1) ,[qrCode] nvarchar(50) NOT NULL ,[verifyCode] nvarchar(50) NULL ,[productId] int NOT NULL ,[lottery] int NULL ,[lotteryActive] int NULL ,[lotteryOwnerId] int NULL ,[pici] nvarchar(50) NULL ,[addtime] datetime NULL)";
+		String sql = "if not exists (select * from sysobjects where name='ProductItem_"+count+"' and xtype='U') CREATE TABLE  [dbo].[ProductItem_"+count+"] ([id] int NOT NULL IDENTITY(1,1) ,[qrCode] nvarchar(50) NOT NULL ,[verifyCode] nvarchar(50) NULL ,[productId] int NOT NULL ,[lottery] int NULL ,[lotteryActive] int NULL ,[lotteryOwnerId] int NULL ,[pici] nvarchar(50) NULL ,[addtime] datetime NULL)";
 		dao.executeSQL(sql);
 		QRTableInfo info = new QRTableInfo();
+		//MyNamingStrategy.getInstance().productItemTableIndexOffset=(int)count;
 		info.size = 0;
 		info.offset = (int)count;
 		dao.saveOrUpdate(info);
@@ -59,26 +60,33 @@ public class TableService {
 		return table;
 	}
 	
-	public void insertToTable(QRTableInfo table , ProductItem pi){
-		MyNamingStrategy.getInstance().offset=table.offset;
+	private void insertToTable(QRTableInfo table , ProductItem pi){
+		MyNamingStrategy.getInstance().productItemTableIndexOffset=table.offset;
 		dao.saveOrUpdate(pi);
 	}
 	
 	public void addProductItem(int count , Product product){
-		QRTableInfo target = getTableNotFull();
+		QRTableInfo target = getTargetTable();
 		if(target==null){
 			throw new GException(PlatformExceptionType.BusinessException,"要添加的二维码数量超出限制值，请联系系统管理员");
 		}
 		if(count<= (MAX_TABLE_ROWS-target.size)){
+			//目标表已经足够添加count数量的数据
 			innerAddProductItem(target , product , count);
+		}else{
+			int rest = MAX_TABLE_ROWS-target.size;
+			if(rest>0){
+				innerAddProductItem(target , product , rest);
+			}
+			addProductItem(count-rest , product);
 		}
 	}
 	
 	private void innerAddProductItem(QRTableInfo target, Product product,int count) {
+		MyNamingStrategy.getInstance().productItemTableIndexOffset=target.offset;
 		Session session = SessionFactoryBuilder.buildOrGet().getCurrentSession();
 		Transaction tran = session.beginTransaction();
 		session.setCacheMode(CacheMode.IGNORE);
-		FlushMode mode = session.getFlushMode();
 		Random r = new Random();
 		for(int i=0;i<count;i++){
 			ProductItem item = new ProductItem();
@@ -94,6 +102,8 @@ public class TableService {
 		          session.clear();   
 		    }
 		}
+		target.size = target.size+count;
+		dao.saveOrUpdate(target);
 		tran.commit();
 		//session.close();
 	}
@@ -107,7 +117,7 @@ public class TableService {
 		//ts.insertToTable(null, pi);
 		Product pro = new Product();
 		pro.id=123;
-		ts.addProductItem(2 , pro);
+		ts.addProductItem(100 , pro);
 //		ts.addNewQRTable();
 //		QRTableInfo target = ts.getTargetTable();
 //		System.out.println("target table offset is "+ target.offset);
