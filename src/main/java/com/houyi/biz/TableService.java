@@ -10,16 +10,10 @@ import org.bc.sdak.SessionFactoryBuilder;
 import org.bc.sdak.TransactionalServiceHelper;
 import org.bc.web.PlatformExceptionType;
 import org.hibernate.CacheMode;
-import org.hibernate.FlushMode;
-import org.hibernate.HibernateException;
-import org.hibernate.MappingException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.mapping.Table;
 
-import com.houyi.MyNamingStrategy;
+import com.houyi.MyInterceptor;
 import com.houyi.StartUpListener;
 import com.houyi.entity.Product;
 import com.houyi.entity.ProductItem;
@@ -29,7 +23,7 @@ public class TableService {
 
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
-	public static final int MAX_TABLE_ROWS=20;
+	public static final int MAX_TABLE_ROWS=1000000;
 	
 	private QRTableInfo getTableNotFull(){
 		List<QRTableInfo> list = dao.listByParams(QRTableInfo.class, "from QRTableInfo where size < ? ", MAX_TABLE_ROWS);
@@ -43,9 +37,9 @@ public class TableService {
 		long count = dao.countHql("select count(*) from QRTableInfo");
 		count++;
 		String sql = "if not exists (select * from sysobjects where name='ProductItem_"+count+"' and xtype='U') CREATE TABLE  [dbo].[ProductItem_"+count+"] ([id] int NOT NULL IDENTITY(1,1) ,[qrCode] nvarchar(50) NOT NULL ,[verifyCode] nvarchar(50) NULL ,[productId] int NOT NULL ,[lottery] int NULL ,[lotteryActive] int NULL ,[lotteryOwnerId] int NULL ,[pici] nvarchar(50) NULL ,[addtime] datetime NULL)";
+//		String sql = "if not exists (select * from sysobjects where name='ProductItem_"+count+"' and xtype='U') CREATE TABLE  [dbo].[ProductItem_"+count+"] ([id] int NULL  ,[qrCode] nvarchar(50) NOT NULL ,[verifyCode] nvarchar(50) NULL ,[productId] int NOT NULL ,[lottery] int NULL ,[lotteryActive] int NULL ,[lotteryOwnerId] int NULL ,[pici] nvarchar(50) NULL ,[addtime] datetime NULL)";
 		dao.executeSQL(sql);
 		QRTableInfo info = new QRTableInfo();
-		//MyNamingStrategy.getInstance().productItemTableIndexOffset=(int)count;
 		info.size = 0;
 		info.offset = (int)count;
 		dao.saveOrUpdate(info);
@@ -58,11 +52,6 @@ public class TableService {
 			return addNewQRTable();
 		}
 		return table;
-	}
-	
-	private void insertToTable(QRTableInfo table , ProductItem pi){
-		MyNamingStrategy.getInstance().productItemTableIndexOffset=table.offset;
-		dao.saveOrUpdate(pi);
 	}
 	
 	public void addProductItem(int count , Product product){
@@ -83,7 +72,7 @@ public class TableService {
 	}
 	
 	private void innerAddProductItem(QRTableInfo target, Product product,int count) {
-		MyNamingStrategy.getInstance().productItemTableIndexOffset=target.offset;
+		MyInterceptor.getInstance().tableNameSuffix = target.offset;
 		Session session = SessionFactoryBuilder.buildOrGet().getCurrentSession();
 		Transaction tran = session.beginTransaction();
 		session.setCacheMode(CacheMode.IGNORE);
@@ -92,23 +81,29 @@ public class TableService {
 			ProductItem item = new ProductItem();
 			item.addtime = new Date();
 			item.lotteryActive = 0;
+			item.pici = "";
+			item.lottery=10;
 			item.productId = product.id;
 			item.qrCode = System.currentTimeMillis()+"."+target.offset;
 			item.verifyCode = String.valueOf(r.nextInt(999999));
-			dao.saveOrUpdate(item);
-			if ( i % 200 == 0 ) {
-		          //将本批插入的对象立即写入数据库并释放内存
-		          session.flush();   
-		          session.clear();   
-		    }
+			session.save(item);
+//			if ( i % 5000 == 0 ) {
+//		          //将本批插入的对象立即写入数据库并释放内存
+//		          session.flush();
+//		          session.clear();
+//		          System.out.println(i/5000);
+//		    }
 		}
+		//将剩余的提交
+		session.flush();
+        session.clear();
 		target.size = target.size+count;
-		dao.saveOrUpdate(target);
+		session.saveOrUpdate(target);
 		tran.commit();
-		//session.close();
 	}
 
 	public static void main(String[] args){
+		long start = System.currentTimeMillis();
 		StartUpListener.initDataSource();
 		TableService ts = new TableService();
 //		ProductItem pi = new ProductItem();
@@ -117,7 +112,11 @@ public class TableService {
 		//ts.insertToTable(null, pi);
 		Product pro = new Product();
 		pro.id=123;
-		ts.addProductItem(100 , pro);
+		for(int i=0;i<1;i++){
+			System.out.println("-----------"+i+"---------------------");
+			ts.addProductItem(5000 , pro);
+		}
+		System.out.println("本次耗时: "+(System.currentTimeMillis()-start)+"毫秒");
 //		ts.addNewQRTable();
 //		QRTableInfo target = ts.getTargetTable();
 //		System.out.println("target table offset is "+ target.offset);
