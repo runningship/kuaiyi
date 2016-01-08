@@ -18,10 +18,12 @@ public class MyInterceptor extends EmptyInterceptor{
 	public String tableNamePrefix;
 	
 	//需要动态设置的表名后缀
-	public int tableNameSuffix = 1;
+	//public int tableNameSuffix = 1;
+	
+	public ThreadLocal<Integer> tableNameSuffix = new ThreadLocal<Integer>();
 	
 	private MyInterceptor(){
-		
+		tableNameSuffix.set(1);
 	}
 	public static MyInterceptor getInstance(){
 		return instance;
@@ -29,7 +31,13 @@ public class MyInterceptor extends EmptyInterceptor{
 
 	@Override
 	public String onPrepareStatement(String sql) {
-		String target = tableNamePrefix+"_"+this.tableNameSuffix;
+		String target= "";
+		if(this.tableNameSuffix.get()==null){
+			 target = tableNamePrefix;
+		}else{
+			 target = tableNamePrefix+"_"+this.tableNameSuffix.get();
+		}
+		
 		if(!sql.contains("sysobjects")){
 			sql = sql.replace(tableNamePrefix, target);
 		}

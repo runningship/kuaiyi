@@ -72,7 +72,7 @@ public class TableService {
 	}
 	
 	private void innerAddProductItem(QRTableInfo target, Product product,int count) {
-		MyInterceptor.getInstance().tableNameSuffix = target.offset;
+		MyInterceptor.getInstance().tableNameSuffix.set(target.offset);
 		Session session = SessionFactoryBuilder.buildOrGet().getCurrentSession();
 		Transaction tran = session.beginTransaction();
 		session.setCacheMode(CacheMode.IGNORE);
@@ -103,22 +103,70 @@ public class TableService {
 	}
 
 	public static void main(String[] args){
-		long start = System.currentTimeMillis();
 		StartUpListener.initDataSource();
-		TableService ts = new TableService();
-//		ProductItem pi = new ProductItem();
-//		pi.productId=1;
-//		pi.qrCode = "1212";
-		//ts.insertToTable(null, pi);
-		Product pro = new Product();
-		pro.id=123;
-		for(int i=0;i<1;i++){
-			System.out.println("-----------"+i+"---------------------");
-			ts.addProductItem(5000 , pro);
+//		long start = System.currentTimeMillis();
+//		TableService ts = new TableService();
+//		Product pro = new Product();
+//		pro.id=123;
+//		for(int i=0;i<1;i++){
+//			System.out.println("-----------"+i+"---------------------");
+//			ts.addProductItem(5000 , pro);
+//		}
+//		System.out.println("本次耗时: "+(System.currentTimeMillis()-start)+"毫秒");
+		testMutiThread();
+	}
+	
+	public static void testMutiThread(){
+		long start = System.currentTimeMillis();
+		for(int i=1;i<=20;i++){
+			Worker w = new Worker(i,50000);
+			w.startTime = start;
+			w.start();
 		}
-		System.out.println("本次耗时: "+(System.currentTimeMillis()-start)+"毫秒");
-//		ts.addNewQRTable();
-//		QRTableInfo target = ts.getTargetTable();
-//		System.out.println("target table offset is "+ target.offset);
+	}
+	
+}
+
+class Worker extends Thread{
+	private int tableNameOffset;
+	private int total;
+	public long startTime=0;
+	private int batchSize = 5000;
+	public Worker(int tableNameOffset , int total) {
+		super();
+		this.tableNameOffset = tableNameOffset;
+		this.total = total;
+	}
+
+	@Override
+	public void run() {
+		MyInterceptor.getInstance().tableNameSuffix.set(tableNameOffset);
+		for(int i=0;i<total/batchSize; i++){
+			add(batchSize);
+		}
+		add(total%batchSize);
+		System.out.println("table "+tableNameOffset+" cost  "+ (System.currentTimeMillis()-startTime)/1000 + " secs");
+	}
+	
+	private void add(int count){
+		Session session = SessionFactoryBuilder.buildOrGet().getCurrentSession();
+		Transaction tran = session.beginTransaction();
+		session.setCacheMode(CacheMode.IGNORE);
+		Random r = new Random();
+		for(int i=0;i<count;i++){
+			ProductItem item = new ProductItem();
+			item.addtime = new Date();
+			item.lotteryActive = 0;
+			item.pici = "";
+			item.lottery=10;
+			item.productId = 123;
+			item.qrCode = System.currentTimeMillis()+"."+tableNameOffset;
+			item.verifyCode = String.valueOf(r.nextInt(999999));
+			session.save(item);
+		}
+		//将剩余的提交
+		session.flush();
+        session.clear();
+		tran.commit();
 	}
 }
