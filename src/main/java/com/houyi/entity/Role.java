@@ -18,7 +18,5 @@ public class Role {
 	//职责描述
 	public String duty;
 	
-	public String _site;
-	
 	public Integer isSystemRole;
 }

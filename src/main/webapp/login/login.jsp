@@ -28,7 +28,8 @@ function login(){
             layer.close(index);
         },
 	    mysuccess: function(json){
-	        window.location="../admin/index.jsp";
+	        //window.location="../admin/index.jsp";
+	        window.location = "${projectName }/admin/product/list.jsp?nav=product";
 	    },
 	    error:function(data){
 	    	  alert('用户名或密码错误');

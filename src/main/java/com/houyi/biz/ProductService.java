@@ -74,30 +74,22 @@ public class ProductService {
 		if(count==null){
 			throw new GException(PlatformExceptionType.BusinessException,"数量不能为空");
 		}
-		Product product = dao.get(Product.class, productId);
-//		TableService ts = new TableService();
-//		long start = System.currentTimeMillis();
-//		for(int i=0;i<1;i++){
-//			System.out.println("-----------"+i+"---------------------");
-//			ts.addProductItem(5000 , product);
-//		}
-//		System.out.println("本次耗时: "+(System.currentTimeMillis()-start)+"毫秒");
 		
-//		Random r = new Random();
-//		for(int i=0;i<count;i++){
-//			ProductItem item = new ProductItem();
-//			item.addtime = new Date();
-//			item.lottery = lottery;
-//			item.lotteryActive = 0;
-//			item.pici = pici;
-//			item.productId = productId;
-//			//item.qrCode = UUID.randomUUID().toString();
-//			item.qrCode = System.currentTimeMillis()+String.valueOf(i);
-//			item.verifyCode = String.valueOf(r.nextInt(999999));
-//			dao.saveOrUpdate(item);
-//		}
+		Random r = new Random();
+		for(int i=0;i<count;i++){
+			ProductItem item = new ProductItem();
+			item.addtime = new Date();
+			item.lottery = lottery;
+			item.lotteryActive = 0;
+			item.pici = pici;
+			item.productId = productId;
+			//item.qrCode = UUID.randomUUID().toString();
+			item.qrCode = System.currentTimeMillis()+String.valueOf(i);
+			item.verifyCode = String.valueOf(r.nextInt(999999));
+			dao.saveOrUpdate(item);
+		}
 		
-		TableService.testMutiThread();
+		//TableService.testMutiThread();
 		return mv;
 	}
 }

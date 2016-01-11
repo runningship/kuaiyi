@@ -25,5 +25,4 @@ public class Group {
 	
 	public Date addtime;
 	
-	public String _site;
 }
