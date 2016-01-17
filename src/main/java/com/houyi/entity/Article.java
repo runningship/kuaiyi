@@ -25,5 +25,4 @@ public class Article {
 	//当type=conts时，有效
 	public String conts;
 	
-	public String _site;
 }
