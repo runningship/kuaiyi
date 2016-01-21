@@ -1,6 +1,7 @@
 package com.houyi.biz;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ import org.bc.web.WebMethod;
 import com.houyi.entity.Article;
 import com.houyi.entity.Product;
 import com.houyi.entity.ProductItem;
+import com.houyi.entity.QRTableInfo;
 
 
 @Module(name="/admin/product")
@@ -74,22 +76,14 @@ public class ProductService {
 		if(count==null){
 			throw new GException(PlatformExceptionType.BusinessException,"数量不能为空");
 		}
-		
-		Random r = new Random();
-		for(int i=0;i<count;i++){
-			ProductItem item = new ProductItem();
-			item.addtime = new Date();
-			item.lottery = lottery;
-			item.lotteryActive = 0;
-			item.pici = pici;
-			item.productId = productId;
-			//item.qrCode = UUID.randomUUID().toString();
-			item.qrCode = System.currentTimeMillis()+String.valueOf(i);
-			item.verifyCode = String.valueOf(r.nextInt(999999));
-			dao.saveOrUpdate(item);
+		TableService ts = new TableService();
+		List<QRTableInfo> tables = ts.getTargetTable(3);
+		long start = System.currentTimeMillis();
+		for(QRTableInfo table : tables){
+			ProductItemWorker w = new ProductItemWorker(table ,count , pici , lottery, productId);
+			w.startTime = start;
+			w.start();
 		}
-		
-		//TableService.testMutiThread();
 		return mv;
 	}
 }

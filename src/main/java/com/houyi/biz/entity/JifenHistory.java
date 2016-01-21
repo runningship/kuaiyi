@@ -1,4 +1,4 @@
-package com.houyi.entity;
+package com.houyi.biz.entity;
 
 import java.util.Date;
 
@@ -6,29 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="uc_user")
-public class User {
+public class JifenHistory {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer id;
-
-	public String tel;
 	
-	public String account;
+	public Integer uid;
 	
-	public String name;
+	//1 获得 ,-1 使用
+	public Integer type;
 	
-	public String pwd;
+	public String conts;
 	
 	public Date addtime;
-	
-	public Date lasttime;
-	
-	public Integer jifen;
-	//1买家 , 2卖家
-	public Integer type;
 }
